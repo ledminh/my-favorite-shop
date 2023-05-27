@@ -1,12 +1,13 @@
 import Link from "next/link";
 
-import * as Type from "@/theme/header.type";
+import * as Type from "./header.type";
+import { ComponentWithChildren } from "@/theme/types";
 
-export const Logo: Type.Logo = () => {
+export const Logo = () => {
   return <div>Logo</div>;
 };
 
-export const MainNav: Type.MainNav = ({ children }) => {
+export const MainNav: ComponentWithChildren = ({ children }) => {
   return (
     <nav>
       <ul>{children}</ul>
@@ -24,6 +25,6 @@ export const MainNavItem: Type.MainNavItem = ({ href, children }) => {
   );
 };
 
-export const Header: Type.Header = ({ children }) => {
+export const Header: ComponentWithChildren = ({ children }) => {
   return <header>{children}</header>;
 };

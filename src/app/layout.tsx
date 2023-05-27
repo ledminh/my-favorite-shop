@@ -1,9 +1,8 @@
 import metadata from "@/theme/metadata";
 import "./globals.css";
 import { Inter } from "next/font/google";
-import { Logo, MainNav, MainNavItem, Header } from "@/theme/header";
 
-import { Button } from "@/theme/basics";
+import { Main } from "@/theme/containers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Header>
+        {/* <Header>
           <Logo />
           <MainNav>
             <MainNavItem href="/about">About</MainNavItem>
@@ -27,8 +26,8 @@ export default function RootLayout({
           <Button>
             <span>Sign In</span>
           </Button>
-        </Header>
-        <main>{children}</main>
+        </Header> */}
+        <Main>{children}</Main>
       </body>
     </html>
   );
