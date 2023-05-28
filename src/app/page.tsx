@@ -1,31 +1,42 @@
 import { Button } from "@/theme/basics";
+
 import Image from "next/image";
+import homepageBackground from "@/assets/images/homepage_background.jpg";
 
-import { FullPageContainer, ImageWrapper } from "@/theme/containers";
+import { FullPageContainer } from "@/theme/containers";
 
-import { Slogan } from "@/theme/typography";
-import { Name, Box, Buttons, Content } from "@/theme/sections/home";
+import { H2 } from "@/theme/typography";
+import {
+  Name,
+  Box,
+  Content,
+  BackgroundImage,
+  Slogan,
+} from "@/theme/sections/home";
+
+import Buttons from "@/components/home/Buttons";
 
 export default function Home() {
   return (
     <FullPageContainer>
-      <ImageWrapper>
+      <BackgroundImage>
         <Image
-          src="/images/hero.jpg"
+          src={homepageBackground}
           alt="Hero Image"
-          width={500}
-          height={500}
+          fill
+          style={{
+            objectFit: "cover",
+          }}
         />
-      </ImageWrapper>
+      </BackgroundImage>
       <Content>
         <Box>
           <Name>Nail Essential</Name>
-          <Slogan>Transform your look with our nail essentials</Slogan>
+          <Slogan>
+            <H2>Transform your look with our nail essentials</H2>
+          </Slogan>
         </Box>
-        <Buttons>
-          <Button>Shop Now</Button>
-          <Button>Search</Button>
-        </Buttons>
+        <Buttons />
       </Content>
     </FullPageContainer>
   );
