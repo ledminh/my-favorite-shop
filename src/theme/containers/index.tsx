@@ -5,9 +5,5 @@ export const Main: ComponentWithChildren = ({ children }) => (
 );
 
 export const FullPageContainer: ComponentWithChildren = ({ children }) => (
-  <div>{children}</div>
-);
-
-export const ImageWrapper: ComponentWithChildren = ({ children }) => (
-  <div>{children}</div>
+  <div className="absolute w-screen h-screen">{children}</div>
 );
