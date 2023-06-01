@@ -3,8 +3,10 @@ import Link from "next/link";
 import * as Type from "./basics.type";
 
 const buttonColor = {
-  attention: "ring-red-600 bg-red-300 hover:bg-red-400 active:bg-red-500",
-  primary: "ring-blue-950 bg-white hover:bg-gray-300 active:bg-gray-400",
+  attention:
+    "ring-red-600 bg-red-300 hover:bg-red-400 active:bg-red-500 focus:ring-red-500",
+  primary:
+    "ring-blue-950 bg-white hover:bg-gray-300 active:bg-gray-400 focus:ring-gray-400",
 };
 
 export const Button: Type.Button = ({
