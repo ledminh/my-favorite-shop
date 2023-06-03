@@ -37,7 +37,7 @@ const Wrapper = ({ children, screensize }: WrapperProps) => {
       case "sm":
         return "flex flex-col items-end justify-center w-full h-full sm:hidden";
       case "md":
-        return "flex-row items-center justify-center w-full h-full hidden sm:flex";
+        return "flex-row items-center justify-end w-full h-full hidden sm:flex";
       case "lg":
         return "flex-row items-center justify-center w-full h-full hidden md:flex";
     }

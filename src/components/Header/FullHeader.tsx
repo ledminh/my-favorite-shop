@@ -29,16 +29,12 @@ const Wrapper: ComponentWithChildren = ({ children }) => {
 };
 
 const LogoWrapper: ComponentWithChildren = ({ children }) => {
-  return (
-    <div className="border-2 border-blue-700 basis-4/5 sm:basis-1/2">
-      {children}
-    </div>
-  );
+  return <div className="basis-4/5 sm:basis-1/2">{children}</div>;
 };
 
 const MenuWrapper: ComponentWithChildren = ({ children }) => {
   return (
-    <div className="flex items-center content-center justify-end border-2 border-blue-700 basis-1/5 sm:basis-1/2">
+    <div className="flex items-center content-center justify-end basis-1/5 sm:basis-1/2">
       {children}
     </div>
   );
