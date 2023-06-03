@@ -2,6 +2,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import SearchBar from "../SearchBar";
+
+import type { ComponentWithChildren } from "@/types";
 
 const pages = [
   {
@@ -46,6 +49,9 @@ export default function MenuContent({ isMenuOpen }: Props) {
               {page.name}
             </Link>
           ))}
+          <SearchBarWrapper>
+            <SearchBar />
+          </SearchBarWrapper>
         </div>
       </div>
     );
@@ -53,3 +59,11 @@ export default function MenuContent({ isMenuOpen }: Props) {
 
   return null;
 }
+
+/*******************
+ * Styles
+ */
+
+const SearchBarWrapper: ComponentWithChildren = ({ children }) => {
+  return <div className="w-full px-4 py-2">{children}</div>;
+};

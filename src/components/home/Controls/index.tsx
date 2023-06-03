@@ -5,9 +5,10 @@ import { CloseIcon } from "@/theme/Icons";
 
 import * as Type from "./types";
 
-import { Button, Input } from "@/theme/basics";
+import { Button } from "@/theme/basics";
 
 import { useState } from "react";
+import SearchBar from "@/components/SearchBar";
 
 export default function () {
   const [isSearch, setIsSearch] = useState(false);
@@ -15,9 +16,9 @@ export default function () {
   if (isSearch) {
     return (
       <Wrapper>
-        <InputWrapper>
-          <Input placeholder="Search ..." />
-        </InputWrapper>
+        <SearchBarWrapper>
+          <SearchBar />
+        </SearchBarWrapper>
         <CloseWrapper>
           <CloseButton onClick={() => setIsSearch(false)} />
         </CloseWrapper>
@@ -53,7 +54,7 @@ const ButtonWrapper: ComponentWithChildren = ({ children }) => {
   return <div className="basis-[48%]">{children}</div>;
 };
 
-const InputWrapper: ComponentWithChildren = ({ children }) => {
+const SearchBarWrapper: ComponentWithChildren = ({ children }) => {
   return <div className="basis-[90%] mr-1">{children}</div>;
 };
 
