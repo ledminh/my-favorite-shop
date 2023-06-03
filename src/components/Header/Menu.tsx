@@ -3,15 +3,45 @@
 import { useState } from "react";
 
 import ToggleButton from "./ToggleButton";
-import MenuContent from "./MenuContent";
+import MenuScreen from "./MenuScreen";
+import MenuBar from "./MenuBar";
 
 export default function Menu() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <div>
-      <ToggleButton isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
-      <MenuContent isMenuOpen={isMenuOpen} />
-    </div>
+    <>
+      <Wrapper screensize="sm">
+        <ToggleButton isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+        <MenuScreen isMenuOpen={isMenuOpen} />
+      </Wrapper>
+      <Wrapper screensize="md">
+        <MenuBar />
+      </Wrapper>
+    </>
   );
 }
+
+/*********************
+ * Styles
+ */
+
+type WrapperProps = {
+  children: React.ReactNode;
+  screensize: "sm" | "md" | "lg";
+};
+
+const Wrapper = ({ children, screensize }: WrapperProps) => {
+  const getClasses = () => {
+    switch (screensize) {
+      case "sm":
+        return "flex flex-col items-end justify-center w-full h-full sm:hidden";
+      case "md":
+        return "flex-row items-center justify-center w-full h-full hidden sm:flex";
+      case "lg":
+        return "flex-row items-center justify-center w-full h-full hidden md:flex";
+    }
+  };
+
+  return <div className={getClasses()}>{children}</div>;
+};
