@@ -11,4 +11,5 @@ export type Button = FC<{
 
 export type Input = FC<{
   placeholder?: string;
+  size?: "lg" | "md";
 }>;

@@ -4,17 +4,32 @@ import { usePathname } from "next/navigation";
 import { ComponentWithChildren } from "@/types";
 
 import Link from "next/link";
+import SearchBar from "../SearchBar";
+import { CloseIcon } from "@/theme/Icons";
+
+import { useState } from "react";
 
 const sizeClasses = "w-10 h-10";
 const colorClasses = "text-white hover:text-white/50 active:text-white/30";
 const currentColorClasses = "text-red-400 font-bold hover:text-red-400/50";
 
 export default function MenuBar() {
+  const [isSearchBarShown, setIsSearchBarShown] = useState(false);
+
   const pathname = usePathname();
 
   const isCurrentPage = (href: string) => {
     return pathname === href;
   };
+
+  if (isSearchBarShown) {
+    return (
+      <Wrapper>
+        <SearchBar size="md" />
+        <CloseButton hideSearchBar={() => setIsSearchBarShown(false)} />
+      </Wrapper>
+    );
+  }
 
   return (
     <Wrapper>
@@ -31,9 +46,7 @@ export default function MenuBar() {
           </Link>
         );
       })}
-      <Button>
-        <SearchIcon />
-      </Button>
+      <SearchButton showSearchBar={() => setIsSearchBarShown(true)} />
     </Wrapper>
   );
 }
@@ -50,8 +63,32 @@ const Wrapper: ComponentWithChildren = ({ children }) => {
   );
 };
 
-const Button: ComponentWithChildren = ({ children }) => {
+type SearchButtonProps = {
+  showSearchBar: () => void;
+};
+
+const SearchButton = ({ showSearchBar }: SearchButtonProps) => {
   return (
-    <button className={sizeClasses + " " + colorClasses}>{children}</button>
+    <button
+      className={sizeClasses + " " + colorClasses}
+      onClick={showSearchBar}
+    >
+      <SearchIcon />
+    </button>
+  );
+};
+
+type CloseButtonProps = {
+  hideSearchBar: () => void;
+};
+
+const CloseButton = ({ hideSearchBar }: CloseButtonProps) => {
+  return (
+    <button
+      className={sizeClasses + " " + colorClasses}
+      onClick={hideSearchBar}
+    >
+      <CloseIcon />
+    </button>
   );
 };
