@@ -6,8 +6,12 @@ import Menu from "./Menu";
 export default function HeaderFull() {
   return (
     <Wrapper>
-      <Logo />
-      <Menu />
+      <LogoWrapper>
+        <Logo />
+      </LogoWrapper>
+      <MenuWrapper>
+        <Menu />
+      </MenuWrapper>
     </Wrapper>
   );
 }
@@ -18,7 +22,19 @@ export default function HeaderFull() {
 
 const Wrapper: ComponentWithChildren = ({ children }) => {
   return (
-    <div className="container flex flex-row border-2 border-red-700 flex-nowrap">
+    <div className="container flex flex-row bg-blue-950 flex-nowrap">
+      {children}
+    </div>
+  );
+};
+
+const LogoWrapper: ComponentWithChildren = ({ children }) => {
+  return <div className="basis-4/5">{children}</div>;
+};
+
+const MenuWrapper: ComponentWithChildren = ({ children }) => {
+  return (
+    <div className="flex items-center content-center justify-end basis-1/5">
       {children}
     </div>
   );

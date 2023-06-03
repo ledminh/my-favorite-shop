@@ -16,7 +16,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
 const Wrapper: ComponentWithChildren = ({ children }) => {
   return (
-    <div className="flex flex-col items-center justify-start w-full h-full border-2 border-red-950">
+    <div className="flex flex-col items-center justify-start w-full h-full">
       {children}
     </div>
   );

@@ -1,16 +1,17 @@
-import { HamburgerIcon } from "@/theme/Icons";
-import type { ComponentWithChildren } from "@/types";
+"use client";
+
+import { useState } from "react";
+
+import ToggleButton from "./ToggleButton";
+import MenuContent from "./MenuContent";
+
 export default function Menu() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   return (
-    <Wrapper>
-      <HamburgerIcon className="w-full h-full" />
-    </Wrapper>
+    <div>
+      <ToggleButton isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+      <MenuContent isMenuOpen={isMenuOpen} />
+    </div>
   );
 }
-
-/**************
- * Styles
- */
-const Wrapper: ComponentWithChildren = ({ children }) => {
-  return <div className="border-2 border-red-800">{children}</div>;
-};
