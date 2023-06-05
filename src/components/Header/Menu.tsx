@@ -16,7 +16,10 @@ export default function Menu() {
         <MenuScreen isMenuOpen={isMenuOpen} />
       </Wrapper>
       <Wrapper screensize="md">
-        <MenuBar />
+        <MenuBar size="sm" />
+      </Wrapper>
+      <Wrapper screensize="lg">
+        <MenuBar size="lg" />
       </Wrapper>
     </>
   );
@@ -37,9 +40,9 @@ const Wrapper = ({ children, screensize }: WrapperProps) => {
       case "sm":
         return "flex flex-col items-end justify-center w-full h-full sm:hidden";
       case "md":
-        return "flex-row items-center justify-end w-full h-full hidden sm:flex";
+        return "flex-row items-center justify-end w-full h-full hidden sm:flex lg:hidden";
       case "lg":
-        return "flex-row items-center justify-center w-full h-full hidden md:flex";
+        return "flex-row items-center justify-end w-full h-full hidden lg:flex";
     }
   };
 

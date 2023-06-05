@@ -10,10 +10,57 @@ import { CloseIcon } from "@/theme/Icons";
 import { useState } from "react";
 
 const sizeClasses = "w-10 h-10";
-const colorClasses = "text-white hover:text-white/50 active:text-white/30";
-const currentColorClasses = "text-red-400 font-bold hover:text-red-400/50";
+const colorClasses = "text-white/70 hover:text-white active:text-white/50";
+const currentColorClasses =
+  "text-red-400/70 font-bold hover:text-red-400 active:text-red-400/50";
 
-export default function MenuBar() {
+type Props = {
+  size: "sm" | "lg";
+};
+
+export default function MenuBar({ size }: Props) {
+  if (size === "sm") {
+    return <MenuBarSmall />;
+  }
+
+  return <MenuBarLarge />;
+}
+
+/***************************
+ * Components
+ */
+
+function MenuBarLarge() {
+  const pathname = usePathname();
+
+  const isCurrentPage = (href: string) => {
+    return pathname === href;
+  };
+
+  return (
+    <Wrapper>
+      <Buttons>
+        {menuItems.map((item) => {
+          return (
+            <Link
+              key={item.name}
+              className={`${
+                isCurrentPage(item.href) ? currentColorClasses : colorClasses
+              } flex flex-col items-center justify-center gap-1`}
+              href={item.href}
+            >
+              <item.icon className={`${sizeClasses}`} />
+              <span>{item.name}</span>
+            </Link>
+          );
+        })}
+      </Buttons>
+      <SearchBar size="lg" />
+    </Wrapper>
+  );
+}
+
+function MenuBarSmall() {
   const [isSearchBarShown, setIsSearchBarShown] = useState(false);
 
   const pathname = usePathname();
@@ -57,7 +104,15 @@ export default function MenuBar() {
 
 const Wrapper: ComponentWithChildren = ({ children }) => {
   return (
-    <div className="flex flex-row items-center justify-center h-full gap-3 p-3 rounded-md bg-blue-950/60">
+    <div className="flex flex-row items-center justify-center h-full gap-3 p-3 rounded-md bg-blue-950/60 lg:gap-x-10 lg:px-5">
+      {children}
+    </div>
+  );
+};
+
+const Buttons: ComponentWithChildren = ({ children }) => {
+  return (
+    <div className="flex flex-row items-center justify-center gap-x-8">
       {children}
     </div>
   );
