@@ -25,9 +25,7 @@ export default function HeaderFull() {
 
 const Wrapper: ComponentWithChildren = ({ children }) => {
   return (
-    <div className="container flex flex-row p-2 bg-blue-950 flex-nowrap max-w-7xl">
-      {children}
-    </div>
+    <div className="flex flex-row p-2 bg-blue-950 flex-nowrap">{children}</div>
   );
 };
 
