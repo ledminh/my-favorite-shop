@@ -7,18 +7,31 @@ const buttonColor = {
     "ring-red-600 bg-red-300 hover:bg-red-400 active:bg-red-500 focus:ring-red-500",
   primary:
     "ring-blue-950 bg-white hover:bg-gray-300 active:bg-gray-400 focus:ring-gray-400",
+  secondary:
+    "ring-blue-950 bg-gray-300 hover:bg-gray-400 active:bg-gray-500 focus:ring-gray-500",
+};
+
+const borderShape = {
+  rounded: "rounded-full",
+  square: "rounded-none",
+};
+
+const buttonSize = {
+  sm: "px-3 py-1.5 text-sm",
+  md: "px-3 py-1.5 text-md",
+  lg: "px-4 py-2.5 text-lg",
 };
 
 export const Button: Type.Button = ({
   children,
   color = "primary",
   type = "normal",
+  size = "lg",
+  border = "rounded",
   href = "/",
   onClick,
 }) => {
-  const _color = buttonColor[color];
-
-  const classNames = `block text-center rounded-full px-4 py-2.5 text-lg font-semibold text-blue-950 ring-2 ring-inset w-full ${_color}`;
+  const classNames = `block text-center font-semibold text-blue-950 ring-2 ring-inset w-full ${buttonColor[color]} ${buttonSize[size]} ${borderShape[border]}`;
 
   return type === "link" ? (
     <Link className={classNames} href={href}>

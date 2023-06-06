@@ -2,7 +2,7 @@ import { H2 } from "@/theme/typography";
 import { ComponentWithChildren } from "@/types";
 
 import { Category } from "@/components/Shop/Category";
-import Intro from "@/theme/Intro";
+import Banner from "@/theme/Banner";
 
 // An array of categories with images from picsum.photos
 
@@ -78,11 +78,11 @@ export default function Shop() {
 
   return (
     <>
-      <IntroWrapper>
-        <Intro>
+      <Intro>
+        <Banner>
           <H2>Explore our wide range of nail care categories</H2>
-        </Intro>
-      </IntroWrapper>
+        </Banner>
+      </Intro>
       <List>
         {categories.map((category) => (
           <Item key={category.id}>
@@ -103,7 +103,7 @@ export default function Shop() {
  * Styles
  */
 
-const IntroWrapper: ComponentWithChildren = ({ children }) => {
+const Intro: ComponentWithChildren = ({ children }) => {
   return <div className="my-12">{children}</div>;
 };
 
