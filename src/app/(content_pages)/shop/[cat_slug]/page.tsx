@@ -9,12 +9,12 @@ export default function ShopCategoryPage() {
       <CategoryName>
         <Banner>
           <BannerContent>
-            <H2>NAIL POLISH</H2>
             <ButtonWrapper>
               <Button size="sm" color="secondary" border="square">
                 CHANGE CATEGORY
               </Button>
             </ButtonWrapper>
+            <H2>NAIL POLISH</H2>
           </BannerContent>
         </Banner>
       </CategoryName>
@@ -38,7 +38,7 @@ const BannerContent: ComponentWithChildren = ({ children }) => {
   );
 };
 const ButtonWrapper: ComponentWithChildren = ({ children }) => {
-  return <div className="w-[170px] my-auto mt-3">{children}</div>;
+  return <div className="w-[170px] my-auto mb-3">{children}</div>;
 };
 
 const Description: ComponentWithChildren = ({ children }) => {

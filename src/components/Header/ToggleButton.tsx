@@ -1,4 +1,5 @@
 import { HamburgerIcon, CloseIcon } from "@/theme/Icons";
+import { useEffect } from "react";
 type ToggleButtonProps = {
   isMenuOpen: boolean;
   setIsMenuOpen: (isMenuOpen: boolean) => void;
@@ -10,7 +11,11 @@ export default function ToggleButton({
 }: ToggleButtonProps) {
   return (
     <button
-      onClick={() => setIsMenuOpen(!isMenuOpen)}
+      onClick={(e) => {
+        e.stopPropagation();
+
+        setIsMenuOpen(!isMenuOpen);
+      }}
       className="text-white hover:text-white/75 active:text-white/60"
     >
       {isMenuOpen ? (
