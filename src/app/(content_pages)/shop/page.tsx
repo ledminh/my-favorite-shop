@@ -1,7 +1,8 @@
-import { H2, H3 } from "@/theme/typography";
+import { H2 } from "@/theme/typography";
 import { ComponentWithChildren } from "@/types";
 
 import { Category } from "@/components/Shop/Category";
+import Intro from "@/theme/Intro";
 
 // An array of categories with images from picsum.photos
 
@@ -76,10 +77,12 @@ export default function Shop() {
   const categories = getCategories();
 
   return (
-    <Wrapper>
-      <Intro>
-        <H2>Explore our wide range of nail care categories</H2>
-      </Intro>
+    <>
+      <IntroWrapper>
+        <Intro>
+          <H2>Explore our wide range of nail care categories</H2>
+        </Intro>
+      </IntroWrapper>
       <List>
         {categories.map((category) => (
           <Item key={category.id}>
@@ -92,23 +95,16 @@ export default function Shop() {
           </Item>
         ))}
       </List>
-    </Wrapper>
+    </>
   );
 }
 
 /************************
  * Styles
  */
-const Wrapper: ComponentWithChildren = ({ children }) => {
-  return <div className="flex flex-col w-full h-full ">{children}</div>;
-};
 
-const Intro: ComponentWithChildren = ({ children }) => {
-  return (
-    <div className="px-2 py-4 my-12 font-semibold text-center border-double border-y-8 border-red-950">
-      {children}
-    </div>
-  );
+const IntroWrapper: ComponentWithChildren = ({ children }) => {
+  return <div className="my-12">{children}</div>;
 };
 
 const List: ComponentWithChildren = ({ children }) => {
