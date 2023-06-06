@@ -1,19 +1,15 @@
+import ChangeCategory from "@/components/shop/ChangeCategory";
 import Banner from "@/theme/Banner";
-import { Button } from "@/theme/basics";
 import { H2 } from "@/theme/typography";
 import { ComponentWithChildren } from "@/types";
 
 export default function ShopCategoryPage() {
   return (
     <>
+      <ChangeCategory />
       <CategoryName>
         <Banner>
           <BannerContent>
-            <ButtonWrapper>
-              <Button size="sm" color="secondary" border="square">
-                CHANGE CATEGORY
-              </Button>
-            </ButtonWrapper>
             <H2>NAIL POLISH</H2>
           </BannerContent>
         </Banner>
@@ -27,7 +23,7 @@ export default function ShopCategoryPage() {
  * Styles
  */
 const CategoryName: ComponentWithChildren = ({ children }) => {
-  return <div className="mt-12 mb-5">{children}</div>;
+  return <div className="my-5">{children}</div>;
 };
 
 const BannerContent: ComponentWithChildren = ({ children }) => {
@@ -36,9 +32,6 @@ const BannerContent: ComponentWithChildren = ({ children }) => {
       {children}
     </div>
   );
-};
-const ButtonWrapper: ComponentWithChildren = ({ children }) => {
-  return <div className="w-[170px] my-auto mb-3">{children}</div>;
 };
 
 const Description: ComponentWithChildren = ({ children }) => {

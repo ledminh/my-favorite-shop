@@ -1,48 +1,21 @@
 "use client";
 
-import { useState } from "react";
-import Link from "next/link";
-
-import { usePathname } from "next/navigation";
-import menuItems from "./menuItems";
 import ToggleButton from "./ToggleButton";
-import MenuScreen from "@/components/MenuScreen";
+import MenuScreen from "@/components/Header/MenuScreen";
 import MenuBar from "./MenuBar";
 
-import { ComponentWithChildren } from "@/types";
-import SearchBar from "@/components/SearchBar";
+import { useState } from "react";
 
 export default function Menu() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const pathname = usePathname();
-
-  const isCurrentPage = (href: string) => {
-    return pathname === href;
-  };
 
   return (
     <>
       <Wrapper screensize="sm">
         <ToggleButton isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
-        <MenuScreen isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen}>
-          {menuItems.map((page) => (
-            <Link
-              key={page.name}
-              href={page.href}
-              className={`mb-4 text-4xl ${
-                isCurrentPage(page.href)
-                  ? "text-red-400 font-bold hover:text-red-400/70"
-                  : "text-white hover:text-white/70"
-              }`}
-            >
-              {page.name}
-            </Link>
-          ))}
-          <SearchBarWrapper>
-            <SearchBar />
-          </SearchBarWrapper>
-        </MenuScreen>
+        {isMenuOpen && (
+          <MenuScreen isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+        )}
       </Wrapper>
       <Wrapper screensize="md">
         <MenuBar size="sm" />
@@ -76,8 +49,4 @@ const Wrapper = ({ children, screensize }: WrapperProps) => {
   };
 
   return <div className={getClasses()}>{children}</div>;
-};
-
-const SearchBarWrapper: ComponentWithChildren = ({ children }) => {
-  return <div className="w-full px-4 py-2">{children}</div>;
 };
