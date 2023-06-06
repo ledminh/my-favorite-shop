@@ -39,12 +39,12 @@ export default function RootLayout({
  * Styles
  */
 export const BackgroundImage: ComponentWithChildren = ({ children }) => {
-  return <div className="absolute w-full h-full min-w-[337px]">{children}</div>;
+  return <div className="absolute w-full h-full min-w-[350px]">{children}</div>;
 };
 
 export const Overlay: ComponentWithChildren = ({ children }) => {
   return (
-    <div className="absolute w-full h-full min-w-[337px] bg-red-200/70 overflow-y-scroll">
+    <div className="absolute w-full h-full min-w-[350px] bg-red-200/70 overflow-y-scroll">
       {children}
     </div>
   );

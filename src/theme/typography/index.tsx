@@ -5,5 +5,9 @@ export const H1: ComponentWithChildren = ({ children }) => {
 };
 
 export const H2: ComponentWithChildren = ({ children }) => {
-  return <h2 className="text-3xl font-bold">{children}</h2>;
+  return <h2 className="text-3xl">{children}</h2>;
+};
+
+export const H3: ComponentWithChildren = ({ children }) => {
+  return <h3 className="text-xl">{children}</h3>;
 };

@@ -34,6 +34,8 @@ const LogoWrapper: ComponentWithChildren = ({ children }) => {
 
 const Slogan: ComponentWithChildren = ({ children }) => {
   return (
-    <div className="text-center -translate-y-6 text-blue-950">{children}</div>
+    <div className="font-bold text-center -translate-y-6 text-blue-950">
+      {children}
+    </div>
   );
 };
