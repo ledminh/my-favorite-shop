@@ -1,4 +1,4 @@
-import ChangeCategory from "@/components/shop/ChangeCategory";
+import CategoryMenu from "@/components/shop/CategoryMenu";
 import Banner from "@/theme/Banner";
 import { H2 } from "@/theme/typography";
 import { ComponentWithChildren } from "@/types";
@@ -6,7 +6,9 @@ import { ComponentWithChildren } from "@/types";
 export default function ShopCategoryPage() {
   return (
     <>
-      <ChangeCategory />
+      <CategoryMenuWrapper>
+        <CategoryMenu />
+      </CategoryMenuWrapper>
       <CategoryName>
         <Banner>
           <BannerContent>
@@ -22,8 +24,13 @@ export default function ShopCategoryPage() {
 /************************
  * Styles
  */
+
+const CategoryMenuWrapper: ComponentWithChildren = ({ children }) => {
+  return <div className="mt-10 mx-auto">{children}</div>;
+};
+
 const CategoryName: ComponentWithChildren = ({ children }) => {
-  return <div className="my-5">{children}</div>;
+  return <div className="my-10">{children}</div>;
 };
 
 const BannerContent: ComponentWithChildren = ({ children }) => {

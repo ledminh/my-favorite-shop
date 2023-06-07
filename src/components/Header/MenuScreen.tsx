@@ -29,14 +29,19 @@ export default function MenuScreen({ isMenuOpen, setIsMenuOpen }: Props) {
     };
 
     window.addEventListener("click", handleClick);
+    window.addEventListener("touchstart", handleClick);
+    window.addEventListener("resize", handleClick);
 
     return () => {
       window.removeEventListener("click", handleClick);
+      window.removeEventListener("touchstart", handleClick);
+      window.addEventListener("resize", handleClick);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <div className="absolute left-0 w-full h-[calc(100%-55px)] top-[55px] bg-gradient-to-b from-blue-950 from-10% to-blue-950/40 flex flex-col items-center justify-center">
+    <Wrapper>
       {menuItems.map((page) => (
         <Link
           key={page.name}
@@ -53,9 +58,20 @@ export default function MenuScreen({ isMenuOpen, setIsMenuOpen }: Props) {
       <SearchBarWrapper>
         <SearchBar />
       </SearchBarWrapper>
-    </div>
+    </Wrapper>
   );
 }
+
+/****************************
+ * Styles
+ */
+const Wrapper: ComponentWithChildren = ({ children }) => {
+  return (
+    <div className="absolute left-0 w-full h-[calc(100%-65px)] top-[65px] bg-gradient-to-b from-blue-950 from-10% to-blue-950/40 flex flex-col items-center justify-center">
+      {children}
+    </div>
+  );
+};
 
 const SearchBarWrapper: ComponentWithChildren = ({ children }) => {
   return <div className="w-full px-4 py-2">{children}</div>;

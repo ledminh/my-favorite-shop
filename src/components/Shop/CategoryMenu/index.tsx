@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Button } from "@/theme/basics";
 
-import categories from "@/data/categories";
+import CategoryMenuScreen from "./CategoryMenuScreen";
 
 export default function ChangeCategory() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -18,6 +18,7 @@ export default function ChangeCategory() {
       >
         CHANGE CATEGORY
       </Button>
+      <CategoryMenuScreen isOpen={isMenuOpen} setIsOpen={setIsMenuOpen} />
     </>
   );
 }
