@@ -29,12 +29,10 @@ export default function MenuScreen({ isMenuOpen, setIsMenuOpen }: Props) {
     };
 
     window.addEventListener("click", handleClick);
-    window.addEventListener("touchstart", handleClick);
     window.addEventListener("resize", handleClick);
 
     return () => {
       window.removeEventListener("click", handleClick);
-      window.removeEventListener("touchstart", handleClick);
       window.addEventListener("resize", handleClick);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -27,7 +27,7 @@ export default function CategoryMenuScreen({
       <CloseButton />
       <Dialog.Panel
         as="div"
-        className="container flex justify-center items-start py-4 overflow-hidden border-y-8 border-red-950 border-double overflow-y-auto w-full h-[80vh]"
+        className="container flex justify-center items-start py-4 overflow-hidden border-y-8 border-red-950 border-double overflow-y-auto w-full h-[calc(80vh-80px)] mt-[30px]"
       >
         <List>
           {categories.map((category) => (
@@ -50,7 +50,7 @@ export default function CategoryMenuScreen({
  */
 const CloseButton = () => {
   return (
-    <button className="absolute top-2 right-2 w-[50px] h-[50px] hover:bg-blue-950/40 hover:text-white rounded-full ">
+    <button className="absolute top-0 right-1 w-[50px] h-[50px] hover:bg-blue-950/40 hover:text-white rounded-full ">
       <CloseIcon />
     </button>
   );

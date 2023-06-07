@@ -16,17 +16,38 @@ export default function ShopCategoryPage({ params }: Props) {
 
   return (
     <>
+      {/* HEADER */}
       <CategoryMenuWrapper>
         <CategoryMenu currentCategory={currentCategory} />
       </CategoryMenuWrapper>
-      <CategoryName>
+      <CategoryTitle>
         <Banner>
           <BannerContent>
             <H2>{currentCategory.name}</H2>
+            <Description>{currentCategory.description}</Description>
           </BannerContent>
         </Banner>
-      </CategoryName>
-      <Description>{currentCategory.description}</Description>
+      </CategoryTitle>
+
+      {/* CONTENT */}
+      <div>
+        <label
+          htmlFor="location"
+          className="block text-sm font-medium leading-6 text-gray-900"
+        >
+          Location
+        </label>
+        <select
+          id="location"
+          name="location"
+          className="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+          defaultValue="Canada"
+        >
+          <option>United States</option>
+          <option>Canada</option>
+          <option>Mexico</option>
+        </select>
+      </div>
     </>
   );
 }
@@ -39,7 +60,7 @@ const CategoryMenuWrapper: ComponentWithChildren = ({ children }) => {
   return <div className="mt-10 mx-auto">{children}</div>;
 };
 
-const CategoryName: ComponentWithChildren = ({ children }) => {
+const CategoryTitle: ComponentWithChildren = ({ children }) => {
   return <div className="my-10">{children}</div>;
 };
 
