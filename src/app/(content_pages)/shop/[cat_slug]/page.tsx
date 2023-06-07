@@ -3,20 +3,30 @@ import Banner from "@/theme/Banner";
 import { H2 } from "@/theme/typography";
 import { ComponentWithChildren } from "@/types";
 
-export default function ShopCategoryPage() {
+import categories from "@/data/categories";
+
+type Props = {
+  params: {
+    cat_slug: string;
+  };
+};
+
+export default function ShopCategoryPage({ params }: Props) {
+  const currentCategory = getCurrentCategory(params.cat_slug);
+
   return (
     <>
       <CategoryMenuWrapper>
-        <CategoryMenu />
+        <CategoryMenu currentCategory={currentCategory} />
       </CategoryMenuWrapper>
       <CategoryName>
         <Banner>
           <BannerContent>
-            <H2>NAIL POLISH</H2>
+            <H2>{currentCategory.name}</H2>
           </BannerContent>
         </Banner>
       </CategoryName>
-      <Description>A wide range of nail polish colors</Description>
+      <Description>{currentCategory.description}</Description>
     </>
   );
 }
@@ -49,4 +59,17 @@ const Description: ComponentWithChildren = ({ children }) => {
       </p>
     </div>
   );
+};
+
+/**************************
+ * Utils
+ */
+const getCurrentCategory = (cat_slug: string) => {
+  const cat = categories.find((cat) => cat.link === "/shop/" + cat_slug);
+
+  if (!cat) {
+    throw new Error("Category not found");
+  }
+
+  return cat;
 };

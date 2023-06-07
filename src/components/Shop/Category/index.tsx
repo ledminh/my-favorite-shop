@@ -1,8 +1,10 @@
 import Card from "./Card";
 import Button from "./Button";
+import Block from "./Block";
 
 type CategoryProps = {
-  type?: "Card" | "Button";
+  type?: "Card" | "Button" | "Block";
+  isCurrent?: boolean;
   name: string;
   description: string;
   link: string;
@@ -14,6 +16,7 @@ type CategoryProps = {
 
 export default function Category({
   type = "Card",
+  isCurrent = false,
   name,
   description,
   link,
@@ -24,8 +27,13 @@ export default function Category({
   }
 
   if (type === "Button") {
-    return <Button {...{ name, link }} />;
+    return <Button {...{ name, link }} isCurrent={isCurrent} />;
   }
 
+  if (type === "Block") {
+    return (
+      <Block {...{ name, description, link, image }} isCurrent={isCurrent} />
+    );
+  }
   return null;
 }

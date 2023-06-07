@@ -8,9 +8,16 @@ import { CloseIcon } from "@/theme/Icons";
 type Props = {
   isOpen: boolean;
   setIsOpen: (arg: boolean) => void;
+  currentCategory: {
+    id: string;
+  };
 };
 
-export default function CategoryMenuScreen({ isOpen, setIsOpen }: Props) {
+export default function CategoryMenuScreen({
+  isOpen,
+  setIsOpen,
+  currentCategory,
+}: Props) {
   return (
     <Dialog
       className="absolute z-50 bg-white h-full w-full flex justify-center items-center"
@@ -25,7 +32,11 @@ export default function CategoryMenuScreen({ isOpen, setIsOpen }: Props) {
         <List>
           {categories.map((category) => (
             <Item key={category.id}>
-              <Category {...category} type="Button" />
+              <Category
+                {...category}
+                type="Button"
+                isCurrent={currentCategory.id === category.id}
+              />
             </Item>
           ))}
         </List>
