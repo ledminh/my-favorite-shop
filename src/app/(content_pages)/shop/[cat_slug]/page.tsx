@@ -1,4 +1,5 @@
 import CategoryMenu from "@/components/shop/CategoryMenu";
+import FilterPanel from "@/components/shop/FilterPanel";
 import Banner from "@/theme/Banner";
 import { H2 } from "@/theme/typography";
 import { ComponentWithChildren } from "@/types";
@@ -30,24 +31,7 @@ export default function ShopCategoryPage({ params }: Props) {
       </CategoryTitle>
 
       {/* CONTENT */}
-      <div>
-        <label
-          htmlFor="location"
-          className="block text-sm font-medium leading-6 text-gray-900"
-        >
-          Location
-        </label>
-        <select
-          id="location"
-          name="location"
-          className="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
-          defaultValue="Canada"
-        >
-          <option>United States</option>
-          <option>Canada</option>
-          <option>Mexico</option>
-        </select>
-      </div>
+      <FilterPanel />
     </>
   );
 }
@@ -61,7 +45,7 @@ const CategoryMenuWrapper: ComponentWithChildren = ({ children }) => {
 };
 
 const CategoryTitle: ComponentWithChildren = ({ children }) => {
-  return <div className="my-10">{children}</div>;
+  return <div className="mt-10 mb-5">{children}</div>;
 };
 
 const BannerContent: ComponentWithChildren = ({ children }) => {
