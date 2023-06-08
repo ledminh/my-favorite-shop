@@ -5,15 +5,25 @@ import { H2 } from "@/theme/typography";
 import { ComponentWithChildren } from "@/types";
 
 import categories from "@/data/categories";
+import { get } from "http";
 
 type Props = {
   params: {
     cat_slug: string;
   };
+  searchParams: {
+    sortBy?: "name" | "price";
+    order?: "asc" | "desc";
+  };
 };
 
-export default function ShopCategoryPage({ params }: Props) {
+export default function ShopCategoryPage({ params, searchParams }: Props) {
   const currentCategory = getCurrentCategory(params.cat_slug);
+
+  const sortBy = searchParams.sortBy || "name";
+  const order = searchParams.order || "asc";
+
+  const products = getProducts(currentCategory.id, sortBy, order);
 
   return (
     <>
@@ -31,7 +41,7 @@ export default function ShopCategoryPage({ params }: Props) {
       </CategoryTitle>
 
       {/* CONTENT */}
-      <FilterPanel />
+      <FilterPanel sortByInit={sortBy} orderInit={order} />
     </>
   );
 }
@@ -77,4 +87,17 @@ const getCurrentCategory = (cat_slug: string) => {
   }
 
   return cat;
+};
+
+const getProducts = (
+  catID: string,
+  sortBy: "name" | "price",
+  order: "asc" | "desc"
+) => {
+  console.log("getProducts");
+  console.log("catID", catID);
+  console.log("sortBy", sortBy);
+  console.log("order", order);
+  console.log(".................");
+  return [];
 };

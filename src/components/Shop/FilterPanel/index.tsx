@@ -3,6 +3,9 @@
 import { ComponentWithChildren } from "@/types";
 import { ChangeEventHandler, useState } from "react";
 
+import { usePathname, useRouter } from "next/navigation";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context";
+
 const sortBy = [
   {
     id: "name",
@@ -37,11 +40,30 @@ const orderBy = {
   ],
 };
 
-export default function FilterPanel() {
-  const [sortByValue, setSortByValue] = useState<"name" | "price">("name");
+type Props = {
+  sortByInit: "name" | "price";
+  orderInit: "asc" | "desc";
+};
+
+export default function FilterPanel({ sortByInit, orderInit }: Props) {
+  const [sortByValue, setSortByValue] = useState<"name" | "price">(sortByInit);
+  const [orderByValue, setOrderByValue] = useState<"asc" | "desc">(orderInit);
+
+  const pathname = usePathname();
+  const router = useRouter();
 
   const handleSortByChange: ChangeEventHandler<HTMLSelectElement> = (e) => {
-    setSortByValue(e.target.value as "name" | "price");
+    const sortByValue = e.target.value as "name" | "price";
+    setSortByValue(sortByValue);
+
+    setUrl(pathname, sortByValue, orderByValue, router);
+  };
+
+  const handleOrderByChange: ChangeEventHandler<HTMLSelectElement> = (e) => {
+    const orderByValue = e.target.value as "asc" | "desc";
+    setOrderByValue(orderByValue);
+
+    setUrl(pathname, sortByValue, orderByValue, router);
   };
 
   return (
@@ -51,8 +73,8 @@ export default function FilterPanel() {
         <Select
           id="sortBy"
           name="sortBy"
-          defaultValue="name"
           onChange={handleSortByChange}
+          defaultValue={sortByValue}
         >
           {sortBy.map((option) => (
             <option key={option.id} value={option.id}>
@@ -63,7 +85,12 @@ export default function FilterPanel() {
       </Section>
       <Section>
         <Label htmlFor="orderBy">Order by</Label>
-        <Select id="orderBy" name="orderBy" defaultValue="asc">
+        <Select
+          id="orderBy"
+          name="orderBy"
+          onChange={handleOrderByChange}
+          defaultValue={orderByValue}
+        >
           {orderBy[sortByValue].map((option) => (
             <option key={option.id} value={option.id}>
               {option.name}
@@ -109,7 +136,7 @@ const Label = ({ children, htmlFor }: LabelProps) => {
 type SelectProps = {
   id: string;
   name: string;
-  defaultValue: string;
+  defaultValue?: string;
   onChange?: ChangeEventHandler<HTMLSelectElement>;
   children: React.ReactNode;
 };
@@ -125,11 +152,28 @@ const Select = ({
     <select
       id={id}
       name={name}
+      defaultValue={defaultValue}
       className="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-blue-600 sm:text-sm sm:leading-6"
       onChange={onChange}
-      defaultValue={defaultValue}
     >
       {children}
     </select>
   );
+};
+
+/***********************
+ * Utils
+ */
+const setUrl = (
+  pathname: string,
+  sortByValue: string,
+  orderByValue: string,
+  router: AppRouterInstance
+) => {
+  const url = new URL(pathname, window.location.origin);
+
+  url.searchParams.set("sortBy", sortByValue);
+  url.searchParams.set("order", orderByValue);
+
+  router.push(url.toString());
 };
