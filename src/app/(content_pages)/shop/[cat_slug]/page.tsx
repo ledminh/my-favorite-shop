@@ -5,7 +5,7 @@ import { H2 } from "@/theme/typography";
 import { ComponentWithChildren } from "@/types";
 
 import categories from "@/data/categories";
-import { get } from "http";
+import ProductList from "@/components/shop/ProductList";
 
 type Props = {
   params: {
@@ -42,6 +42,7 @@ export default function ShopCategoryPage({ params, searchParams }: Props) {
 
       {/* CONTENT */}
       <FilterPanel sortByInit={sortBy} orderInit={order} />
+      <ProductList products={products} />
     </>
   );
 }
@@ -94,10 +95,7 @@ const getProducts = (
   sortBy: "name" | "price",
   order: "asc" | "desc"
 ) => {
-  console.log("getProducts");
-  console.log("catID", catID);
-  console.log("sortBy", sortBy);
-  console.log("order", order);
-  console.log(".................");
-  return [];
+  const products: any = [];
+
+  return products;
 };
