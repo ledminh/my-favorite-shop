@@ -1,38 +1,29 @@
 import Card from "./Card";
 import Button from "./Button";
 import Block from "./Block";
+import type { Category as CategoryType } from "@/types";
 
-type CategoryProps = {
+type CategoryProps = CategoryType & {
   type?: "Card" | "Button" | "Block";
   isCurrent?: boolean;
-  name: string;
-  description: string;
-  link: string;
-  image: {
-    src: string;
-    alt: string;
-  };
 };
 
 export default function Category({
   type = "Card",
   isCurrent = false,
-  name,
-  description,
-  link,
-  image,
+  ...category
 }: CategoryProps) {
   if (type === "Card") {
-    return <Card {...{ name, description, link, image }} />;
+    return <Card {...category} />;
   }
 
   if (type === "Button") {
-    return <Button {...{ name, link }} isCurrent={isCurrent} />;
+    return <Button {...category} isCurrent={isCurrent} />;
   }
 
   if (type === "Block") {
     return (
-      <Block {...{ name, description, link, image }} isCurrent={isCurrent} />
+      <Block {...category} isCurrent={isCurrent} />
     );
   }
   return null;

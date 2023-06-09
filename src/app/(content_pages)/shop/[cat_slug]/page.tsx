@@ -5,6 +5,8 @@ import { H2 } from "@/theme/typography";
 import { ComponentWithChildren } from "@/types";
 
 import categories from "@/data/categories";
+import products from "@/data/products";
+
 import ProductList from "@/components/shop/ProductList";
 
 type Props = {
@@ -28,21 +30,25 @@ export default function ShopCategoryPage({ params, searchParams }: Props) {
   return (
     <>
       {/* HEADER */}
-      <CategoryMenuWrapper>
+      <Section>
         <CategoryMenu currentCategory={currentCategory} />
-      </CategoryMenuWrapper>
-      <CategoryTitle>
+      </Section>
+      <Section>
         <Banner>
           <BannerContent>
             <H2>{currentCategory.name}</H2>
             <Description>{currentCategory.description}</Description>
           </BannerContent>
         </Banner>
-      </CategoryTitle>
+      </Section>
 
       {/* CONTENT */}
-      <FilterPanel sortByInit={sortBy} orderInit={order} />
-      <ProductList products={products} />
+      <Section>
+        <FilterPanel sortByInit={sortBy} orderInit={order} />
+      </Section>
+      <Section>
+        <ProductList products={products} />
+      </Section>
     </>
   );
 }
@@ -51,8 +57,8 @@ export default function ShopCategoryPage({ params, searchParams }: Props) {
  * Styles
  */
 
-const CategoryMenuWrapper: ComponentWithChildren = ({ children }) => {
-  return <div className="mt-10 mx-auto">{children}</div>;
+const Section: ComponentWithChildren = ({ children }) => {
+  return <section className="mt-10 mx-auto">{children}</section>;
 };
 
 const CategoryTitle: ComponentWithChildren = ({ children }) => {
@@ -95,7 +101,5 @@ const getProducts = (
   sortBy: "name" | "price",
   order: "asc" | "desc"
 ) => {
-  const products: any = [];
-
   return products;
 };

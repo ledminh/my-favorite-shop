@@ -1,27 +1,29 @@
-import { ComponentWithChildren } from "@/types";
-import ProductItem from "./ProductItem";
+import type { ComponentWithChildren, Product as ProductType } from "@/types";
+import Product from "./Product";
 
 type Props = {
-  products: any[];
+  products: ProductType[];
 };
 
 export default function ProductList({ products }: Props) {
   return (
-    <Wrapper>
+    <List>
       {products.map((product) => (
-        <ProductItem key={product.id} product={product} />
+        <Item key={product.id}>
+          <Product key={product.id} product={product} />
+        </Item>
       ))}
-    </Wrapper>
+    </List>
   );
 }
 
 /************************
  * Styles
  */
-const Wrapper: ComponentWithChildren = ({ children }) => {
-  return (
-    <div className="mt-8 grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">
-      {children}
-    </div>
-  );
+const List: ComponentWithChildren = ({ children }) => {
+  return <ul className="w-11/12 mx-auto">{children}</ul>;
+};
+
+const Item: ComponentWithChildren = ({ children }) => {
+  return <li className="">{children}</li>;
 };

@@ -5,18 +5,10 @@ import { Button } from "@/theme/basics";
 import CategoryMenuScreen from "./CategoryMenuScreen";
 import categories from "@/data/categories";
 import Category from "../Category";
+import type { Category as CategoryType } from "@/types";
 
 type Props = {
-  currentCategory: {
-    id: string;
-    name: string;
-    description: string;
-    link: string;
-    image: {
-      src: string;
-      alt: string;
-    };
-  };
+  currentCategory: CategoryType;
 };
 
 export default function CategoryMenu({ currentCategory }: Props) {
@@ -102,8 +94,8 @@ const MoreButton = ({ setIsMenuOpen }: MoreButtonProps) => {
  * Utils
  */
 function filterCategories(
-  categories: { id: string }[],
-  currentCategory: { id: string },
+  categories: CategoryType[],
+  currentCategory: CategoryType,
   numCats: number // 6
 ) {
   const index = categories.findIndex(
@@ -125,5 +117,5 @@ function filterCategories(
 
   const filteredCategories = categories.slice(start, end);
 
-  return filteredCategories as any[];
+  return filteredCategories;
 }

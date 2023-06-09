@@ -10,7 +10,7 @@ import { Button } from "@/theme/basics";
 import { useState } from "react";
 import SearchBar from "@/components/SearchBar";
 
-export default function () {
+export default function Controls () {
   const [isSearch, setIsSearch] = useState(false);
 
   if (isSearch) {

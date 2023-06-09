@@ -2,12 +2,13 @@ import { ComponentWithChildren } from "@/types";
 
 import Image from "next/image";
 import Link from "next/link";
+import type { Product as ProductType } from "@/types";
 
 type Props = {
-  product: any;
+  product: ProductType;
 };
 
-export default function ProductItem({ product }: Props) {
+export default function Product({ product }: Props) {
   return (
     <Link href={product.link}>
       <ImageWrapper>
@@ -33,7 +34,7 @@ export default function ProductItem({ product }: Props) {
  * Styles
  */
 const ImageWrapper: ComponentWithChildren = ({ children }) => {
-  return <div className="">{children}</div>;
+  return <div className="relative">{children}</div>;
 };
 
 const ContentWrapper: ComponentWithChildren = ({ children }) => {
