@@ -12,10 +12,11 @@ function getProducts(num: number): Product[] {
   for (let i = 0; i < num; i++) {
     const id = `${generateRandomNumber(1000, 999999)}`;
 
-    const images: { src: string; alt: string }[] = [];
+    const images: { id: string; src: string; alt: string }[] = [];
 
     for (let j = 0; j < 3; j++) {
       images.push({
+        id: `image-${generateRandomNumber(1000, 999999)}`,
         src: `https://picsum.photos/seed/${i + 1}${j}/300/300`,
         alt: `Nail Polish ${i + 1} ${j + 1}`,
       });
@@ -26,8 +27,9 @@ function getProducts(num: number): Product[] {
       link: `/shop/nail-polish/${id}`,
       name: `Nail Polish ${i + 1}`,
       price: i * 10,
+      intro: `Intro of Nail Polish ${i + 1}.`,
       description: `Description of Nail Polish ${i + 1}.`,
-      mainImageID: 0,
+      mainImageID: images[0].id,
       images,
     });
   }

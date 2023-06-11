@@ -1,32 +1,47 @@
 "use client";
 
-import { ComponentWithChildren } from "@/types";
 import { Button } from "@/theme/basics";
 import QuantityControl from "./QuantityControl";
 
+import { useState } from "react";
+
 export default function Footer() {
+  const [quantity, setQuantity] = useState(0);
+
   return (
-    <Wrapper>
-      <Item>
-        <Button size="md">Add to cart</Button>
-      </Item>
-      <Item>
-        <QuantityControl />
-      </Item>
+    <Wrapper highLighted={quantity > 0}>
+      <QuantityControl quantity={quantity} setQuantity={setQuantity} />
+      <Button
+        size="md"
+        onClick={(e) => {
+          e.preventDefault();
+
+          setQuantity(0);
+        }}
+      >
+        Add to cart
+      </Button>
     </Wrapper>
   );
 }
 
-const Wrapper: ComponentWithChildren = ({ children }) => {
-  return (
-    <div className="flex items-center justify-center gap-4 p-2 bg-blue-950/90">
-      {children}
-    </div>
-  );
+/****************
+ * Styles
+ */
+
+type WrapperProps = {
+  children: React.ReactNode;
+  highLighted: boolean;
 };
 
-const Item: ComponentWithChildren = ({ children }) => {
+const Wrapper = ({ children, highLighted }: WrapperProps) => {
   return (
-    <div className="flex items-center justify-center basis-1/2">{children}</div>
+    <div
+      className={`flex flex-row items-center justify-center gap-4 p-2 md:flex-col ${
+        highLighted ? "bg-red-800/70" : "bg-blue-950/90"
+      }`}
+    >
+      {children}
+    </div>
   );
 };

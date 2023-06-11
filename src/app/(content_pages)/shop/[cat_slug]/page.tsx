@@ -4,6 +4,7 @@ import Banner from "@/theme/Banner";
 import { H2 } from "@/theme/typography";
 import { ComponentWithChildren } from "@/types";
 
+import Section from "@/components/Section";
 import categories from "@/data/categories";
 import products from "@/data/products";
 
@@ -56,10 +57,6 @@ export default function ShopCategoryPage({ params, searchParams }: Props) {
 /************************
  * Styles
  */
-
-const Section: ComponentWithChildren = ({ children }) => {
-  return <section className="w-full mx-auto mt-10">{children}</section>;
-};
 
 const BannerContent: ComponentWithChildren = ({ children }) => {
   return (

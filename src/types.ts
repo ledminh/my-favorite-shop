@@ -18,9 +18,11 @@ export type Product = {
   link: string;
   name: string;
   price: number;
+  intro: string;
   description: string;
-  mainImageID: number;
+  mainImageID: string;
   images: {
+    id: string;
     src: string;
     alt: string;
   }[];

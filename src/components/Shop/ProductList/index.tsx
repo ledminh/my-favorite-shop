@@ -9,9 +9,7 @@ export default function ProductList({ products }: Props) {
   return (
     <List>
       {products.map((product) => (
-        <Item key={product.id}>
-          <Product key={product.id} product={product} />
-        </Item>
+        <Product key={product.id} product={product} />
       ))}
     </List>
   );
@@ -26,8 +24,4 @@ const List: ComponentWithChildren = ({ children }) => {
       {children}
     </ul>
   );
-};
-
-const Item: ComponentWithChildren = ({ children }) => {
-  return <li className="">{children}</li>;
 };

@@ -11,15 +11,17 @@ type Props = {
 };
 
 export default function Product({ product }: Props) {
+  const mainImage = getMainImage(product);
+
   return (
     <Link
       href={product.link}
-      className="block overflow-hidden rounded-md shadow-lg shadow-neutral-400 hover:ring-4 group"
+      className="flex flex-col justify-between h-full overflow-hidden rounded-md shadow-lg shadow-neutral-400 hover:ring-4 group"
     >
       <ImageWrapper>
         <Image
-          src={product.image.src}
-          alt={product.image.alt}
+          src={mainImage.src}
+          alt={mainImage.alt}
           fill
           style={{
             objectFit: "cover",
@@ -34,7 +36,7 @@ export default function Product({ product }: Props) {
         <Title>
           <H3>{product.name}</H3>
         </Title>
-        <Description>{product.description}</Description>
+        <Intro>{product.intro}</Intro>
       </ContentWrapper>
       <Footer />
     </Link>
@@ -64,6 +66,20 @@ const Price: ComponentWithChildren = ({ children }) => {
   );
 };
 
-const Description: ComponentWithChildren = ({ children }) => {
+const Intro: ComponentWithChildren = ({ children }) => {
   return <div className="italic">{children}</div>;
 };
+
+/****************
+ * Utils
+ */
+
+function getMainImage(product: ProductType) {
+  const mainImage = product.images.find(
+    (img) => img.id === product.mainImageID
+  );
+  if (!mainImage) {
+    throw new Error(`Main image not found`);
+  }
+  return mainImage;
+}
