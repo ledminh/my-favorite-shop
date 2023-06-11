@@ -58,11 +58,7 @@ export default function ShopCategoryPage({ params, searchParams }: Props) {
  */
 
 const Section: ComponentWithChildren = ({ children }) => {
-  return <section className="mt-10 mx-auto">{children}</section>;
-};
-
-const CategoryTitle: ComponentWithChildren = ({ children }) => {
-  return <div className="mt-10 mb-5">{children}</div>;
+  return <section className="w-full mx-auto mt-10">{children}</section>;
 };
 
 const BannerContent: ComponentWithChildren = ({ children }) => {

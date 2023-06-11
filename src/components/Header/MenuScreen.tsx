@@ -65,7 +65,7 @@ export default function MenuScreen({ isMenuOpen, setIsMenuOpen }: Props) {
  */
 const Wrapper: ComponentWithChildren = ({ children }) => {
   return (
-    <div className="absolute left-0 w-full h-[calc(100%-65px)] top-[65px] bg-gradient-to-b from-blue-950 from-10% to-blue-950/40 flex flex-col items-center justify-center">
+    <div className="absolute left-0 w-full h-[calc(100%-65px)] top-[65px] bg-gradient-to-b from-blue-950 from-10% to-blue-950/40 flex flex-col items-center justify-center z-50">
       {children}
     </div>
   );

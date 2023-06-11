@@ -5,7 +5,6 @@ import Category from "@/components/shop/Category";
 import Banner from "@/theme/Banner";
 
 import categories from "@/data/categories";
-import { type } from "os";
 
 function getCategories() {
   return categories;
@@ -24,13 +23,7 @@ export default function Shop() {
       <List>
         {categories.map((category) => (
           <Item key={category.id}>
-            <Category
-              type="Card"
-              name={category.name}
-              description={category.description}
-              link={category.link}
-              image={category.image}
-            />
+            <Category type="Card" {...category} />
           </Item>
         ))}
       </List>

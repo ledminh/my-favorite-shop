@@ -27,7 +27,7 @@ export default function CategoryMenu({ currentCategory }: Props) {
         </Button>
       </Wrapper>
       <Wrapper type="md">
-        {filterCategories(categories, currentCategory, 6).map((category) => (
+        {filterCategories(categories, currentCategory, 5).map((category) => (
           <Category
             key={category.name}
             {...category}
@@ -66,8 +66,9 @@ type WrapperProps = {
 };
 
 const WrapperStyle = {
-  sm: "sm:hidden",
-  md: "hidden sm:grid sm:grid-cols-7 sm:gap-3 text-xs w-11/12 mx-auto lg:hidden",
+  sm: "sm:hidden w-1/2 mx-auto",
+  // md: "hidden sm:grid sm:grid-cols-7 sm:gap-3 text-xs w-11/12 mx-auto lg:hidden",
+  md: "hidden sm:flex sm:justify-center sm:gap-3 text-xs w-11/12 mx-auto lg:hidden",
   lg: "hidden lg:grid lg:grid-cols-11 lg:gap-3 text-xs w-11/12 mx-auto",
 };
 
@@ -82,7 +83,7 @@ type MoreButtonProps = {
 const MoreButton = ({ setIsMenuOpen }: MoreButtonProps) => {
   return (
     <button
-      className="border border-blue-950 p-1 hover:bg-black/20 flex justify-center items-center flex-col gap-1 rounded-md w-20 text-center"
+      className="flex flex-col items-center justify-center w-20 gap-1 p-1 text-center border rounded-md border-blue-950 hover:bg-black/20"
       onClick={() => setIsMenuOpen(true)}
     >
       <span>... MORE</span>

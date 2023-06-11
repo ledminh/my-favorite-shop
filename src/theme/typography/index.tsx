@@ -11,3 +11,7 @@ export const H2: ComponentWithChildren = ({ children }) => {
 export const H3: ComponentWithChildren = ({ children }) => {
   return <h3 className="text-xl">{children}</h3>;
 };
+
+export const H4: ComponentWithChildren = ({ children }) => {
+  return <h4 className="text-lg">{children}</h4>;
+};
