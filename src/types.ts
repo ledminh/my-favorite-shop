@@ -19,8 +19,9 @@ export type Product = {
   name: string;
   price: number;
   description: string;
-  image: {
+  mainImageID: number;
+  images: {
     src: string;
     alt: string;
-  };
+  }[];
 };
