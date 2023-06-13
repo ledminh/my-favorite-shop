@@ -1,37 +1,57 @@
+"use client";
+
 import { ComponentWithChildren } from "@/types";
 import Image from "next/image";
 
+import { useState } from "react";
+
 type Props = {
   images: { id: string; src: string; alt: string }[];
+  mainImageID?: string;
 };
 
-export default function Gallery({ images }: Props) {
+export default function Gallery({ images, mainImageID }: Props) {
+  const [mainImage, setMainImage] = useState(() => {
+    const image = images.find((image) => image.id === mainImageID);
+
+    if (!image) {
+      throw new Error(`Image with id "${mainImageID}" not found`);
+    }
+
+    return image;
+  });
+
   return (
     <Wrapper>
       <MainImage>
         <Image
-          src={images[0].src}
-          alt={images[0].alt}
+          src={mainImage.src}
+          alt={mainImage.alt}
           fill
           style={{
             objectFit: "cover",
           }}
         />
       </MainImage>
-      <ThumbnailList>
-        {images.map((image) => (
-          <Thumbnail key={image.id}>
-            <Image
-              src={image.src}
-              alt={image.alt}
-              fill
-              style={{
-                objectFit: "cover",
-              }}
-            />
-          </Thumbnail>
-        ))}
-      </ThumbnailList>
+      <List>
+        {images.map((image) => {
+          return (
+            <Item key={image.id}>
+              <Button onClick={() => setMainImage(image)}>
+                <Image
+                  key={image.id}
+                  src={image.src}
+                  alt={image.alt}
+                  fill
+                  style={{
+                    objectFit: "cover",
+                  }}
+                />
+              </Button>
+            </Item>
+          );
+        })}
+      </List>
     </Wrapper>
   );
 }
@@ -40,17 +60,43 @@ export default function Gallery({ images }: Props) {
  * Styles
  */
 const Wrapper: ComponentWithChildren = ({ children }) => {
-  return <div className="grid grid-cols-3 gap-4">{children}</div>;
+  return (
+    <div className="flex flex-col items-center justify-center gap-4">
+      {children}
+    </div>
+  );
 };
 
 const MainImage: ComponentWithChildren = ({ children }) => {
-  return <div className="col-span-2">{children}</div>;
+  return (
+    <div className="relative h-[320px] w-[320px] rounded-lg overflow-hidden">
+      {children}
+    </div>
+  );
 };
 
-const ThumbnailList: ComponentWithChildren = ({ children }) => {
-  return <div className="flex flex-col gap-4">{children}</div>;
+const List: ComponentWithChildren = ({ children }) => {
+  return <ul className="flex justify-center gap-2">{children}</ul>;
 };
 
-const Thumbnail: ComponentWithChildren = ({ children }) => {
-  return <div className="flex-1">{children}</div>;
+const Item: ComponentWithChildren = ({ children }) => {
+  return <li className="h-[70px] w-[70px]">{children}</li>;
+};
+
+type ButtonProps = {
+  onClick?: () => void;
+  children: React.ReactNode;
+};
+const Button = ({ children, onClick }: ButtonProps) => {
+  return (
+    <button
+      className="relative w-full h-full overflow-hidden rounded-lg hover:ring-2 hover:ring-offset-4 hover:ring-offset-gray-200 hover:ring-gray-900"
+      onClick={(e) => {
+        e.preventDefault();
+        onClick && onClick();
+      }}
+    >
+      {children}
+    </button>
+  );
 };

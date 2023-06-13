@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/theme/basics";
-import QuantityControl from "./QuantityControl";
+import QuantityControl from "../../QuantityControl";
 
 import { useState } from "react";
 
