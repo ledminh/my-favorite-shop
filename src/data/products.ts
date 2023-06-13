@@ -1,12 +1,21 @@
 import type { Product } from "@/types";
+import { faker } from "@faker-js/faker";
 
-const products = getProducts(20);
+let products: Product[] = [];
+
+export default function getProducts() {
+  if (products.length === 0) {
+    products = _getProducts(20);
+  }
+
+  return products;
+}
 
 function generateRandomNumber(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function getProducts(num: number): Product[] {
+function _getProducts(num: number): Product[] {
   const products: Product[] = [];
 
   for (let i = 0; i < num; i++) {
@@ -22,13 +31,16 @@ function getProducts(num: number): Product[] {
       });
     }
 
+    const introLength = generateRandomNumber(50, 100);
+    const intro = faker.commerce.productDescription().slice(0, introLength);
+
     products.push({
       id,
       link: `/shop/nail-polish/${id}`,
-      name: `Nail Polish ${i + 1}`,
-      price: i * 10,
-      intro: `Intro of Nail Polish ${i + 1}.`,
-      description: `Description of Nail Polish ${i + 1}.`,
+      name: faker.commerce.productName(),
+      price: Number(faker.commerce.price()) / 10,
+      intro: intro,
+      description: faker.commerce.productDescription(),
       mainImageID: images[0].id,
       images,
     });
@@ -36,5 +48,3 @@ function getProducts(num: number): Product[] {
 
   return products;
 }
-
-export default products;
