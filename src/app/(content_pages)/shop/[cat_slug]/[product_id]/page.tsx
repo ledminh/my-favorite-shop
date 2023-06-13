@@ -1,7 +1,7 @@
 "use client";
 
 import Section from "@/components/Section";
-import products from "@/data/products";
+import getProducts from "@/data/products";
 
 import Gallery from "@/components/product/Gallery";
 import { H2, H3 } from "@/theme/typography";
@@ -9,6 +9,44 @@ import { H2, H3 } from "@/theme/typography";
 import Footer from "@/components/product/Footer";
 
 import { ComponentWithChildren } from "@/types";
+
+import { faker } from "@faker-js/faker";
+
+const product = {
+  id: faker.string.uuid(),
+  name: faker.commerce.productName(),
+  description: faker.commerce.productDescription(),
+  intro: faker.commerce.productDescription(),
+  images: [
+    {
+      id: "main_image_id",
+      src: "https://picsum.photos/seed/1/600/600",
+      alt: faker.commerce.productName(),
+    },
+    {
+      id: faker.string.uuid(),
+      src: "https://picsum.photos/seed/2/600/600",
+      alt: faker.commerce.productName(),
+    },
+    {
+      id: faker.string.uuid(),
+      src: "https://picsum.photos/seed/3/600/600",
+      alt: faker.commerce.productName(),
+    },
+    {
+      id: faker.string.uuid(),
+      src: "https://picsum.photos/seed/4/600/600",
+      alt: faker.commerce.productName(),
+    },
+    {
+      id: faker.string.uuid(),
+      src: "https://picsum.photos/seed/5/600/600",
+      alt: faker.commerce.productName(),
+    },
+  ],
+  mainImageID: "main_image_id",
+  price: Number(faker.commerce.price()) / 10,
+};
 
 type Props = {
   params: {
@@ -18,24 +56,14 @@ type Props = {
 };
 
 export default function ProductPage({ params }: Props) {
-  //   const product = getProduct(params.product_id);
-
-  const images: { id: string; src: string; alt: string }[] = [];
-
-  for (let j = 0; j < 4; j++) {
-    images.push({
-      id: `image-${j}`,
-      src: `https://picsum.photos/seed/${j}/300/300`,
-      alt: `Nail Polish ${j + 1}`,
-    });
-  }
+  // const product = getProduct(params.product_id);
 
   return (
     <>
       {/* HEADER */}
       <Section>
         <Title>
-          <H2>Nail Polish 1</H2>
+          <H2>{product.name}</H2>
         </Title>
       </Section>
 
@@ -44,7 +72,10 @@ export default function ProductPage({ params }: Props) {
         <Col>
           <Section>
             <GalleryWrapper>
-              <Gallery images={images} mainImageID="image-0" />
+              <Gallery
+                images={product.images}
+                mainImageID={product.mainImageID}
+              />
             </GalleryWrapper>
           </Section>
         </Col>
@@ -56,14 +87,11 @@ export default function ProductPage({ params }: Props) {
               <SubHeader>
                 <H3>Product Details</H3>
               </SubHeader>
-              <p>
-                This is the detail of the product. Add something to make it
-                longer. Add a little bit more to make it even longer.
-              </p>
+              <p>{product.description}</p>
             </Content>
           </Section>
           <Section>
-            <Footer />
+            <Footer unitPrice={product.price} />
           </Section>
         </Col>
       </Body>
@@ -113,6 +141,7 @@ const SubHeader: ComponentWithChildren = ({ children }) => {
  */
 
 function getProduct(id: string) {
+  const products = getProducts();
   const product = products.find((product) => product.id === id);
 
   if (!product) {

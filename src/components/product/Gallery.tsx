@@ -80,7 +80,7 @@ const List: ComponentWithChildren = ({ children }) => {
 };
 
 const Item: ComponentWithChildren = ({ children }) => {
-  return <li className="h-[70px] w-[70px]">{children}</li>;
+  return <li className="h-[55px] w-[55px]">{children}</li>;
 };
 
 type ButtonProps = {

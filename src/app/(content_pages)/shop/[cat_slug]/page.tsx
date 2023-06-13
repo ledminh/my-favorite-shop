@@ -6,7 +6,7 @@ import { ComponentWithChildren } from "@/types";
 
 import Section from "@/components/Section";
 import categories from "@/data/categories";
-import products from "@/data/products";
+import getDBProducts from "@/data/products";
 
 import ProductList from "@/components/shop/ProductList";
 
@@ -94,5 +94,6 @@ const getProducts = (
   sortBy: "name" | "price",
   order: "asc" | "desc"
 ) => {
+  const products = getDBProducts();
   return products;
 };
