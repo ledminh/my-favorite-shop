@@ -40,27 +40,33 @@ export default function ProductPage({ params }: Props) {
       </Section>
 
       {/* BODY */}
-      <Section>
-        <GalleryWrapper>
-          <Gallery images={images} mainImageID="image-0" />
-        </GalleryWrapper>
-      </Section>
-      <Section>
-        <Content>
-          <SubHeader>
-            <H3>Product Details</H3>
-          </SubHeader>
-          <p>
-            This is the detail of the product. Add something to make it longer.
-            Add a little bit more to make it even longer.
-          </p>
-        </Content>
-      </Section>
+      <Body>
+        <Col>
+          <Section>
+            <GalleryWrapper>
+              <Gallery images={images} mainImageID="image-0" />
+            </GalleryWrapper>
+          </Section>
+        </Col>
 
-      {/* FOOTER */}
-      <Section>
-        <Footer />
-      </Section>
+        {/* FOOTER */}
+        <Col>
+          <Section>
+            <Content>
+              <SubHeader>
+                <H3>Product Details</H3>
+              </SubHeader>
+              <p>
+                This is the detail of the product. Add something to make it
+                longer. Add a little bit more to make it even longer.
+              </p>
+            </Content>
+          </Section>
+          <Section>
+            <Footer />
+          </Section>
+        </Col>
+      </Body>
     </>
   );
 }
@@ -68,6 +74,16 @@ export default function ProductPage({ params }: Props) {
 /**********************
  * Styles
  */
+const Body: ComponentWithChildren = ({ children }) => {
+  return <div className="lg:flex">{children}</div>;
+};
+
+const Col: ComponentWithChildren = ({ children }) => {
+  return (
+    <div className="lg:flex lg:flex-col lg:justify-between">{children}</div>
+  );
+};
+
 const Title: ComponentWithChildren = ({ children }) => {
   return (
     <div className="inline-block px-5 ml-4 font-semibold border-b-4 border-red-400">

@@ -15,10 +15,11 @@ export default function Footer() {
       <QCWrapper>
         <QuantityControl quantity={0} setQuantity={() => {}} size="md" />
       </QCWrapper>
-
-      <Button type="normal" size="lg">
-        Add to Cart
-      </Button>
+      <ButtonWrapper>
+        <Button type="normal" size="lg">
+          Add to Cart
+        </Button>
+      </ButtonWrapper>
     </Wrapper>
   );
 }
@@ -29,7 +30,7 @@ export default function Footer() {
 
 const Wrapper: ComponentWithChildren = ({ children }) => {
   return (
-    <div className="flex flex-col items-center justify-center gap-4 p-5 bg-white rounded-lg">
+    <div className="flex flex-row flex-wrap items-center justify-center p-5 gap-y-4 gap-x-8 md:justify-between">
       {children}
     </div>
   );
@@ -43,4 +44,8 @@ const QCWrapper: ComponentWithChildren = ({ children }) => {
   return (
     <div className="p-1 border-2 rounded-lg border-blue-950">{children}</div>
   );
+};
+
+const ButtonWrapper: ComponentWithChildren = ({ children }) => {
+  return <div className="basis-full md:basis-1/2">{children}</div>;
 };
