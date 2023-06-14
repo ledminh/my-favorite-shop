@@ -3,7 +3,7 @@
 import { Product as ProductType } from "@/types";
 import { ComponentWithChildren } from "@/types";
 import Image from "next/image";
-import QuantityControl from "../QuantityControl";
+import QuantityControl from "@/components/QuantityControl";
 
 type Props = {
   product: ProductType;
@@ -42,13 +42,13 @@ export default function Product({ product }: Props) {
  * Styles
  */
 const Wrapper: ComponentWithChildren = ({ children }) => (
-  <div className="flex justify-between gap-4 p-2 rounded-lg shadow-lg ring-1 ring-slate-500">
+  <div className="flex items-center justify-between gap-4 p-2 rounded-lg shadow-lg ring-1 ring-slate-500">
     {children}
   </div>
 );
 
 const ImageWrapper: ComponentWithChildren = ({ children }) => (
-  <div className="relative min-w-[70px] h-[70px] rounded-2xl overflow-hidden">
+  <div className="relative min-w-[80px] h-[80px] rounded-2xl overflow-hidden">
     {children}
   </div>
 );

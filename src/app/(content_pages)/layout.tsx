@@ -30,7 +30,7 @@ const HeaderWrapper: ComponentWithChildren = ({ children }) => {
 };
 
 const Main: ComponentWithChildren = ({ children }) => {
-  return <div className="flex flex-col flex-grow">{children}</div>;
+  return <main className="flex flex-col flex-grow">{children}</main>;
 };
 
 const Footer: ComponentWithChildren = ({ children }) => {

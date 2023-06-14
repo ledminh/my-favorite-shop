@@ -3,11 +3,11 @@ import { ComponentWithChildren } from "@/types";
 import { H2 } from "@/theme/typography";
 import { Button } from "@/theme/basics";
 
-export default function ContactForm() {
+export default function ShippingAddress() {
   return (
     <Wrapper>
       <Title>
-        <H2>Contact Info</H2>
+        <H2>Shipping Address</H2>
       </Title>
       <Form>
         <Grid6>
@@ -35,39 +35,10 @@ export default function ContactForm() {
             </InputWrapper>
           </Col3>
 
-          <Col4>
+          <ColFull>
             <Label htmlFor="email">Email address</Label>
             <InputWrapper>
               <Input type="text" name="email" id="email" autoComplete="email" />
-            </InputWrapper>
-          </Col4>
-
-          <Col4>
-            <Label htmlFor="country">Country</Label>
-
-            <InputWrapper>
-              <select
-                id="country"
-                name="country"
-                autoComplete="country-name"
-                className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-              >
-                <option>United States</option>
-                <option>Canada</option>
-                <option>Mexico</option>
-              </select>
-            </InputWrapper>
-          </Col4>
-
-          <ColFull>
-            <Label htmlFor="street-address">Street address</Label>
-            <InputWrapper>
-              <Input
-                type="text"
-                name="street-address"
-                id="street-address"
-                autoComplete="street-address"
-              />
             </InputWrapper>
           </ColFull>
 
@@ -84,6 +55,35 @@ export default function ContactForm() {
           </Col3>
 
           <Col3>
+            <Label htmlFor="country">Country</Label>
+
+            <InputWrapper>
+              <select
+                id="country"
+                name="country"
+                autoComplete="country-name"
+                className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+              >
+                <option>United States</option>
+                <option>Canada</option>
+                <option>Mexico</option>
+              </select>
+            </InputWrapper>
+          </Col3>
+
+          <ColFull>
+            <Label htmlFor="street-address">Street address</Label>
+            <InputWrapper>
+              <Input
+                type="text"
+                name="street-address"
+                id="street-address"
+                autoComplete="street-address"
+              />
+            </InputWrapper>
+          </ColFull>
+
+          <Col3>
             <Label htmlFor="state">State / Province</Label>
             <InputWrapper>
               <Input
@@ -95,7 +95,7 @@ export default function ContactForm() {
             </InputWrapper>
           </Col3>
 
-          <ColFull>
+          <Col3>
             <Label htmlFor="postal-code">ZIP / Postal</Label>
             <InputWrapper>
               <Input
@@ -105,7 +105,7 @@ export default function ContactForm() {
                 autoComplete="postal-code"
               />
             </InputWrapper>
-          </ColFull>
+          </Col3>
         </Grid6>
       </Form>
       <div className="flex content-center justify-center px-8 pt-6">

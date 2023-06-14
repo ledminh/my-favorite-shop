@@ -1,7 +1,7 @@
 import { ComponentWithChildren, Product as ProductType } from "@/types";
 
 import ShoppingCart from "@/components/cart/ShoppingCart";
-import ContactForm from "@/components/cart/ContactForm";
+import ShippingAddress from "@/components/cart/ShippingAddress";
 
 export default function CartPage() {
   return (
@@ -10,7 +10,7 @@ export default function CartPage() {
         <ShoppingCart />
       </Box>
       <Box>
-        <ContactForm />
+        <ShippingAddress />
       </Box>
     </Wrapper>
   );
