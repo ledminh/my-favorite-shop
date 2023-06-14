@@ -8,15 +8,16 @@ import { H2, H3 } from "@/theme/typography";
 
 import Footer from "@/components/product/Footer";
 
-import { ComponentWithChildren } from "@/types";
+import { ComponentWithChildren, Product } from "@/types";
 
 import { faker } from "@faker-js/faker";
 
-const product = {
+const product: Product = {
   id: faker.string.uuid(),
   name: faker.commerce.productName(),
   description: faker.commerce.productDescription(),
   intro: faker.commerce.productDescription(),
+  link: `/shop/${faker.lorem.slug()}/${faker.lorem.slug()}`,
   images: [
     {
       id: "main_image_id",

@@ -16,28 +16,30 @@ export default function Product({ product }: Props) {
   return (
     <Link
       href={product.link}
-      className="flex flex-col justify-between h-full overflow-hidden rounded-md shadow-lg shadow-neutral-400 hover:ring-4 group"
+      className="flex flex-col justify-between overflow-hidden rounded-md shadow-lg shadow-neutral-400 hover:ring-4 group"
     >
-      <ImageWrapper>
-        <Image
-          src={mainImage.src}
-          alt={mainImage.alt}
-          fill
-          style={{
-            objectFit: "cover",
-          }}
-          className="transition-all duration-300 group-hover:scale-110"
-        />
-        <Price>
-          <H4>${product.price}</H4>
-        </Price>
-      </ImageWrapper>
-      <ContentWrapper>
-        <Title>
-          <H3>{product.name}</H3>
-        </Title>
-        <Intro>{product.intro}</Intro>
-      </ContentWrapper>
+      <div className="flex flex-col justify-start">
+        <ImageWrapper>
+          <Image
+            src={mainImage.src}
+            alt={mainImage.alt}
+            fill
+            style={{
+              objectFit: "cover",
+            }}
+            className="transition-all duration-300 group-hover:scale-110"
+          />
+          <Price>
+            <H4>${product.price}</H4>
+          </Price>
+        </ImageWrapper>
+        <ContentWrapper>
+          <Title>
+            <H3>{product.name}</H3>
+          </Title>
+          <Intro>{product.intro}</Intro>
+        </ContentWrapper>
+      </div>
       <Footer />
     </Link>
   );
@@ -51,7 +53,7 @@ const ImageWrapper: ComponentWithChildren = ({ children }) => {
 };
 
 const ContentWrapper: ComponentWithChildren = ({ children }) => {
-  return <div className="p-3">{children}</div>;
+  return <div className="flex flex-col justify-start p-3">{children}</div>;
 };
 
 const Title: ComponentWithChildren = ({ children }) => {
