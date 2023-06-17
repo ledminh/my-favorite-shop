@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import * as Type from "./header.type";
-import { ComponentWithChildren } from "@/theme/types";
+import { ComponentWithChildren } from "@/types";
 
 export const Logo = () => {
   return <div>Logo</div>;

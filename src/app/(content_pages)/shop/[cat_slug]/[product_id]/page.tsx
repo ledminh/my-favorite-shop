@@ -1,6 +1,6 @@
 "use client";
 
-import Section from "@/components/Section";
+import Section from "@/theme/Section";
 import getProducts from "@/data/products";
 
 import Gallery from "@/components/product/Gallery";

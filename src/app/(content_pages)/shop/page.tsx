@@ -1,32 +1,36 @@
 import { H2 } from "@/theme/typography";
-import { ComponentWithChildren } from "@/types";
+import { ComponentWithChildren, Category as CategoryType } from "@/types";
 
 import Category from "@/components/shop/Category";
 import Banner from "@/theme/Banner";
+import Section from "@/theme/Section";
 
 import categories from "@/data/categories";
+import CategoryList from "@/components/shop/CategoryList";
 
-function getCategories() {
-  return categories;
-}
+type GetCategories = () => Promise<CategoryType[]>;
 
-export default function Shop() {
-  const categories = getCategories();
+const getCategories: GetCategories = async () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(categories);
+    }, 2000);
+  });
+};
+
+export default async function Shop() {
+  const categories = await getCategories();
 
   return (
     <>
-      <Intro>
+      <Section>
         <Banner>
           <H2>Explore our wide range of nail care categories</H2>
         </Banner>
-      </Intro>
-      <List>
-        {categories.map((category) => (
-          <Item key={category.id}>
-            <Category type="Card" {...category} />
-          </Item>
-        ))}
-      </List>
+      </Section>
+      <Section>
+        <CategoryList type="loaded" categories={categories} />
+      </Section>
     </>
   );
 }
@@ -34,10 +38,6 @@ export default function Shop() {
 /************************
  * Styles
  */
-
-const Intro: ComponentWithChildren = ({ children }) => {
-  return <div className="my-12">{children}</div>;
-};
 
 const List: ComponentWithChildren = ({ children }) => {
   return (

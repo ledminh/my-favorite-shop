@@ -4,7 +4,7 @@ import Banner from "@/theme/Banner";
 import { H2 } from "@/theme/typography";
 import { ComponentWithChildren } from "@/types";
 
-import Section from "@/components/Section";
+import Section from "@/theme/Section";
 import categories from "@/data/categories";
 import getDBProducts from "@/data/products";
 
@@ -36,10 +36,8 @@ export default function ShopCategoryPage({ params, searchParams }: Props) {
       </Section>
       <Section>
         <Banner>
-          <BannerContent>
-            <H2>{currentCategory.name}</H2>
-            <Description>{currentCategory.description}</Description>
-          </BannerContent>
+          <H2>{currentCategory.name}</H2>
+          <Description>{currentCategory.description}</Description>
         </Banner>
       </Section>
 
@@ -57,14 +55,6 @@ export default function ShopCategoryPage({ params, searchParams }: Props) {
 /************************
  * Styles
  */
-
-const BannerContent: ComponentWithChildren = ({ children }) => {
-  return (
-    <div className="flex flex-col items-center justify-center w-full h-full">
-      {children}
-    </div>
-  );
-};
 
 const Description: ComponentWithChildren = ({ children }) => {
   return (

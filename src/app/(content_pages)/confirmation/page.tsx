@@ -68,6 +68,51 @@ const products: ProductType[] = [
     id: faker.string.uuid(),
     name: faker.commerce.productName(),
   },
+  {
+    ...product,
+    id: faker.string.uuid(),
+    name: faker.commerce.productName(),
+  },
+  {
+    ...product,
+    id: faker.string.uuid(),
+    name: faker.commerce.productName(),
+  },
+  {
+    ...product,
+    id: faker.string.uuid(),
+    name: faker.commerce.productName(),
+  },
+  {
+    ...product,
+    id: faker.string.uuid(),
+    name: faker.commerce.productName(),
+  },
+  {
+    ...product,
+    id: faker.string.uuid(),
+    name: faker.commerce.productName(),
+  },
+  {
+    ...product,
+    id: faker.string.uuid(),
+    name: faker.commerce.productName(),
+  },
+  {
+    ...product,
+    id: faker.string.uuid(),
+    name: faker.commerce.productName(),
+  },
+  {
+    ...product,
+    id: faker.string.uuid(),
+    name: faker.commerce.productName(),
+  },
+  {
+    ...product,
+    id: faker.string.uuid(),
+    name: faker.commerce.productName(),
+  },
 ];
 
 export default function Confirmation() {

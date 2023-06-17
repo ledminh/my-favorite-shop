@@ -1,7 +1,7 @@
 import { ComponentWithChildren, Product as ProductType } from "@/types";
 import { faker } from "@faker-js/faker";
 
-import Section from "@/components/Section";
+import Section from "@/theme/Section";
 import { H2 } from "@/theme/typography";
 import Product from "@/components/cart/Product";
 

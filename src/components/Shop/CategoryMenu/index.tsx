@@ -30,7 +30,7 @@ export default function CategoryMenu({ currentCategory }: Props) {
         {filterCategories(categories, currentCategory, 5).map((category) => (
           <Category
             key={category.name}
-            {...category}
+            category={category}
             type="Block"
             isCurrent={category.id === currentCategory.id}
           />
@@ -40,8 +40,8 @@ export default function CategoryMenu({ currentCategory }: Props) {
       <Wrapper type="lg">
         {filterCategories(categories, currentCategory, 10).map((category) => (
           <Category
-            key={category.name}
-            {...category}
+            key={category.id}
+            category={category}
             type="Block"
             isCurrent={category.id === currentCategory.id}
           />
