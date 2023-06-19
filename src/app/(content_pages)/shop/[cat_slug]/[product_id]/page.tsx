@@ -50,14 +50,14 @@ const product: Product = {
 };
 
 type Props = {
-  params: {
+  param: {
     cat_slug: string;
     product_id: string;
   };
 };
 
-export default function ProductPage({ params }: Props) {
-  // const product = getProduct(params.product_id);
+export default async function ProductPage({ param }: Props) {
+  // const product = await getProduct(params.product_id);
 
   return (
     <>
@@ -141,13 +141,12 @@ const SubHeader: ComponentWithChildren = ({ children }) => {
  * Utils
  */
 
-function getProduct(id: string) {
-  const products = getProducts();
-  const product = products.find((product) => product.id === id);
+type GetProduct = (id: string) => Promise<Product>;
 
-  if (!product) {
-    throw new Error(`Product with id "${id}" not found`);
-  }
-
-  return product;
-}
+const getProduct: GetProduct = (id: string) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(product);
+    }, 3000);
+  });
+};

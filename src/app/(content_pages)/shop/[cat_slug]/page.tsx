@@ -81,9 +81,7 @@ type GetCategories = () => Promise<Category[]>;
 
 const getCategories: GetCategories = () => {
   return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve(categories);
-    }, 3000);
+    resolve(categories);
   });
 };
 
@@ -109,9 +107,7 @@ const getProducts: GetProducts = (
   order: "asc" | "desc"
 ) => {
   return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      const products = getDBProducts();
-      resolve(products);
-    }, 3000);
+    const products = getDBProducts();
+    resolve(products);
   });
 };
