@@ -2,18 +2,16 @@ import { ComponentWithChildren, Category as CategoryType } from "@/types";
 
 import Category from "@/components/shop/Category";
 
-type CategoryListProps =
-  | {
-      type: "loaded";
-      categories: CategoryType[];
-    }
-  | {
-      type: "loading";
-      categories?: undefined;
-    };
+type CategoryListProps = {
+  skeleton?: boolean;
+  categories?: CategoryType[];
+};
 
-export default function CategoryList({ categories, type }: CategoryListProps) {
-  if (type === "loading") {
+export default function CategoryList({
+  categories,
+  skeleton = false,
+}: CategoryListProps) {
+  if (skeleton) {
     return (
       <Wrapper>
         {Array(10)
@@ -26,6 +24,11 @@ export default function CategoryList({ categories, type }: CategoryListProps) {
       </Wrapper>
     );
   }
+
+  if (!categories) {
+    throw new Error("Categories not found");
+  }
+
   return (
     <Wrapper>
       {categories.map((category) => (

@@ -41,11 +41,24 @@ const orderBy = {
 };
 
 type Props = {
-  sortByInit: "name" | "price";
-  orderInit: "asc" | "desc";
+  sortByInit?: "name" | "price";
+  orderInit?: "asc" | "desc";
+  skeleton?: boolean;
 };
 
-export default function FilterPanel({ sortByInit, orderInit }: Props) {
+export default function FilterPanel({
+  sortByInit,
+  orderInit,
+  skeleton = false,
+}: Props) {
+  if (skeleton) {
+    return <Wrapper skeleton={true}>{}</Wrapper>;
+  }
+
+  if (!sortByInit || !orderInit) {
+    throw new Error("sortByInit and orderInit are required");
+  }
+
   const [sortByValue, setSortByValue] = useState<"name" | "price">(sortByInit);
   const [orderByValue, setOrderByValue] = useState<"asc" | "desc">(orderInit);
 
@@ -105,16 +118,31 @@ export default function FilterPanel({ sortByInit, orderInit }: Props) {
 /**************************
  * Styles
  */
-const Wrapper: ComponentWithChildren = ({ children }) => {
+
+type WrapperProps = {
+  skeleton?: boolean;
+  children: React.ReactNode;
+};
+
+const Wrapper = ({ children, skeleton = false }: WrapperProps) => {
+  if (skeleton) {
+    return (
+      <div className="grid w-11/12 max-w-md grid-cols-2 gap-6 p-2 mx-auto bg-blue-200 rounded-md">
+        <div className="h-8 bg-blue-400 rounded-md animate-pulse"></div>
+        <div className="h-8 bg-blue-400 rounded-md animate-pulse"></div>
+      </div>
+    );
+  }
+
   return (
-    <div className="grid grid-cols-2 gap-6 w-11/12 mx-auto bg-blue-200 rounded-md p-2 max-w-md">
+    <div className="grid w-11/12 max-w-md grid-cols-2 gap-6 p-2 mx-auto bg-blue-200 rounded-md">
       {children}
     </div>
   );
 };
 
 const Section: ComponentWithChildren = ({ children }) => {
-  return <div className="sm:flex items-center gap-2">{children}</div>;
+  return <div className="items-center gap-2 sm:flex">{children}</div>;
 };
 
 type LabelProps = {
@@ -126,7 +154,7 @@ const Label = ({ children, htmlFor }: LabelProps) => {
   return (
     <label
       htmlFor={htmlFor}
-      className="text-sm font-medium leading-6 text-gray-900 sm:basis-2/3 flex"
+      className="flex text-sm font-medium leading-6 text-gray-900 sm:basis-2/3"
     >
       {children}
     </label>

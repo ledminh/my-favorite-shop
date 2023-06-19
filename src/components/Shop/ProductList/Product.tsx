@@ -7,10 +7,33 @@ import type { Product as ProductType } from "@/types";
 import { H3, H4 } from "@/theme/typography";
 import Footer from "./Footer";
 type Props = {
-  product: ProductType;
+  product?: ProductType;
+  skeleton?: boolean;
 };
 
-export default function Product({ product }: Props) {
+export default function Product({ product, skeleton = false }: Props) {
+  if (skeleton) {
+    return (
+      <div className="flex flex-col justify-between overflow-hidden rounded-md shadow-lg shadow-neutral-400 hover:ring-4 group">
+        <div className="flex flex-col justify-start">
+          <div className="w-full h-64 bg-gray-200 rounded-md"></div>
+          <div className="flex flex-col items-start justify-between w-full h-20 p-3 bg-gray-200">
+            <div className="w-1/2 h-4 bg-gray-200 rounded"></div>
+            <div className="w-full h-4 bg-gray-200 rounded"></div>
+          </div>
+        </div>
+        <div className="flex flex-col items-start justify-between w-full h-20 p-3 bg-gray-200">
+          <div className="w-full h-4 bg-gray-200 rounded"></div>
+          <div className="w-full h-4 bg-gray-200 rounded"></div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!product) {
+    throw new Error("Product is undefined");
+  }
+
   const mainImage = getMainImage(product);
 
   return (

@@ -20,7 +20,7 @@ export default function CategoryMenuScreen({
 }: Props) {
   return (
     <Dialog
-      className="absolute z-50 bg-white h-full w-full flex justify-center items-center"
+      className="absolute z-50 flex items-center justify-center w-full h-full bg-white"
       open={isOpen}
       onClose={() => setIsOpen(false)}
     >
@@ -33,9 +33,9 @@ export default function CategoryMenuScreen({
           {categories.map((category) => (
             <Item key={category.id}>
               <Category
-                {...category}
                 type="Button"
                 isCurrent={currentCategory.id === category.id}
+                category={category}
               />
             </Item>
           ))}
@@ -60,7 +60,7 @@ const CloseButton = () => {
  * Styles
  */
 const List: ComponentWithChildren = ({ children }) => {
-  return <ul className="flex flex-row flex-wrap gap-5 w-10/12">{children}</ul>;
+  return <ul className="flex flex-row flex-wrap w-10/12 gap-5">{children}</ul>;
 };
 
 const Item: ComponentWithChildren = ({ children }) => {

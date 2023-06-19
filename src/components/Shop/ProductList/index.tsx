@@ -2,10 +2,25 @@ import type { ComponentWithChildren, Product as ProductType } from "@/types";
 import Product from "./Product";
 
 type Props = {
-  products: ProductType[];
+  products?: ProductType[];
+  skeleton?: boolean;
 };
 
-export default function ProductList({ products }: Props) {
+export default function ProductList({ products, skeleton = false }: Props) {
+  if (skeleton) {
+    return (
+      <List>
+        {[...Array(8)].map((_, i) => (
+          <Product key={i} skeleton={true} />
+        ))}
+      </List>
+    );
+  }
+
+  if (!products) {
+    throw new Error("Products not found");
+  }
+
   return (
     <List>
       {products.map((product) => (

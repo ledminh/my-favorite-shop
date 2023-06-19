@@ -15,9 +15,9 @@ export default function Block({
 }: Props) {
   if (skeleton) {
     return (
-      <DivWrapper>
-        <div className="w-20 h-20 bg-gray-200 rounded-lg"></div>
-        <span className="w-16 h-4 bg-gray-200 rounded-lg"></span>
+      <DivWrapper skeleton={true}>
+        <div className="w-16 h-20 bg-gray-200 rounded-lg"></div>
+        <span className="w-16 h-4 bg-red-200 rounded-lg"></span>
       </DivWrapper>
     );
   }
@@ -49,7 +49,21 @@ export default function Block({
 /**********************
  * Styles
  */
-const DivWrapper: ComponentWithChildren = ({ children }) => {
+
+type DivWrapperProps = {
+  children: React.ReactNode;
+  skeleton?: boolean;
+};
+
+const DivWrapper = ({ children, skeleton = false }: DivWrapperProps) => {
+  if (skeleton) {
+    return (
+      <div className="flex flex-col items-center justify-between w-20 gap-1 p-1 text-center bg-gray-200 border rounded-md border-blue-950">
+        {children}
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col items-center justify-between w-20 gap-1 p-1 text-center bg-red-100 border rounded-md border-blue-950">
       {children}
