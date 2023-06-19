@@ -15,49 +15,19 @@ type Props = {
 export default function CategoryMenu({ skeleton = false, categories }: Props) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  if (skeleton) {
-    return (
-      <>
-        <Wrapper type="sm">
-          <Button size="sm" color="secondary" border="square">
-            CHANGE CATEGORY
-          </Button>
-        </Wrapper>
-        <Wrapper type="md">
-          {Array(5)
-            .fill(0)
-            .map((_, index) => (
-              <Category key={index} type="Block" skeleton={true} />
-            ))}
-          <MoreButton setIsMenuOpen={setIsMenuOpen} />
-        </Wrapper>
-        <Wrapper type="lg">
-          {Array(10)
-            .fill(0)
-            .map((_, index) => (
-              <Category key={index} type="Block" skeleton={true} />
-            ))}
-          <MoreButton setIsMenuOpen={setIsMenuOpen} />
-        </Wrapper>
-      </>
-    );
-  }
-
-  if (!categories) {
-    throw new Error("Categories not found");
-  }
-
   const [filteredCategories5, setFilteredCategories5] = useState(
-    filterCategories(categories, categories[0], 5)
+    categories ? filterCategories(categories, categories[0], 5) : []
   );
 
   const [filteredCategories10, setFilteredCategories10] = useState(
-    filterCategories(categories, categories[0], 10)
+    categories ? filterCategories(categories, categories[0], 10) : []
   );
 
-  const currentCategory = getCurrentCategory(categories);
+  const currentCategory = useCurrentCategory(categories);
 
   useEffect(() => {
+    if (!currentCategory || !categories) return;
+
     if (!filteredCategories5.includes(currentCategory)) {
       setFilteredCategories5(filterCategories(categories, currentCategory, 5));
     }
@@ -67,7 +37,20 @@ export default function CategoryMenu({ skeleton = false, categories }: Props) {
         filterCategories(categories, currentCategory, 10)
       );
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentCategory]);
+
+  if (skeleton) {
+    return <Skeleton />;
+  }
+
+  if (!categories) {
+    throw new Error("Categories not found");
+  }
+
+  if (!currentCategory) {
+    throw new Error("Current category not found");
+  }
 
   return (
     <>
@@ -112,9 +95,10 @@ export default function CategoryMenu({ skeleton = false, categories }: Props) {
   );
 }
 
-/*********************
+/************************************************
  * Styles
- */
+ ************************************************/
+
 type WrapperProps = {
   type: "sm" | "md" | "lg";
   children: React.ReactNode;
@@ -145,6 +129,36 @@ const MoreButton = ({ setIsMenuOpen }: MoreButtonProps) => {
     </button>
   );
 };
+
+/************************************************
+ * Components
+ ************************************************/
+
+const Skeleton = () => (
+  <>
+    <Wrapper type="sm">
+      <Button size="sm" color="secondary" border="square">
+        CHANGE CATEGORY
+      </Button>
+    </Wrapper>
+    <Wrapper type="md">
+      {Array(5)
+        .fill(0)
+        .map((_, index) => (
+          <Category key={index} type="Block" skeleton={true} />
+        ))}
+      <MoreButton setIsMenuOpen={() => {}} />
+    </Wrapper>
+    <Wrapper type="lg">
+      {Array(10)
+        .fill(0)
+        .map((_, index) => (
+          <Category key={index} type="Block" skeleton={true} />
+        ))}
+      <MoreButton setIsMenuOpen={() => {}} />
+    </Wrapper>
+  </>
+);
 
 /************************************************
  * Utils
@@ -185,14 +199,12 @@ function filterCategories(
  * getCurrentCategory
  */
 
-const getCurrentCategory = (categories: CategoryType[]) => {
+const useCurrentCategory = (categories?: CategoryType[]) => {
   const pathname = usePathname();
 
-  const currentCategory = categories.find(
-    (category) => category.link === pathname
-  );
-
-  if (!currentCategory) throw new Error("Category not found");
+  const currentCategory = categories
+    ? categories.find((category) => category.link === pathname)
+    : undefined;
 
   return currentCategory;
 };
