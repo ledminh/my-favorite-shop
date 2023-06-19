@@ -21,12 +21,12 @@ export default async function ProductPage({ params }: Props) {
   return (
     <>
       {/* HEADER */}
+      {/* TODO: Add breadcrumbs*/}
       <Section>
         <Title>
           <H2>{product.name}</H2>
         </Title>
       </Section>
-
       {/* BODY */}
       <Body>
         <Col2>

@@ -47,23 +47,19 @@ type Props = {
 };
 
 export default function FilterPanel({
-  sortByInit,
-  orderInit,
+  sortByInit = "name",
+  orderInit = "asc",
   skeleton = false,
 }: Props) {
-  if (skeleton) {
-    return <Wrapper skeleton={true}>{}</Wrapper>;
-  }
-
-  if (!sortByInit || !orderInit) {
-    throw new Error("sortByInit and orderInit are required");
-  }
-
   const [sortByValue, setSortByValue] = useState<"name" | "price">(sortByInit);
   const [orderByValue, setOrderByValue] = useState<"asc" | "desc">(orderInit);
 
   const pathname = usePathname();
   const router = useRouter();
+
+  if (skeleton) {
+    return <Wrapper skeleton={true}>{}</Wrapper>;
+  }
 
   const handleSortByChange: ChangeEventHandler<HTMLSelectElement> = (e) => {
     const sortByValue = e.target.value as "name" | "price";

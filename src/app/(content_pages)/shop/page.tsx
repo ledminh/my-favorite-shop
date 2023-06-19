@@ -29,7 +29,7 @@ export default async function Shop() {
         </Banner>
       </Section>
       <Section>
-        <CategoryList type="loaded" categories={categories} />
+        <CategoryList categories={categories} />
       </Section>
     </>
   );
