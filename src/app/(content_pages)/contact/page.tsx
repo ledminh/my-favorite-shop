@@ -16,7 +16,7 @@ export default function ContactPage() {
         </Title>
         <P>
           We value open communication and would love to hear from you. Please
-          don't hesitate to get in touch with us using any of the following
+          don&apos;t hesitate to get in touch with us using any of the following
           contact methods:
         </P>
         <ContactInfo />
@@ -42,7 +42,7 @@ const ContentWrapper: ComponentWithChildren = ({ children }) => (
 );
 
 const BackgroundWrapper: ComponentWithChildren = ({ children }) => (
-  <div className="absolute inset-y-0 left-0 w-full overflow-hidden bg-gray-100 -z-10 ring-1 ring-gray-900/10 lg:w-1/2">
+  <div className="absolute inset-y-0 left-0 w-full overflow-hidden bg-gray-300 -z-10 ring-1 ring-gray-900/10 lg:w-1/2">
     {children}
   </div>
 );
@@ -60,7 +60,7 @@ const P: ComponentWithChildren = ({ children }) => (
  */
 const BackgroundSVG = () => (
   <svg
-    className="absolute inset-0 h-full w-full stroke-gray-200 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
+    className="absolute inset-0 h-full w-full stroke-blue-200 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
     aria-hidden="true"
   >
     <defs>
@@ -72,12 +72,12 @@ const BackgroundSVG = () => (
         y={-1}
         patternUnits="userSpaceOnUse"
       >
-        <path d="M130 200V.5M.5 .5H200" fill="none" />
+        <path d="M130 200V.5M.5 .5H200" fill="transparent" />
       </pattern>
     </defs>
     <rect width="100%" height="100%" strokeWidth={0} fill="white" />
     <svg x="100%" y={-1} className="overflow-visible fill-gray-50">
-      <path d="M-470.5 0h201v201h-201Z" strokeWidth={0} />
+      <path d="M-470.5 0h201v201h-201Z" strokeWidth={1} />
     </svg>
     <rect
       width="100%"
