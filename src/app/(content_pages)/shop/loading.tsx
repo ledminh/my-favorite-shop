@@ -12,7 +12,7 @@ export default function Loading() {
         </Banner>
       </Section>
       <Section>
-        <CategoryList type="loading" />
+        <CategoryList skeleton={true} />
       </Section>
     </>
   );
