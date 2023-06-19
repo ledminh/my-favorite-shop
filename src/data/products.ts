@@ -3,9 +3,9 @@ import { faker } from "@faker-js/faker";
 
 let products: Product[] = [];
 
-export default function getProducts() {
+export default function getProducts(numProducts?: number) {
   if (products.length === 0) {
-    products = _getProducts(20);
+    products = _getProducts(numProducts ? numProducts : 20);
   }
 
   return products;

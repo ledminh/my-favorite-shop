@@ -1,5 +1,3 @@
-"use client";
-
 import Section from "@/theme/Section";
 import getProducts from "@/data/products";
 
@@ -10,54 +8,15 @@ import Footer from "@/components/product/Footer";
 
 import { ComponentWithChildren, Product } from "@/types";
 
-import { faker } from "@faker-js/faker";
-
-const product: Product = {
-  id: faker.string.uuid(),
-  name: faker.commerce.productName(),
-  description: faker.commerce.productDescription(),
-  intro: faker.commerce.productDescription(),
-  link: `/shop/${faker.lorem.slug()}/${faker.lorem.slug()}`,
-  images: [
-    {
-      id: "main_image_id",
-      src: "https://picsum.photos/seed/1/600/600",
-      alt: faker.commerce.productName(),
-    },
-    {
-      id: faker.string.uuid(),
-      src: "https://picsum.photos/seed/2/600/600",
-      alt: faker.commerce.productName(),
-    },
-    {
-      id: faker.string.uuid(),
-      src: "https://picsum.photos/seed/3/600/600",
-      alt: faker.commerce.productName(),
-    },
-    {
-      id: faker.string.uuid(),
-      src: "https://picsum.photos/seed/4/600/600",
-      alt: faker.commerce.productName(),
-    },
-    {
-      id: faker.string.uuid(),
-      src: "https://picsum.photos/seed/5/600/600",
-      alt: faker.commerce.productName(),
-    },
-  ],
-  mainImageID: "main_image_id",
-  price: Number(faker.commerce.price()) / 10,
-};
-
 type Props = {
-  param: {
+  params: {
     cat_slug: string;
     product_id: string;
   };
 };
 
-export default async function ProductPage({ param }: Props) {
-  // const product = await getProduct(params.product_id);
+export default async function ProductPage({ params }: Props) {
+  const product = await getProduct(params.product_id);
 
   return (
     <>
@@ -70,7 +29,7 @@ export default async function ProductPage({ param }: Props) {
 
       {/* BODY */}
       <Body>
-        <Col>
+        <Col2>
           <Section>
             <GalleryWrapper>
               <Gallery
@@ -79,10 +38,10 @@ export default async function ProductPage({ param }: Props) {
               />
             </GalleryWrapper>
           </Section>
-        </Col>
+        </Col2>
 
         {/* FOOTER */}
-        <Col>
+        <Col3>
           <Section>
             <Content>
               <SubHeader>
@@ -94,7 +53,7 @@ export default async function ProductPage({ param }: Props) {
           <Section>
             <Footer unitPrice={product.price} />
           </Section>
-        </Col>
+        </Col3>
       </Body>
     </>
   );
@@ -104,12 +63,22 @@ export default async function ProductPage({ param }: Props) {
  * Styles
  */
 const Body: ComponentWithChildren = ({ children }) => {
-  return <div className="lg:flex">{children}</div>;
+  return <div className="lg:grid lg:grid-cols-5">{children}</div>;
 };
 
-const Col: ComponentWithChildren = ({ children }) => {
+const Col2: ComponentWithChildren = ({ children }) => {
   return (
-    <div className="lg:flex lg:flex-col lg:justify-between">{children}</div>
+    <div className="lg:col-start-1 lg:col-span-2 lg:flex lg:flex-col lg:justify-between ">
+      {children}
+    </div>
+  );
+};
+
+const Col3: ComponentWithChildren = ({ children }) => {
+  return (
+    <div className="lg:col-start-3 lg:col-span-3 lg:flex lg:flex-col lg:justify-between">
+      {children}
+    </div>
   );
 };
 
@@ -146,6 +115,7 @@ type GetProduct = (id: string) => Promise<Product>;
 const getProduct: GetProduct = (id: string) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
+      const product = getProducts(1)[0];
       resolve(product);
     }, 3000);
   });

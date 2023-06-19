@@ -7,10 +7,10 @@ import QuantityControl from "@/components/QuantityControl";
 import { ComponentWithChildren } from "@/types";
 
 type Props = {
-  unitPrice: number;
+  unitPrice?: number;
 };
 
-export default function Footer({ unitPrice }: Props) {
+export default function Footer({ unitPrice = 0 }: Props) {
   const [quantity, setQuantity] = useState(0);
 
   return (

@@ -6,20 +6,51 @@ import Image from "next/image";
 import { useState } from "react";
 
 type Props = {
-  images: { id: string; src: string; alt: string }[];
+  images?: { id: string; src: string; alt: string }[];
   mainImageID?: string;
+  skeleton?: boolean;
 };
 
-export default function Gallery({ images, mainImageID }: Props) {
+export default function Gallery({
+  images,
+  mainImageID,
+  skeleton = false,
+}: Props) {
   const [mainImage, setMainImage] = useState(() => {
-    const image = images.find((image) => image.id === mainImageID);
-
-    if (!image) {
-      throw new Error(`Image with id "${mainImageID}" not found`);
-    }
+    const image = images
+      ? images.find((image) => image.id === mainImageID)
+      : undefined;
 
     return image;
   });
+
+  if (skeleton) {
+    return (
+      <Wrapper>
+        <MainImage>
+          <div className="h-[320px] w-[320px] rounded-lg bg-gray-200 animate-pulse"></div>
+        </MainImage>
+        <List>
+          <Item>
+            <div className="h-[55px] w-[55px] rounded-lg bg-gray-200 animate-pulse"></div>
+          </Item>
+          <Item>
+            <div className="h-[55px] w-[55px] rounded-lg bg-gray-200 animate-pulse"></div>
+          </Item>
+          <Item>
+            <div className="h-[55px] w-[55px] rounded-lg bg-gray-200 animate-pulse"></div>
+          </Item>
+          <Item>
+            <div className="h-[55px] w-[55px] rounded-lg bg-gray-200 animate-pulse"></div>
+          </Item>
+        </List>
+      </Wrapper>
+    );
+  }
+
+  if (!images || !mainImage) {
+    throw new Error("No images provided");
+  }
 
   return (
     <Wrapper>

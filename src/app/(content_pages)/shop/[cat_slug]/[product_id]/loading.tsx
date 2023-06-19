@@ -9,45 +9,41 @@ import Footer from "@/components/product/Footer";
 import { ComponentWithChildren } from "@/types";
 
 export default function Loading() {
-  // const product = getProduct(params.product_id);
-
   return (
     <>
       {/* HEADER */}
       <Section>
         <Title>
-          {/* skelekon */}
-          <div className="w-1/3 h-5 mb-4 bg-gray-300 rounded" />
+          <div className="w-11/12 h-9 mb-4 bg-gray-300 rounded" />
         </Title>
       </Section>
 
       {/* BODY */}
       <Body>
-        <Col>
+        <Col2>
           <Section>
             <GalleryWrapper>
-              {/* skelekon */}
-              <div className="w-1/3 h-5 mb-4 bg-gray-300 rounded" />
+              <Gallery skeleton={true} />
             </GalleryWrapper>
           </Section>
-        </Col>
+        </Col2>
 
         {/* FOOTER */}
-        <Col>
+        <Col3>
           <Section>
             <Content>
               <SubHeader>
                 <H3>Product Details</H3>
               </SubHeader>
-              {/* skelekon */}
-              <div className="w-1/3 h-5 mb-4 bg-gray-300 rounded" />
+              {[...Array(3)].map((_, i) => (
+                <div key={i} className="w-11/12 h-5 mb-4 bg-gray-300 rounded" />
+              ))}
             </Content>
           </Section>
           <Section>
-            {/* skelekon */}
-            <div className="w-1/3 h-5 mb-4 bg-gray-300 rounded" />
+            <Footer />
           </Section>
-        </Col>
+        </Col3>
       </Body>
     </>
   );
@@ -57,18 +53,28 @@ export default function Loading() {
  * Styles
  */
 const Body: ComponentWithChildren = ({ children }) => {
-  return <div className="lg:flex">{children}</div>;
+  return <div className="lg:grid lg:grid-cols-5">{children}</div>;
 };
 
-const Col: ComponentWithChildren = ({ children }) => {
+const Col2: ComponentWithChildren = ({ children }) => {
   return (
-    <div className="lg:flex lg:flex-col lg:justify-between">{children}</div>
+    <div className="lg:col-start-1 lg:col-span-2 lg:flex lg:flex-col lg:justify-between ">
+      {children}
+    </div>
+  );
+};
+
+const Col3: ComponentWithChildren = ({ children }) => {
+  return (
+    <div className="lg:col-start-3 lg:col-span-3 lg:flex lg:flex-col lg:justify-between">
+      {children}
+    </div>
   );
 };
 
 const Title: ComponentWithChildren = ({ children }) => {
   return (
-    <div className="inline-block px-5 ml-4 font-semibold border-b-4 border-red-400">
+    <div className="inline-block px-5 ml-4 font-semibold w-60 border-b-4 border-red-400">
       {children}
     </div>
   );
@@ -79,7 +85,7 @@ const GalleryWrapper: ComponentWithChildren = ({ children }) => {
 };
 
 const Content: ComponentWithChildren = ({ children }) => {
-  return <div className="px-5">{children}</div>;
+  return <div className="px-5 w-full">{children}</div>;
 };
 
 const SubHeader: ComponentWithChildren = ({ children }) => {
@@ -89,18 +95,3 @@ const SubHeader: ComponentWithChildren = ({ children }) => {
     </div>
   );
 };
-
-/**********************
- * Utils
- */
-
-function getProduct(id: string) {
-  const products = getProducts();
-  const product = products.find((product) => product.id === id);
-
-  if (!product) {
-    throw new Error(`Product with id "${id}" not found`);
-  }
-
-  return product;
-}
