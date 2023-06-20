@@ -2,120 +2,15 @@ import Image from "next/image";
 import { ComponentWithChildren, Product as ProductType } from "@/types";
 
 import ConfirmHeroImage from "@/assets/images/confirm-hero-image.jpg";
-import { faker } from "@faker-js/faker";
+
+import getProducts from "@/data/products";
+
 import Link from "next/link";
+import OrderedProductList from "@/components/confirmation/OrderedProductList";
 
-const product: ProductType = {
-  id: faker.string.uuid(),
-  name: faker.commerce.productName(),
-  description: faker.commerce.productDescription(),
-  intro: faker.commerce.productDescription(),
-  link: `/shop/${faker.lorem.slug()}/${faker.lorem.slug()}`,
-  images: [
-    {
-      id: "main_image_id",
-      src: "https://picsum.photos/seed/1/600/600",
-      alt: faker.commerce.productName(),
-    },
-    {
-      id: faker.string.uuid(),
-      src: "https://picsum.photos/seed/2/600/600",
-      alt: faker.commerce.productName(),
-    },
-    {
-      id: faker.string.uuid(),
-      src: "https://picsum.photos/seed/3/600/600",
-      alt: faker.commerce.productName(),
-    },
-    {
-      id: faker.string.uuid(),
-      src: "https://picsum.photos/seed/4/600/600",
-      alt: faker.commerce.productName(),
-    },
-    {
-      id: faker.string.uuid(),
-      src: "https://picsum.photos/seed/5/600/600",
-      alt: faker.commerce.productName(),
-    },
-  ],
-  mainImageID: "main_image_id",
-  price: Number(faker.commerce.price()) / 10,
-};
+export default async function Confirmation() {
+  const products = await getOrderedProducts();
 
-const products: ProductType[] = [
-  {
-    ...product,
-    id: faker.string.uuid(),
-    name: faker.commerce.productName(),
-  },
-  {
-    ...product,
-    id: faker.string.uuid(),
-    name: faker.commerce.productName(),
-  },
-  {
-    ...product,
-    id: faker.string.uuid(),
-    name: faker.commerce.productName(),
-  },
-  {
-    ...product,
-    id: faker.string.uuid(),
-    name: faker.commerce.productName(),
-  },
-  {
-    ...product,
-    id: faker.string.uuid(),
-    name: faker.commerce.productName(),
-  },
-  {
-    ...product,
-    id: faker.string.uuid(),
-    name: faker.commerce.productName(),
-  },
-  {
-    ...product,
-    id: faker.string.uuid(),
-    name: faker.commerce.productName(),
-  },
-  {
-    ...product,
-    id: faker.string.uuid(),
-    name: faker.commerce.productName(),
-  },
-  {
-    ...product,
-    id: faker.string.uuid(),
-    name: faker.commerce.productName(),
-  },
-  {
-    ...product,
-    id: faker.string.uuid(),
-    name: faker.commerce.productName(),
-  },
-  {
-    ...product,
-    id: faker.string.uuid(),
-    name: faker.commerce.productName(),
-  },
-  {
-    ...product,
-    id: faker.string.uuid(),
-    name: faker.commerce.productName(),
-  },
-  {
-    ...product,
-    id: faker.string.uuid(),
-    name: faker.commerce.productName(),
-  },
-  {
-    ...product,
-    id: faker.string.uuid(),
-    name: faker.commerce.productName(),
-  },
-];
-
-export default function Confirmation() {
   return (
     <Wrapper>
       <HeroImage>
@@ -130,14 +25,7 @@ export default function Confirmation() {
       <Content>
         <Header />
         <TrackingNumber number={"51547878755545848512"} />
-
-        <List>
-          {products.map((product) => (
-            <Item key={product.id}>
-              <Product product={product} />
-            </Item>
-          ))}
-        </List>
+        <OrderedProductList products={products} />
         <Total />
 
         <dl className="grid grid-cols-2 mt-16 text-sm text-gray-600 gap-x-4">
@@ -178,19 +66,6 @@ const Content: ComponentWithChildren = ({ children }) => (
   </div>
 );
 
-const List: ComponentWithChildren = ({ children }) => (
-  <ul
-    role="list"
-    className="mt-6 text-sm font-medium text-gray-500 border-t border-gray-200 divide-y divide-gray-200"
-  >
-    {children}
-  </ul>
-);
-
-const Item: ComponentWithChildren = ({ children }) => (
-  <li className="flex py-6 space-x-6">{children}</li>
-);
-
 /*******************
  * Components
  */
@@ -218,36 +93,6 @@ const TrackingNumber = ({ number }: TrackingNumberProps) => (
     <dd className="mt-2 text-blue-600">{number}</dd>
   </dl>
 );
-
-type ProductProps = {
-  product: ProductType;
-};
-
-const Product = ({ product }: ProductProps) => {
-  const mainImage = product.images.find(
-    (image) => image.id === product.mainImageID
-  );
-
-  if (!mainImage)
-    throw new Error(`Main image not found for product ${product.name}`);
-
-  return (
-    <>
-      <img
-        src={mainImage.src}
-        alt={mainImage.alt}
-        className="flex-none object-cover object-center w-24 h-24 bg-gray-100 rounded-md"
-      />
-      <div className="flex-auto space-y-1">
-        <h3 className="text-gray-900">
-          <Link href={product.link}>{product.name}</Link>
-        </h3>
-        <p>{product.intro}</p>
-      </div>
-      <p className="flex-none font-medium text-gray-900">{product.price}</p>
-    </>
-  );
-};
 
 const Total = () => (
   <dl className="pt-6 space-y-6 text-sm font-medium text-gray-500 border-t border-gray-200">
@@ -313,3 +158,19 @@ const PaymentMethod = () => (
     </dd>
   </div>
 );
+
+/***********************
+ * Utilities
+ */
+
+type GetOrderedProducts = () => Promise<ProductType[]>;
+
+const getOrderedProducts: GetOrderedProducts = () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const products = getProducts(4);
+
+      resolve(products);
+    }, 1000);
+  });
+};
