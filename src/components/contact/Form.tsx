@@ -1,52 +1,48 @@
+"use client";
+
 import { ComponentWithChildren } from "@/types";
+import { FormEventHandler, ForwardedRef, forwardRef } from "react";
+
+import { useForm } from "react-hook-form";
+
+// TODO: add form validation
+// TODO: add textarea rows
+// https://dev.to/hellodemola/handle-form-better-in-nextjs-with-react-hook-form-3o61
 
 export default function Form() {
+  const { register, handleSubmit } = useForm();
+
   return (
-    <Wrapper>
+    <Wrapper onSubmit={handleSubmit((data) => console.log(data))}>
       <Body>
         <Col1>
           <Label htmlFor="first-name">First name</Label>
           <InputWrapper>
-            <Input
-              type="text"
-              name="first-name"
-              id="first-name"
-              autoComplete="given-name"
-            />
+            <Input {...register("firstName")} />
           </InputWrapper>
         </Col1>
         <Col1>
           <Label htmlFor="last-name">Last name</Label>
           <InputWrapper>
-            <Input
-              type="text"
-              name="last-name"
-              id="last-name"
-              autoComplete="family-name"
-            />
+            <Input {...register("lastName", { required: true })} />
           </InputWrapper>
         </Col1>
         <Col2>
           <Label htmlFor="email">Email</Label>
           <InputWrapper>
-            <Input type="email" name="email" id="email" autoComplete="email" />
+            <Input {...register("email", { required: true })} />
           </InputWrapper>
         </Col2>
         <Col2>
           <Label htmlFor="phone-number">Phone Number</Label>
           <InputWrapper>
-            <Input
-              type="tel"
-              name="phone-number"
-              id="phone-number"
-              autoComplete="tel"
-            />
+            <Input {...register("phoneNumber", { required: true })} />
           </InputWrapper>
         </Col2>
         <Col2>
           <Label htmlFor="message">Message</Label>
           <InputWrapper>
-            <TextArea name="message" id="message" rows={4} defaultValue={""} />
+            <TextArea {...register("message", { required: true })} />
           </InputWrapper>
         </Col2>
       </Body>
@@ -60,11 +56,18 @@ export default function Form() {
 /*********************
  * Styles
  */
-const Wrapper: ComponentWithChildren = ({ children }) => (
+
+type WrapperProps = {
+  children: React.ReactNode;
+  onSubmit: FormEventHandler<HTMLFormElement>;
+};
+
+const Wrapper = ({ children, onSubmit }: WrapperProps) => (
   <form
     action="#"
     method="POST"
     className="px-6 pt-20 pb-24 sm:pb-32 lg:px-8 lg:py-48"
+    onSubmit={onSubmit}
   >
     {children}
   </form>
@@ -107,39 +110,31 @@ const Footer: ComponentWithChildren = ({ children }) => (
  * Component
  */
 
-type InputProps = {
-  type: string;
-  name: string;
-  id: string;
-  autoComplete: string;
-};
+const Input = forwardRef(function MyInput(
+  props,
+  ref: ForwardedRef<HTMLInputElement>
+) {
+  return (
+    <input
+      ref={ref}
+      {...props}
+      className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-400 sm:text-sm sm:leading-6 focus:outline-none"
+    />
+  );
+});
 
-const Input = ({ type, name, id, autoComplete }: InputProps) => (
-  <input
-    type={type}
-    name={name}
-    id={id}
-    autoComplete={autoComplete}
-    className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-400 sm:text-sm sm:leading-6 focus:outline-none"
-  />
-);
-
-type TextAreaProps = {
-  name: string;
-  id: string;
-  rows: number;
-  defaultValue: string;
-};
-
-const TextArea = ({ name, id, rows, defaultValue }: TextAreaProps) => (
-  <textarea
-    name={name}
-    id={id}
-    rows={rows}
-    className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-400 sm:text-sm sm:leading-6 focus:outline-none"
-    defaultValue={defaultValue}
-  />
-);
+const TextArea = forwardRef(function MyTextArea(
+  props,
+  ref: ForwardedRef<HTMLTextAreaElement>
+) {
+  return (
+    <textarea
+      ref={ref}
+      {...props}
+      className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-400 sm:text-sm sm:leading-6 focus:outline-none"
+    />
+  );
+});
 
 const Button: ComponentWithChildren = ({ children }) => (
   <button

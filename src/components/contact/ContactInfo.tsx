@@ -1,4 +1,4 @@
-import metadata from "@/theme/metadata";
+import {contactInfo} from "@/theme/metadata";
 import { ComponentWithChildren } from "@/types";
 
 import {
@@ -8,7 +8,6 @@ import {
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
-const { contactInfo } = metadata;
 
 export default function ContactInfo() {
   return (
