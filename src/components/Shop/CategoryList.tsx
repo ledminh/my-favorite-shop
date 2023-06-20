@@ -46,12 +46,12 @@ export default function CategoryList({
 
 const Wrapper: ComponentWithChildren = ({ children }) => {
   return (
-    <ul className="grid w-11/12 gap-4 mx-auto mb-10 md:grid-cols-2 lg:grid-cols-3">
+    <ul className="grid w-11/12 grid-cols-2 gap-4 mx-auto mb-10 lg:grid-cols-3">
       {children}
     </ul>
   );
 };
 
 const Item: ComponentWithChildren = ({ children }) => {
-  return <li className="">{children}</li>;
+  return <li className="min-h-[150px]">{children}</li>;
 };
