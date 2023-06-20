@@ -1,6 +1,9 @@
 import { ComponentWithChildren } from "@/types";
 import Header from "@/components/Header";
 
+import Link from "next/link";
+import { copyright } from "@/theme/metadata";
+
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <Wrapper>
@@ -8,7 +11,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <Header full />
       </HeaderWrapper>
       <Main>{children}</Main>
-      <Footer>&copy; {new Date().getFullYear()} Minh Le</Footer>
+      <Footer>
+        <span>&copy;</span>
+        <span>{new Date().getFullYear()}</span>
+        <Link href={copyright.link}>{copyright.holder}</Link>
+      </Footer>
     </Wrapper>
   );
 }
@@ -35,7 +42,7 @@ const Main: ComponentWithChildren = ({ children }) => {
 
 const Footer: ComponentWithChildren = ({ children }) => {
   return (
-    <div className="flex flex-row items-center justify-center p-2 text-white bg-blue-950">
+    <div className="flex items-center justify-center p-2 text-white bg-blue-950 gap-2">
       {children}
     </div>
   );

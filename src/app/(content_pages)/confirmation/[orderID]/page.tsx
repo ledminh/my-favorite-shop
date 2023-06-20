@@ -8,7 +8,14 @@ import getProducts from "@/data/products";
 import Link from "next/link";
 import OrderedProductList from "@/components/confirmation/OrderedProductList";
 
-export default async function Confirmation() {
+type Props = {
+  params: {
+    orderID: string;
+  };
+};
+
+export default async function Confirmation({ params }: Props) {
+  const { orderID } = params;
   const products = await getOrderedProducts();
 
   return (
@@ -23,8 +30,8 @@ export default async function Confirmation() {
       </HeroImage>
 
       <Content>
-        <Header />
-        <TrackingNumber number={"51547878755545848512"} />
+        <Header orderID={orderID} />
+        <TrackingNumber number={orderID} />
         <OrderedProductList products={products} />
         <Total />
 
@@ -70,15 +77,32 @@ const Content: ComponentWithChildren = ({ children }) => (
  * Components
  */
 
-const Header = () => (
+type HeaderProps = {
+  orderID: string;
+};
+
+const Header = ({ orderID }: HeaderProps) => (
   <div className="flex flex-col gap-3">
     <h1 className="text-sm font-medium text-blue-600">Payment successful</h1>
     <p className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-      Thanks for ordering
+      Thanks for ordering.
     </p>
     <p className="mt-2 text-base text-gray-500">
-      We appreciate your order, we’re currently processing it. So hang tight and
-      we’ll send you confirmation very soon!
+      <span>
+        We appreciate your order, we’re currently processing it. So hang tight
+        and it&apos;ll be shipped very soon! In the meantime, you can check your
+        order&apos; status at
+      </span>{" "}
+      <Link
+        className="border-b border-blue-600 font-semibold font-mono"
+        href={`/order/${orderID}`}
+      >
+        {orderID}
+      </Link>
+      <span>.</span>
+    </p>
+    <p className="mt-2 text-base text-gray-500">
+      Feel free to contact us with any questions.
     </p>
   </div>
 );

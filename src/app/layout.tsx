@@ -1,4 +1,3 @@
-import metadata from "@/theme/metadata";
 import "./globals.css";
 import { Inter } from "next/font/google";
 
@@ -9,7 +8,7 @@ import type { ComponentWithChildren } from "@/types";
 import Image from "next/image";
 import homepageBackground from "@/assets/images/homepage_background.jpg";
 
-export { default as metadata } from "@/theme/metadata";
+import { title, description, author } from "@/theme/metadata";
 
 export default function RootLayout({
   children,
@@ -18,6 +17,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <meta charSet="utf-8" />
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <meta name="author" content={author} />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      </head>
       <body className={`${inter.className}`}>
         <BackgroundImage>
           <Image

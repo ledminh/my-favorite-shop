@@ -1,4 +1,5 @@
 import { FC, ReactNode } from "react";
+import ShippingAddress from "./components/cart/ShippingAddress";
 
 export type ComponentWithChildren = FC<{ children: ReactNode }>;
 
@@ -26,4 +27,46 @@ export type Product = {
     src: string;
     alt: string;
   }[];
+};
+
+export type Order = {
+  id: string;
+  shippingAddress: ShippingAddress;
+  orderedProducts: OrderedProduct[];
+  shippingFee: number;
+  taxes: number;
+  paymentInfo: PaymentInfo;
+};
+
+/**********************
+ * Other types
+ */
+type ShippingAddress = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  city: string;
+  country: string;
+  address: string;
+  state: string;
+  zip: string;
+};
+
+type OrderedProduct = {
+  id: string;
+  name: string;
+  price: number;
+  quantity: number;
+  intro: string;
+  link: string;
+  image: {
+    src: string;
+    alt: string;
+  };
+};
+
+type PaymentInfo = {
+  cardType: "Visa" | "MasterCard" | "American Express";
+  lastFourDigits: string;
+  expireDate: Date;
 };
