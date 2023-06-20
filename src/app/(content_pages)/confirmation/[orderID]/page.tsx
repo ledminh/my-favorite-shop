@@ -7,6 +7,7 @@ import getProducts from "@/data/products";
 
 import Link from "next/link";
 import OrderedProductList from "@/components/confirmation/OrderedProductList";
+import Header from "@/components/confirmation/Header";
 
 type Props = {
   params: {
@@ -35,12 +36,12 @@ export default async function Confirmation({ params }: Props) {
         <OrderedProductList products={products} />
         <Total />
 
-        <dl className="grid grid-cols-2 mt-16 text-sm text-gray-600 gap-x-4">
+        <Footer>
           <ShippingAddress />
           <PaymentMethod />
-        </dl>
+        </Footer>
 
-        <div className="py-6 mt-16 text-right border-t border-gray-200">
+        <Navigation>
           <Link
             href="#"
             className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
@@ -48,7 +49,7 @@ export default async function Confirmation({ params }: Props) {
             Continue Shopping
             <span aria-hidden="true"> &rarr;</span>
           </Link>
-        </div>
+        </Navigation>
       </Content>
     </Wrapper>
   );
@@ -73,39 +74,21 @@ const Content: ComponentWithChildren = ({ children }) => (
   </div>
 );
 
+const Footer: ComponentWithChildren = ({ children }) => (
+  <dl className="grid grid-cols-2 mt-16 text-sm text-gray-600 gap-x-4">
+    {children}
+  </dl>
+);
+
+const Navigation: ComponentWithChildren = ({ children }) => (
+  <div className="py-6 mt-16 text-right border-t border-gray-200">
+    {children}
+  </div>
+);
+
 /*******************
  * Components
  */
-
-type HeaderProps = {
-  orderID: string;
-};
-
-const Header = ({ orderID }: HeaderProps) => (
-  <div className="flex flex-col gap-3">
-    <h1 className="text-sm font-medium text-blue-600">Payment successful</h1>
-    <p className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-      Thanks for ordering.
-    </p>
-    <p className="mt-2 text-base text-gray-500">
-      <span>
-        We appreciate your order, we’re currently processing it. So hang tight
-        and it&apos;ll be shipped very soon! In the meantime, you can check your
-        order&apos; status at
-      </span>{" "}
-      <Link
-        className="border-b border-blue-600 font-semibold font-mono"
-        href={`/order/${orderID}`}
-      >
-        {orderID}
-      </Link>
-      <span>.</span>
-    </p>
-    <p className="mt-2 text-base text-gray-500">
-      Feel free to contact us with any questions.
-    </p>
-  </div>
-);
 
 type TrackingNumberProps = {
   number: string;
