@@ -44,12 +44,21 @@ export const Button: Type.Button = ({
   );
 };
 
-export const Input: Type.Input = ({ placeholder = "Search", size = "lg" }) => {
+export const Input: Type.Input = ({
+  placeholder = "Search",
+  size = "lg",
+  onChange,
+  onKeyDown,
+  value,
+}) => {
   if (size === "md") {
     return (
       <input
         className="block w-full px-3 py-1.5 text-sm font-semibold rounded-full text-blue-950 ring-1 ring-inset ring-blue-400 focus:ring-2 focus:ring-inset focus:ring-blue-400 border-0 focus:outline-none"
         placeholder={placeholder}
+        onChange={onChange ? onChange : () => console.log("onChange")}
+        onKeyDown={onKeyDown ? onKeyDown : () => console.log("onKeyDown")}
+        value={value}
       />
     );
   }
@@ -58,6 +67,9 @@ export const Input: Type.Input = ({ placeholder = "Search", size = "lg" }) => {
     <input
       className="block rounded-full px-4 py-2.5 text-lg font-semibold text-blue-950 w-full ring-1 ring-inset ring-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-400 border-0 focus:outline-none"
       placeholder={placeholder}
+      onChange={onChange ? onChange : () => console.log("onChange")}
+      onKeyDown={onKeyDown ? onKeyDown : () => console.log("onKeyDown")}
+      value={value}
     />
   );
 };

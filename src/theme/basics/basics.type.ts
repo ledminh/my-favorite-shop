@@ -14,4 +14,7 @@ export type Button = FC<{
 export type Input = FC<{
   placeholder?: string;
   size?: "lg" | "md";
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  value: string;
 }>;
