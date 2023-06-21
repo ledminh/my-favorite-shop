@@ -30,19 +30,24 @@ export default function ContactPage() {
  * Styles
  */
 const Wrapper: ComponentWithChildren = ({ children }) => (
-  <div className="relative bg-white isolate">
-    <div className="grid grid-cols-1 lg:grid-cols-2">{children}</div>
+  <div className="relative bg-gray isolate">
+    <div className="grid grid-cols-1 lg:grid-cols-2">
+      {children}
+    </div>
   </div>
 );
 
 const ContentWrapper: ComponentWithChildren = ({ children }) => (
-  <div className="relative px-6 pt-24 pb-20 sm:pt-32 lg:static lg:px-8 lg:py-48">
+  <div className="relative px-6 pt-24 pb-20 sm:pt-32 lg:static lg:px-8 lg:py-48 ">
     {children}
   </div>
 );
 
 const BackgroundWrapper: ComponentWithChildren = ({ children }) => (
-  <div className="absolute inset-y-0 left-0 w-full overflow-hidden bg-gray-300 -z-10 ring-1 ring-gray-900/10 lg:w-1/2">
+  <div
+    className="absolute inset-y-0 left-0 w-full  overflow-hidden bg-gray-300 -z-10 ring-1 ring-gray-900/10 lg:w-1/2 
+  "
+  >
     {children}
   </div>
 );

@@ -6,7 +6,7 @@ import { FormEventHandler, ForwardedRef, forwardRef } from "react";
 import { useForm } from "react-hook-form";
 
 // TODO: add form validation
-// TODO: add textarea rows
+
 // https://dev.to/hellodemola/handle-form-better-in-nextjs-with-react-hook-form-3o61
 
 export default function Form() {
@@ -131,7 +131,7 @@ const TextArea = forwardRef(function MyTextArea(
     <textarea
       ref={ref}
       {...props}
-      className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-400 sm:text-sm sm:leading-6 focus:outline-none"
+      className="h-[250px] block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-400 sm:text-sm sm:leading-6 focus:outline-none"
     />
   );
 });

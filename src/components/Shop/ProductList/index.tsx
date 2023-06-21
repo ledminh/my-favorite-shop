@@ -35,7 +35,7 @@ export default function ProductList({ products, skeleton = false }: Props) {
  */
 const List: ComponentWithChildren = ({ children }) => {
   return (
-    <ul className="grid w-11/12 mx-auto mb-5 gap-7 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+    <ul className="grid w-11/12 mx-auto gap-7 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       {children}
     </ul>
   );

@@ -11,6 +11,7 @@ import getDBProducts from "@/data/products";
 import { Category } from "@/types";
 
 import ProductList from "@/components/shop/ProductList";
+import { Button } from "@/theme/basics";
 
 type Props = {
   params: {
@@ -55,6 +56,11 @@ export default async function ShopCategoryPage({
       <Section>
         <ProductList products={products} />
       </Section>
+      <Section>
+        <LoadMore>
+          <Button>Load more</Button>
+        </LoadMore>
+      </Section>
     </>
   );
 }
@@ -69,6 +75,14 @@ const Description: ComponentWithChildren = ({ children }) => {
       <p className="text-lg font-semibold text-center text-red-500">
         {children}
       </p>
+    </div>
+  );
+};
+
+const LoadMore: ComponentWithChildren = ({ children }) => {
+  return (
+    <div className="w-[200px] mx-auto">
+      {children}
     </div>
   );
 };
