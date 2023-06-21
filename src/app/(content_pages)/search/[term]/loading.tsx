@@ -10,7 +10,7 @@ export default function Layout() {
       <Section>
         <Title>
           <H2>
-            Search results for: <Term />
+            Search results for: <Term>...</Term>
           </H2>
         </Title>
       </Section>
@@ -30,6 +30,6 @@ const Title: ComponentWithChildren = ({ children }) => {
   return <div className="pl-5">{children}</div>;
 };
 
-const Term = () => {
-  return <div className="bg-blue-300 w-[200px] inline-block" />;
+const Term: ComponentWithChildren = ({ children }) => {
+  return <span className="bg-blue-300 px-3">{children}</span>;
 };

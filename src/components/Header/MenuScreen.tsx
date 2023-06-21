@@ -20,6 +20,7 @@ export default function MenuScreen({ isMenuOpen, setIsMenuOpen }: Props) {
   const isCurrentPage = (href: string) => {
     return pathname === href;
   };
+
   // close menu when clicking on menu
   useEffect(() => {
     const handleClick = () => {
@@ -54,7 +55,7 @@ export default function MenuScreen({ isMenuOpen, setIsMenuOpen }: Props) {
         </Link>
       ))}
       <SearchBarWrapper>
-        <SearchBar />
+        <SearchBar setIsMenuOpen={setIsMenuOpen} isMenuOpen={isMenuOpen} />
       </SearchBarWrapper>
     </Wrapper>
   );

@@ -7,9 +7,15 @@ import { useRouter } from "next/navigation";
 
 type SearchBarProps = {
   size?: "md" | "lg";
+  setIsMenuOpen?: (isMenuOpen: boolean) => void;
+  isMenuOpen?: boolean;
 };
 
-export default function SearchBar({ size = "lg" }: SearchBarProps) {
+export default function SearchBar({
+  size = "lg",
+  setIsMenuOpen,
+  isMenuOpen,
+}: SearchBarProps) {
   const [term, setTerm] = useState<string>("");
 
   const router = useRouter();
@@ -21,6 +27,8 @@ export default function SearchBar({ size = "lg" }: SearchBarProps) {
   const onKeydown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && term !== "") {
       setTerm("");
+      if (setIsMenuOpen && isMenuOpen) setIsMenuOpen(false);
+
       router.push(`/search/${term}`);
     }
 
