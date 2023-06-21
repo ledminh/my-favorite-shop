@@ -10,7 +10,6 @@ import { ComponentWithChildren, Product } from "@/types";
 
 type Props = {
   params: {
-    cat_slug: string;
     product_id: string;
   };
 };
@@ -21,7 +20,7 @@ export default async function ProductPage({ params }: Props) {
   return (
     <>
       {/* HEADER */}
-      {/* TODO: Add breadcrumbs*/}
+      <Section>Go back to Category</Section>
       <Section>
         <Title>
           <H2>{product.name}</H2>
@@ -48,6 +47,28 @@ export default async function ProductPage({ params }: Props) {
                 <H3>Product Details</H3>
               </SubHeader>
               <p>{product.description}</p>
+              <ul>
+                <li>
+                  <div>Variant 1</div>
+                  <div>Description of variant 1</div>
+                </li>
+                <li>
+                  <div>Variant 2</div>
+                  <div>Description of variant 2</div>
+                </li>
+                <li>
+                  <div>Variant 3</div>
+                  <div>Description of variant 3</div>
+                </li>
+                <li>
+                  <div>Variant 4</div>
+                  <div>Description of variant 4</div>
+                </li>
+                <li>
+                  <div>Variant 5</div>
+                  <div>Description of variant 5</div>
+                </li>
+              </ul>
               {product.promotion && (
                 <Promotion>{product.promotion.description}</Promotion>
               )}

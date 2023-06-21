@@ -1,5 +1,6 @@
 import { FC, ReactNode } from "react";
 import ShippingAddress from "./components/cart/ShippingAddress";
+import { description } from "@/theme/metadata";
 
 export type ComponentWithChildren = FC<{ children: ReactNode }>;
 
