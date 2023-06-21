@@ -13,21 +13,7 @@ type Props = {
 
 export default function Product({ product, skeleton = false }: Props) {
   if (skeleton) {
-    return (
-      <div className="flex flex-col justify-between overflow-hidden rounded-md shadow-lg shadow-neutral-400 hover:ring-4 group">
-        <div className="flex flex-col justify-start">
-          <div className="w-full h-64 bg-gray-200 rounded-md"></div>
-          <div className="flex flex-col items-start justify-between w-full h-20 p-3 bg-gray-200">
-            <div className="w-1/2 h-4 bg-gray-200 rounded"></div>
-            <div className="w-full h-4 bg-gray-200 rounded"></div>
-          </div>
-        </div>
-        <div className="flex flex-col items-start justify-between w-full h-20 p-3 bg-gray-200">
-          <div className="w-full h-4 bg-gray-200 rounded"></div>
-          <div className="w-full h-4 bg-gray-200 rounded"></div>
-        </div>
-      </div>
-    );
+    return <Skeleton />;
   }
 
   if (!product) {
@@ -47,6 +33,7 @@ export default function Product({ product, skeleton = false }: Props) {
             src={mainImage.src}
             alt={mainImage.alt}
             fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             style={{
               objectFit: "cover",
             }}
@@ -94,6 +81,25 @@ const Price: ComponentWithChildren = ({ children }) => {
 const Intro: ComponentWithChildren = ({ children }) => {
   return <div className="italic">{children}</div>;
 };
+
+/*********************
+ * Components
+ */
+const Skeleton = () => (
+  <div className="flex flex-col justify-between overflow-hidden rounded-md shadow-lg shadow-neutral-400 hover:ring-4 group">
+    <div className="flex flex-col justify-start">
+      <div className="w-full h-64 bg-gray-200 rounded-md"></div>
+      <div className="flex flex-col items-start justify-between w-full h-20 p-3 bg-gray-200">
+        <div className="w-1/2 h-4 bg-gray-200 rounded"></div>
+        <div className="w-full h-4 bg-gray-200 rounded"></div>
+      </div>
+    </div>
+    <div className="flex flex-col items-start justify-between w-full h-20 p-3 bg-gray-200">
+      <div className="w-full h-4 bg-gray-200 rounded"></div>
+      <div className="w-full h-4 bg-gray-200 rounded"></div>
+    </div>
+  </div>
+);
 
 /****************
  * Utils

@@ -35,10 +35,9 @@ export default function Block({
         <Image
           src={image.src}
           alt={image.alt}
-          style={{
-            objectFit: "cover",
-          }}
+          className="object-cover"
           fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
       </ImageWrapper>
       <span>{name}</span>
