@@ -88,15 +88,15 @@ const Intro: ComponentWithChildren = ({ children }) => {
 const Skeleton = () => (
   <div className="flex flex-col justify-between overflow-hidden rounded-md shadow-lg shadow-neutral-400 hover:ring-4 group">
     <div className="flex flex-col justify-start">
-      <div className="w-full h-64 bg-gray-200 rounded-md"></div>
+      <div className="w-full h-64 bg-gray-400"></div>
       <div className="flex flex-col items-start justify-between w-full h-20 p-3 bg-gray-200">
-        <div className="w-1/2 h-4 bg-gray-200 rounded"></div>
-        <div className="w-full h-4 bg-gray-200 rounded"></div>
+        <div className="w-1/2 h-4 bg-gray-300 rounded" />
+        <div className="w-full h-4 bg-gray-300 rounded" />
       </div>
     </div>
     <div className="flex flex-col items-start justify-between w-full h-20 p-3 bg-gray-200">
-      <div className="w-full h-4 bg-gray-200 rounded"></div>
-      <div className="w-full h-4 bg-gray-200 rounded"></div>
+      <div className="w-full h-4 bg-gray-300 rounded" />
+      <div className="w-full h-4 bg-gray-300 rounded" />
     </div>
   </div>
 );

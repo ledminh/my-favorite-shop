@@ -5,7 +5,7 @@ let products: Product[] = [];
 
 export default function getProducts(numProducts?: number) {
   if (products.length === 0) {
-    products = _getProducts(numProducts ? numProducts : 20);
+    products = _getProducts(numProducts !== undefined ? numProducts : 20);
   }
 
   return products;
