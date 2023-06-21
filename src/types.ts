@@ -14,6 +14,18 @@ export type Category = {
   };
 };
 
+export type Promotion =
+  | {
+      type: "discount";
+      discountPercent: number;
+      description: string;
+    }
+  | {
+      type: "sale";
+      salePrice: number;
+      description: string;
+    };
+
 export type Product = {
   id: string;
   link: string;
@@ -27,6 +39,7 @@ export type Product = {
     src: string;
     alt: string;
   }[];
+  promotion?: Promotion;
 };
 
 export type Order = {

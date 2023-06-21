@@ -27,7 +27,7 @@ export default function Product({ product, skeleton = false }: Props) {
       href={product.link}
       className="flex flex-col justify-between overflow-hidden rounded-md shadow-lg shadow-neutral-400 hover:ring-4 group"
     >
-      <div className="flex flex-col justify-start">
+      <Content>
         <ImageWrapper>
           <Image
             src={mainImage.src}
@@ -39,17 +39,35 @@ export default function Product({ product, skeleton = false }: Props) {
             }}
             className="transition-all duration-300 group-hover:scale-110"
           />
+          {product.promotion && (
+            <Promotion>{product.promotion.description}</Promotion>
+          )}
           <Price>
-            <H4>${product.price}</H4>
+            {product.promotion && (
+              <div className="text-sm line-through text-white">
+                ${product.price}
+              </div>
+            )}
+            <H4>
+              $
+              {product.promotion
+                ? product.promotion.type === "discount"
+                  ? (
+                      product.price *
+                      (1 - product.promotion.discountPercent / 100)
+                    ).toFixed(2)
+                  : product.promotion.salePrice
+                : product.price}
+            </H4>
           </Price>
         </ImageWrapper>
-        <ContentWrapper>
+        <Text>
           <Title>
             <H3>{product.name}</H3>
           </Title>
           <Intro>{product.intro}</Intro>
-        </ContentWrapper>
-      </div>
+        </Text>
+      </Content>
       <Footer />
     </Link>
   );
@@ -58,24 +76,34 @@ export default function Product({ product, skeleton = false }: Props) {
 /*******************
  * Styles
  */
+const Content: ComponentWithChildren = ({ children }) => {
+  return <div className="flex flex-col justify-start">{children}</div>;
+};
 const ImageWrapper: ComponentWithChildren = ({ children }) => {
   return <div className="relative h-56 overflow-hidden">{children}</div>;
 };
 
-const ContentWrapper: ComponentWithChildren = ({ children }) => {
-  return <div className="flex flex-col justify-start p-3">{children}</div>;
+const Promotion: ComponentWithChildren = ({ children }) => {
+  return (
+    <div className="absolute w-full text-center right-0 top-0 px-2 font-bold text-white transition-all duration-300 bg-red-800/90 group-hover:top-3">
+      {children}
+    </div>
+  );
 };
-
-const Title: ComponentWithChildren = ({ children }) => {
-  return <div className="font-bold">{children}</div>;
-};
-
 const Price: ComponentWithChildren = ({ children }) => {
   return (
     <div className="absolute right-0 px-2 font-bold text-red-400 transition-all duration-300 bottom-1 bg-slate-700/75 group-hover:bottom-3 group-hover:scale-110">
       {children}
     </div>
   );
+};
+
+const Text: ComponentWithChildren = ({ children }) => {
+  return <div className="flex flex-col justify-start p-3">{children}</div>;
+};
+
+const Title: ComponentWithChildren = ({ children }) => {
+  return <div className="font-bold">{children}</div>;
 };
 
 const Intro: ComponentWithChildren = ({ children }) => {

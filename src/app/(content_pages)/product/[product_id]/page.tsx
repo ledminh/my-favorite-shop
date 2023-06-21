@@ -48,10 +48,13 @@ export default async function ProductPage({ params }: Props) {
                 <H3>Product Details</H3>
               </SubHeader>
               <p>{product.description}</p>
+              {product.promotion && (
+                <Promotion>{product.promotion.description}</Promotion>
+              )}
             </Content>
           </Section>
           <Section>
-            <Footer unitPrice={product.price} />
+            <Footer unitPrice={product.price} promotion={product.promotion} />
           </Section>
         </Col3>
       </Body>
@@ -101,6 +104,17 @@ const Content: ComponentWithChildren = ({ children }) => {
 const SubHeader: ComponentWithChildren = ({ children }) => {
   return (
     <div className="inline-block p-1 mb-4 border-b-2 border-red-300">
+      {children}
+    </div>
+  );
+};
+
+/***********************
+ * Components
+ */
+const Promotion: ComponentWithChildren = ({ children }) => {
+  return (
+    <div className="flex items-center justify-center p-2 mt-4 text-lg font-semibold text-center text-red-500 bg-red-100 border-2 border-red-300 rounded-md">
       {children}
     </div>
   );

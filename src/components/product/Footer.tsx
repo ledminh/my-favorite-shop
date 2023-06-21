@@ -4,22 +4,57 @@ import { Button } from "@/theme/basics";
 import { useState } from "react";
 import { H3 } from "@/theme/typography";
 import QuantityControl from "@/components/QuantityControl";
-import { ComponentWithChildren } from "@/types";
+import { ComponentWithChildren, Promotion } from "@/types";
 
 type Props = {
   unitPrice?: number;
+  promotion?: Promotion;
 };
 
-export default function Footer({ unitPrice = 0 }: Props) {
+export default function Footer({ unitPrice = 0, promotion }: Props) {
   const [quantity, setQuantity] = useState(0);
+
+  const unitPriceWithPromotion = promotion
+    ? promotion.type === "discount"
+      ? (unitPrice * (1 - promotion.discountPercent / 100)).toFixed(2)
+      : promotion.salePrice.toFixed(2)
+    : undefined;
 
   return (
     <Wrapper>
       <Price>
-        <H3>UNIT PRICE: ${unitPrice}</H3>
+        <H3>
+          UNIT PRICE:{" "}
+          {promotion && (
+            <span className="line-through text-black font-normal">
+              ${unitPrice.toFixed(2) + " "}
+            </span>
+          )}
+          {unitPriceWithPromotion && (
+            <span className="text-red-700 font-bold">
+              ${unitPriceWithPromotion}
+            </span>
+          )}
+          {
+            // If there is no promotion, show the unit price without promotion
+            !promotion && (
+              <span className="text-red-700 font-bold">
+                ${unitPrice.toFixed(2)}
+              </span>
+            )
+          }
+        </H3>
       </Price>
       <QCWrapper>
-        <span>(Total: ${(unitPrice * quantity).toFixed(2)})</span>
+        <span>
+          (Total: $
+          {(
+            (unitPriceWithPromotion
+              ? Number(unitPriceWithPromotion)
+              : unitPrice) * quantity
+          ).toFixed(2)}
+          )
+        </span>
         <QuantityControl
           quantity={quantity}
           setQuantity={setQuantity}

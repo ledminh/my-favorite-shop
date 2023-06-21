@@ -36,7 +36,7 @@ function _getProducts(num: number): Product[] {
 
     products.push({
       id,
-      link: `/shop/nail-polish/${id}`,
+      link: `/product/${id}`,
       name: faker.commerce.productName(),
       price: Number(faker.commerce.price()) / 10,
       intro: intro,
@@ -44,6 +44,22 @@ function _getProducts(num: number): Product[] {
       mainImageID: images[0].id,
       images,
     });
+
+    if (i % 3 === 0) {
+      products[i].promotion = {
+        type: "discount",
+        discountPercent: 20,
+        description: "Independent day discount: 20%",
+      };
+    }
+
+    if (i === 2) {
+      products[i].promotion = {
+        type: "sale",
+        salePrice: 10,
+        description: "Sale $10",
+      };
+    }
   }
 
   return products;
