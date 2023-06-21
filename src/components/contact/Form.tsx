@@ -5,45 +5,102 @@ import { FormEventHandler, ForwardedRef, forwardRef } from "react";
 
 import { useForm } from "react-hook-form";
 
-// TODO: add form validation
-
 // https://dev.to/hellodemola/handle-form-better-in-nextjs-with-react-hook-form-3o61
 
 export default function Form() {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { isValid, errors },
+  } = useForm();
+
+  const namePattern = /^[a-zA-Z]+$/;
+  const emailPattern = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
+  const phoneNumberPattern = /^[0-9]+$/;
 
   return (
     <Wrapper onSubmit={handleSubmit((data) => console.log(data))}>
       <Body>
         <Col1>
-          <Label htmlFor="first-name">First name</Label>
+          <Label htmlFor="first-name">
+            First name <Asterix />
+          </Label>
           <InputWrapper>
-            <Input {...register("firstName")} />
+            <Input
+              {...register("firstName", {
+                required: true,
+                pattern: namePattern,
+              })}
+            />
           </InputWrapper>
+          {errors?.firstName?.type === "pattern" && (
+            <ErrorMessage>First name can only contain letter</ErrorMessage>
+          )}
+          {errors?.firstName?.type === "required" && (
+            <ErrorMessage>First name is required</ErrorMessage>
+          )}
         </Col1>
         <Col1>
-          <Label htmlFor="last-name">Last name</Label>
+          <Label htmlFor="last-name">
+            Last name <Asterix />
+          </Label>
           <InputWrapper>
-            <Input {...register("lastName", { required: true })} />
+            <Input
+              {...register("lastName", {
+                required: true,
+                pattern: namePattern,
+              })}
+            />
           </InputWrapper>
+          {errors?.lastName?.type === "pattern" && (
+            <ErrorMessage>Last name can only contain letter</ErrorMessage>
+          )}
+          {errors?.lastName?.type === "required" && (
+            <ErrorMessage>Last name is required</ErrorMessage>
+          )}
         </Col1>
         <Col2>
-          <Label htmlFor="email">Email</Label>
+          <Label htmlFor="email">
+            Email <Asterix />
+          </Label>
           <InputWrapper>
-            <Input {...register("email", { required: true })} />
+            <Input
+              {...register("email", { required: true, pattern: emailPattern })}
+            />
           </InputWrapper>
+          {errors?.email?.type === "pattern" && (
+            <ErrorMessage>Invalid email address</ErrorMessage>
+          )}
+          {errors?.email?.type === "required" && (
+            <ErrorMessage>Email is required</ErrorMessage>
+          )}
         </Col2>
         <Col2>
           <Label htmlFor="phone-number">Phone Number</Label>
           <InputWrapper>
-            <Input {...register("phoneNumber", { required: true })} />
+            <Input
+              {...register("phoneNumber", {
+                pattern: phoneNumberPattern,
+              })}
+            />
           </InputWrapper>
+          {errors?.phoneNumber?.type === "pattern" && (
+            <ErrorMessage>Phone number can only contain number</ErrorMessage>
+          )}
         </Col2>
         <Col2>
-          <Label htmlFor="message">Message</Label>
+          <Label htmlFor="message">
+            Message <Asterix />
+          </Label>
           <InputWrapper>
             <TextArea {...register("message", { required: true })} />
           </InputWrapper>
+          {errors?.message?.type === "required" && (
+            <ErrorMessage>Message is required</ErrorMessage>
+          )}
+        </Col2>
+        <Col2>
+          <Note>(*) Required</Note>
         </Col2>
       </Body>
       <Footer>
@@ -96,6 +153,16 @@ const InputWrapper: ComponentWithChildren = ({ children }) => (
   <div className="mt-2.5">{children}</div>
 );
 
+const ErrorMessage: ComponentWithChildren = ({ children }) => (
+  <div className="mt-2.5 text-red-600 text-sm italic font-semibold">
+    {children}
+  </div>
+);
+
+const Note: ComponentWithChildren = ({ children }) => (
+  <p className="mt-2.5 text-sm text-gray-500">{children}</p>
+);
+
 const Col1: ComponentWithChildren = ({ children }) => <div>{children}</div>;
 
 const Col2: ComponentWithChildren = ({ children }) => (
@@ -109,6 +176,8 @@ const Footer: ComponentWithChildren = ({ children }) => (
 /****************
  * Component
  */
+
+const Asterix = () => <span className="text-xs align-super">*</span>;
 
 const Input = forwardRef(function MyInput(
   props,
@@ -136,10 +205,14 @@ const TextArea = forwardRef(function MyTextArea(
   );
 });
 
-const Button: ComponentWithChildren = ({ children }) => (
+type ButtonProps = {
+  children: React.ReactNode;
+};
+
+const Button = ({ children }: ButtonProps) => (
   <button
     type="submit"
-    className="rounded-md bg-blue-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 transition duration-150 ease-in-out"
+    className="rounded-md bg-blue-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 transition duration-150 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed"
   >
     {children}
   </button>
