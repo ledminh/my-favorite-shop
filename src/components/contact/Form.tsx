@@ -7,6 +7,12 @@ import { useState, FormEventHandler, ForwardedRef, forwardRef } from "react";
 
 import { useForm } from "react-hook-form";
 
+import {
+  namePattern,
+  emailPattern,
+  phoneNumberPattern,
+} from "@/utils/regexPatterns";
+
 export default function Form() {
   const {
     register,
@@ -25,13 +31,11 @@ export default function Form() {
     return <AfterSentMessage />;
   }
 
-  const { namePattern, emailPattern, phoneNumberPattern } = getPatterns();
-
   return (
     <FormWrapper onSubmit={handleSubmit(onSubmit)}>
       <Body>
         <Col1>
-          <Label htmlFor="first-name">
+          <Label htmlFor="firstName">
             First name <Asterix />
           </Label>
           <InputWrapper>
@@ -50,7 +54,7 @@ export default function Form() {
           )}
         </Col1>
         <Col1>
-          <Label htmlFor="last-name">
+          <Label htmlFor="lastName">
             Last name <Asterix />
           </Label>
           <InputWrapper>
@@ -85,7 +89,7 @@ export default function Form() {
           )}
         </Col2>
         <Col2>
-          <Label htmlFor="phone-number">Phone Number</Label>
+          <Label htmlFor="phoneNumber">Phone Number</Label>
           <InputWrapper>
             <Input
               {...register("phoneNumber", {
@@ -235,14 +239,3 @@ const Button = ({ children }: ButtonProps) => (
     {children}
   </button>
 );
-
-/****************
- * Utils
- */
-const getPatterns = () => {
-  const namePattern = /^[a-zA-Z]+$/;
-  const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-  const phoneNumberPattern = /^[0-9]+$/;
-
-  return { namePattern, emailPattern, phoneNumberPattern };
-};

@@ -1,9 +1,26 @@
+"use client";
+
 import { ComponentWithChildren } from "@/types";
 
 import { H2 } from "@/theme/typography";
 import { Button } from "@/theme/basics";
+import { ForwardedRef, forwardRef } from "react";
+
+import { useForm } from "react-hook-form";
+
+import {
+  namePattern,
+  emailPattern,
+  numberPattern,
+} from "@/utils/regexPatterns";
 
 export default function ShippingAddress() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
   return (
     <Wrapper>
       <Title>
@@ -12,13 +29,13 @@ export default function ShippingAddress() {
       <Form>
         <Grid6>
           <Col3>
-            <Label htmlFor="first-name">First name</Label>
+            <Label htmlFor="firstName">First name</Label>
             <InputWrapper>
               <Input
-                type="text"
-                name="first-name"
-                id="first-name"
-                autoComplete="given-name"
+                {...register("firstName", {
+                  required: true,
+                  pattern: namePattern,
+                })}
               />
             </InputWrapper>
           </Col3>
@@ -27,47 +44,11 @@ export default function ShippingAddress() {
             <Label htmlFor="last-name">Last name</Label>
             <InputWrapper>
               <Input
-                type="text"
-                name="last-name"
-                id="last-name"
-                autoComplete="family-name"
+                {...register("lastName", {
+                  required: true,
+                  pattern: namePattern,
+                })}
               />
-            </InputWrapper>
-          </Col3>
-
-          <ColFull>
-            <Label htmlFor="email">Email address</Label>
-            <InputWrapper>
-              <Input type="text" name="email" id="email" autoComplete="email" />
-            </InputWrapper>
-          </ColFull>
-
-          <Col3>
-            <Label htmlFor="city">City</Label>
-            <InputWrapper>
-              <Input
-                type="text"
-                name="city"
-                id="city"
-                autoComplete="address-level2"
-              />
-            </InputWrapper>
-          </Col3>
-
-          <Col3>
-            <Label htmlFor="country">Country</Label>
-
-            <InputWrapper>
-              <select
-                id="country"
-                name="country"
-                autoComplete="country-name"
-                className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-              >
-                <option>United States</option>
-                <option>Canada</option>
-                <option>Mexico</option>
-              </select>
             </InputWrapper>
           </Col3>
 
@@ -75,10 +56,9 @@ export default function ShippingAddress() {
             <Label htmlFor="street-address">Street address</Label>
             <InputWrapper>
               <Input
-                type="text"
-                name="street-address"
-                id="street-address"
-                autoComplete="street-address"
+                {...register("streetAddress", {
+                  required: true,
+                })}
               />
             </InputWrapper>
           </ColFull>
@@ -86,26 +66,66 @@ export default function ShippingAddress() {
           <Col3>
             <Label htmlFor="state">State / Province</Label>
             <InputWrapper>
+              <select
+                id="country"
+                name="country"
+                autoComplete="country-name"
+                className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+              >
+                <option />
+                <option>California</option>
+                <option>Texas</option>
+                <option>South Carolina</option>
+              </select>
+            </InputWrapper>
+          </Col3>
+
+          <Col3>
+            <Label htmlFor="city">City</Label>
+            <InputWrapper>
               <Input
-                type="text"
-                name="state"
-                id="state"
-                autoComplete="address-level1"
+                {...register("city", {
+                  required: true,
+                  pattern: namePattern,
+                })}
               />
             </InputWrapper>
           </Col3>
 
           <Col3>
-            <Label htmlFor="postal-code">ZIP / Postal</Label>
+            <Label htmlFor="zip">ZIP / Postal</Label>
             <InputWrapper>
               <Input
-                type="text"
-                name="postal-code"
-                id="postal-code"
-                autoComplete="postal-code"
+                {...register("zip", {
+                  required: true,
+                  pattern: numberPattern,
+                })}
               />
             </InputWrapper>
           </Col3>
+          <Col3>
+            <Label htmlFor="phone">Phone</Label>
+            <InputWrapper>
+              <Input
+                {...register("phone", {
+                  required: true,
+                  pattern: numberPattern,
+                })}
+              />
+            </InputWrapper>
+          </Col3>
+
+          <ColFull>
+            <Label htmlFor="email">Email address</Label>
+            <InputWrapper>
+              <Input
+                {...register("email", {
+                  required: true,
+                  pattern: emailPattern,
+                })}
+              />
+            </InputWrapper>
+          </ColFull>
         </Grid6>
       </Form>
       <div className="flex content-center justify-center px-8 pt-6">
@@ -144,10 +164,6 @@ const Col3: ComponentWithChildren = ({ children }) => (
   <div className="sm:col-span-3">{children}</div>
 );
 
-const Col4: ComponentWithChildren = ({ children }) => (
-  <div className="sm:col-span-4">{children}</div>
-);
-
 const ColFull: ComponentWithChildren = ({ children }) => (
   <div className="sm:col-span-full">{children}</div>
 );
@@ -173,12 +189,16 @@ type InputProps = {
   id: string;
   autoComplete: string;
 };
-const Input = ({ type, name, id, autoComplete }: InputProps) => (
-  <input
-    type={type}
-    name={name}
-    id={id}
-    autoComplete={autoComplete}
-    className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-  />
-);
+
+const Input = forwardRef(function MyInput(
+  props,
+  ref: ForwardedRef<HTMLInputElement>
+) {
+  return (
+    <input
+      ref={ref}
+      {...props}
+      className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+    />
+  );
+});

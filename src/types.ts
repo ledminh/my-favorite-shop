@@ -1,5 +1,4 @@
 import { FC, ReactNode } from "react";
-import ShippingAddress from "./components/cart/ShippingAddress";
 import OrderedProduct from "./components/confirmation/OrderedProduct";
 
 export type ComponentWithChildren = FC<{ children: ReactNode }>;
@@ -62,12 +61,12 @@ export type Order = {
 type ShippingAddress = {
   firstName: string;
   lastName: string;
-  email: string;
-  city: string;
-  country: string;
-  address: string;
+  streetAddress: string;
   state: string;
+  city: string;
   zip: string;
+  phone: string;
+  email: string;
 };
 
 type PaymentInfo = {
