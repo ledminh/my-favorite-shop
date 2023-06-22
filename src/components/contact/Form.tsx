@@ -1,25 +1,34 @@
 "use client";
 
+import { CheckCircleIcon } from "@/theme/Icons";
 import { ComponentWithChildren } from "@/types";
-import { FormEventHandler, ForwardedRef, forwardRef } from "react";
+
+import { useState, FormEventHandler, ForwardedRef, forwardRef } from "react";
 
 import { useForm } from "react-hook-form";
-
-// https://dev.to/hellodemola/handle-form-better-in-nextjs-with-react-hook-form-3o61
 
 export default function Form() {
   const {
     register,
     handleSubmit,
-    formState: { isValid, errors },
+    formState: { errors },
   } = useForm();
 
-  const namePattern = /^[a-zA-Z]+$/;
-  const emailPattern = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
-  const phoneNumberPattern = /^[0-9]+$/;
+  const [sent, setSent] = useState(false);
+
+  const onSubmit = (data: any) => {
+    console.log(data);
+    setSent(true);
+  };
+
+  if (sent) {
+    return <AfterSentMessage />;
+  }
+
+  const { namePattern, emailPattern, phoneNumberPattern } = getPatterns();
 
   return (
-    <Wrapper onSubmit={handleSubmit((data) => console.log(data))}>
+    <FormWrapper onSubmit={handleSubmit(onSubmit)}>
       <Body>
         <Col1>
           <Label htmlFor="first-name">
@@ -106,7 +115,7 @@ export default function Form() {
       <Footer>
         <Button>Send message</Button>
       </Footer>
-    </Wrapper>
+    </FormWrapper>
   );
 }
 
@@ -119,7 +128,7 @@ type WrapperProps = {
   onSubmit: FormEventHandler<HTMLFormElement>;
 };
 
-const Wrapper = ({ children, onSubmit }: WrapperProps) => (
+const FormWrapper = ({ children, onSubmit }: WrapperProps) => (
   <form
     action="#"
     method="POST"
@@ -177,7 +186,7 @@ const Footer: ComponentWithChildren = ({ children }) => (
  * Component
  */
 
-const Asterix = () => <span className="text-xs align-super">*</span>;
+const Asterix = () => <span className="text-xs align-super">(*)</span>;
 
 const Input = forwardRef(function MyInput(
   props,
@@ -191,6 +200,15 @@ const Input = forwardRef(function MyInput(
     />
   );
 });
+
+const AfterSentMessage = () => (
+  <div className="flex flex-col items-center justify-center h-[900px] px-10 gap-4">
+    <CheckCircleIcon className="w-24 h-24 text-gray-600" />
+    <div className="text-2xl font-semibold text-center text-gray-600">
+      Thank you for your message. We will get back to you as soon as possible.
+    </div>
+  </div>
+);
 
 const TextArea = forwardRef(function MyTextArea(
   props,
@@ -217,3 +235,14 @@ const Button = ({ children }: ButtonProps) => (
     {children}
   </button>
 );
+
+/****************
+ * Utils
+ */
+const getPatterns = () => {
+  const namePattern = /^[a-zA-Z]+$/;
+  const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+  const phoneNumberPattern = /^[0-9]+$/;
+
+  return { namePattern, emailPattern, phoneNumberPattern };
+};

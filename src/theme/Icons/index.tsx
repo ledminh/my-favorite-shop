@@ -120,12 +120,31 @@ export const NotFoundIcon: Type.Icon = ({ className }) => {
       viewBox="0 0 24 24"
       strokeWidth={2}
       stroke="currentColor"
-      className="w-12 h-12"
+      className={"w-12 h-12 " + className}
     >
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
         d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"
+      />
+    </svg>
+  );
+};
+
+export const CheckCircleIcon: Type.Icon = ({ className }) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.5}
+      stroke="currentColor"
+      className={className}
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
       />
     </svg>
   );
