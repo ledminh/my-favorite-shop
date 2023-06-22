@@ -9,6 +9,7 @@ export type Button = FC<{
   href?: string;
   onClick?: MouseEventHandler<HTMLButtonElement>;
   children: ReactNode;
+  buttonType?: "submit";
 }>;
 
 export type Input = FC<{

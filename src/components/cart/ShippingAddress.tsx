@@ -8,6 +8,8 @@ import { ForwardedRef, forwardRef } from "react";
 
 import { useForm } from "react-hook-form";
 
+import FormErrorMessage from "@/theme/FormErrorMessage";
+
 import {
   namePattern,
   emailPattern,
@@ -21,116 +23,162 @@ export default function ShippingAddress() {
     formState: { errors },
   } = useForm();
 
+  const onSubmit = (data: any) => {
+    console.log(data);
+  };
+
   return (
     <Wrapper>
       <Title>
         <H2>Shipping Address</H2>
       </Title>
-      <Form>
-        <Grid6>
-          <Col3>
-            <Label htmlFor="firstName">First name</Label>
-            <InputWrapper>
-              <Input
-                {...register("firstName", {
-                  required: true,
-                  pattern: namePattern,
-                })}
-              />
-            </InputWrapper>
-          </Col3>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <div className="px-4 py-6 sm:p-8 border-y-2">
+          <Grid6>
+            <Col3>
+              <Label htmlFor="firstName">First name</Label>
+              <InputWrapper>
+                <Input
+                  {...register("firstName", {
+                    required: true,
+                    pattern: namePattern,
+                  })}
+                />
+              </InputWrapper>
+              {errors?.firstName?.type === "pattern" && (
+                <FormErrorMessage>
+                  First name can only contain letter
+                </FormErrorMessage>
+              )}
+              {errors?.firstName?.type === "required" && (
+                <FormErrorMessage>First name is required</FormErrorMessage>
+              )}
+            </Col3>
 
-          <Col3>
-            <Label htmlFor="lastName">Last name</Label>
-            <InputWrapper>
-              <Input
-                {...register("lastName", {
-                  required: true,
-                  pattern: namePattern,
-                })}
-              />
-            </InputWrapper>
-          </Col3>
+            <Col3>
+              <Label htmlFor="lastName">Last name</Label>
+              <InputWrapper>
+                <Input
+                  {...register("lastName", {
+                    required: true,
+                    pattern: namePattern,
+                  })}
+                />
+              </InputWrapper>
+              {errors?.lastName?.type === "pattern" && (
+                <FormErrorMessage>
+                  Last name can only contain letter
+                </FormErrorMessage>
+              )}
+              {errors?.lastName?.type === "required" && (
+                <FormErrorMessage>Last name is required</FormErrorMessage>
+              )}
+            </Col3>
 
-          <ColFull>
-            <Label htmlFor="streetAddress">Street address</Label>
-            <InputWrapper>
-              <Input
-                {...register("streetAddress", {
-                  required: true,
-                })}
-              />
-            </InputWrapper>
-          </ColFull>
+            <ColFull>
+              <Label htmlFor="streetAddress">Street address</Label>
+              <InputWrapper>
+                <Input
+                  {...register("streetAddress", {
+                    required: true,
+                  })}
+                />
+              </InputWrapper>
+              {errors?.streetAddress?.type === "required" && (
+                <FormErrorMessage>Street address is required</FormErrorMessage>
+              )}
+            </ColFull>
 
-          <Col3>
-            <Label htmlFor="state">State / Province</Label>
-            <InputWrapper>
-              <select
-                id="country"
-                name="country"
-                autoComplete="country-name"
-                className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-              >
-                <option />
-                <option>California</option>
-                <option>Texas</option>
-                <option>South Carolina</option>
-              </select>
-            </InputWrapper>
-          </Col3>
+            <Col3>
+              <Label htmlFor="state">State / Province</Label>
+              <InputWrapper>
+                <select
+                  id="country"
+                  name="country"
+                  autoComplete="country-name"
+                  className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                >
+                  <option />
+                  <option>California</option>
+                  <option>Texas</option>
+                  <option>South Carolina</option>
+                </select>
+              </InputWrapper>
+            </Col3>
 
-          <Col3>
-            <Label htmlFor="city">City</Label>
-            <InputWrapper>
-              <Input
-                {...register("city", {
-                  required: true,
-                  pattern: namePattern,
-                })}
-              />
-            </InputWrapper>
-          </Col3>
+            <Col3>
+              <Label htmlFor="city">City</Label>
+              <InputWrapper>
+                <Input
+                  {...register("city", {
+                    required: true,
+                    pattern: namePattern,
+                  })}
+                />
+              </InputWrapper>
+              {errors?.city?.type === "required" && (
+                <FormErrorMessage>City is required</FormErrorMessage>
+              )}
+            </Col3>
 
-          <Col3>
-            <Label htmlFor="zip">ZIP / Postal</Label>
-            <InputWrapper>
-              <Input
-                {...register("zip", {
-                  required: true,
-                  pattern: numberPattern,
-                })}
-              />
-            </InputWrapper>
-          </Col3>
-          <Col3>
-            <Label htmlFor="phone">Phone</Label>
-            <InputWrapper>
-              <Input
-                {...register("phone", {
-                  required: true,
-                  pattern: numberPattern,
-                })}
-              />
-            </InputWrapper>
-          </Col3>
+            <Col3>
+              <Label htmlFor="zip">ZIP / Postal</Label>
+              <InputWrapper>
+                <Input
+                  {...register("zip", {
+                    required: true,
+                    pattern: numberPattern,
+                  })}
+                />
+              </InputWrapper>
+              {errors?.zip?.type === "required" && (
+                <FormErrorMessage>Zip code is required</FormErrorMessage>
+              )}
+              {errors?.zip?.type === "pattern" && (
+                <FormErrorMessage>
+                  Zip code can only contain number
+                </FormErrorMessage>
+              )}
+            </Col3>
+            <Col3>
+              <Label htmlFor="phone">Phone</Label>
+              <InputWrapper>
+                <Input
+                  {...register("phone", {
+                    pattern: numberPattern,
+                  })}
+                />
+              </InputWrapper>
+              {errors?.phone?.type === "pattern" && (
+                <FormErrorMessage>
+                  Phone can only contain number
+                </FormErrorMessage>
+              )}
+            </Col3>
 
-          <ColFull>
-            <Label htmlFor="email">Email address</Label>
-            <InputWrapper>
-              <Input
-                {...register("email", {
-                  required: true,
-                  pattern: emailPattern,
-                })}
-              />
-            </InputWrapper>
-          </ColFull>
-        </Grid6>
+            <ColFull>
+              <Label htmlFor="email">Email address</Label>
+              <InputWrapper>
+                <Input
+                  {...register("email", {
+                    required: true,
+                    pattern: emailPattern,
+                  })}
+                />
+              </InputWrapper>
+              {errors?.email?.type === "pattern" && (
+                <FormErrorMessage>Invalid email address</FormErrorMessage>
+              )}
+              {errors?.email?.type === "required" && (
+                <FormErrorMessage>Email is required</FormErrorMessage>
+              )}
+            </ColFull>
+          </Grid6>
+        </div>
+        <div className="flex content-center justify-center px-8 pt-6">
+          <Button>Continue to Payment</Button>
+        </div>
       </Form>
-      <div className="flex content-center justify-center px-8 pt-6">
-        <Button>Continue to Payment</Button>
-      </div>
     </Wrapper>
   );
 }
@@ -148,9 +196,14 @@ const Title: ComponentWithChildren = ({ children }) => (
   <div className="px-5 font-semibold">{children}</div>
 );
 
-const Form: ComponentWithChildren = ({ children }) => (
-  <form className="mt-10 border-y-2 border-blue-950/30">
-    <div className="px-4 py-6 sm:p-8">{children}</div>
+type FormProps = {
+  children: React.ReactNode;
+  onSubmit: (data: any) => void;
+};
+
+const Form = ({ children, onSubmit }: FormProps) => (
+  <form className="mt-10  border-blue-950/30" onSubmit={onSubmit}>
+    {children}
   </form>
 );
 

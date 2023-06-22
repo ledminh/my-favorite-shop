@@ -30,6 +30,7 @@ export const Button: Type.Button = ({
   border = "rounded",
   href = "/",
   onClick,
+  buttonType,
 }) => {
   const classNames = `block text-center font-semibold text-blue-950 ring-2 ring-inset w-full ${buttonColor[color]} ${buttonSize[size]} ${borderShape[border]}`;
 
@@ -38,7 +39,7 @@ export const Button: Type.Button = ({
       {children}
     </Link>
   ) : (
-    <button className={classNames} onClick={onClick}>
+    <button className={classNames} onClick={onClick} type={buttonType}>
       {children}
     </button>
   );

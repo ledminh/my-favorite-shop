@@ -7,6 +7,8 @@ import { useState, FormEventHandler, ForwardedRef, forwardRef } from "react";
 
 import { useForm } from "react-hook-form";
 
+import FormErrorMessage from "@/theme/FormErrorMessage";
+
 import {
   namePattern,
   emailPattern,
@@ -47,10 +49,12 @@ export default function Form() {
             />
           </InputWrapper>
           {errors?.firstName?.type === "pattern" && (
-            <ErrorMessage>First name can only contain letter</ErrorMessage>
+            <FormErrorMessage>
+              First name can only contain letter
+            </FormErrorMessage>
           )}
           {errors?.firstName?.type === "required" && (
-            <ErrorMessage>First name is required</ErrorMessage>
+            <FormErrorMessage>First name is required</FormErrorMessage>
           )}
         </Col1>
         <Col1>
@@ -66,10 +70,12 @@ export default function Form() {
             />
           </InputWrapper>
           {errors?.lastName?.type === "pattern" && (
-            <ErrorMessage>Last name can only contain letter</ErrorMessage>
+            <FormErrorMessage>
+              Last name can only contain letter
+            </FormErrorMessage>
           )}
           {errors?.lastName?.type === "required" && (
-            <ErrorMessage>Last name is required</ErrorMessage>
+            <FormErrorMessage>Last name is required</FormErrorMessage>
           )}
         </Col1>
         <Col2>
@@ -82,10 +88,10 @@ export default function Form() {
             />
           </InputWrapper>
           {errors?.email?.type === "pattern" && (
-            <ErrorMessage>Invalid email address</ErrorMessage>
+            <FormErrorMessage>Invalid email address</FormErrorMessage>
           )}
           {errors?.email?.type === "required" && (
-            <ErrorMessage>Email is required</ErrorMessage>
+            <FormErrorMessage>Email is required</FormErrorMessage>
           )}
         </Col2>
         <Col2>
@@ -98,7 +104,9 @@ export default function Form() {
             />
           </InputWrapper>
           {errors?.phoneNumber?.type === "pattern" && (
-            <ErrorMessage>Phone number can only contain number</ErrorMessage>
+            <FormErrorMessage>
+              Phone number can only contain number
+            </FormErrorMessage>
           )}
         </Col2>
         <Col2>
@@ -109,7 +117,7 @@ export default function Form() {
             <TextArea {...register("message", { required: true })} />
           </InputWrapper>
           {errors?.message?.type === "required" && (
-            <ErrorMessage>Message is required</ErrorMessage>
+            <FormErrorMessage>Message is required</FormErrorMessage>
           )}
         </Col2>
         <Col2>
@@ -164,12 +172,6 @@ const Label = ({ children, htmlFor }: LabelProps) => (
 
 const InputWrapper: ComponentWithChildren = ({ children }) => (
   <div className="mt-2.5">{children}</div>
-);
-
-const ErrorMessage: ComponentWithChildren = ({ children }) => (
-  <div className="mt-2.5 text-red-600 text-sm italic font-semibold">
-    {children}
-  </div>
 );
 
 const Note: ComponentWithChildren = ({ children }) => (
