@@ -41,7 +41,7 @@ export default function ShippingAddress() {
           </Col3>
 
           <Col3>
-            <Label htmlFor="last-name">Last name</Label>
+            <Label htmlFor="lastName">Last name</Label>
             <InputWrapper>
               <Input
                 {...register("lastName", {
@@ -53,7 +53,7 @@ export default function ShippingAddress() {
           </Col3>
 
           <ColFull>
-            <Label htmlFor="street-address">Street address</Label>
+            <Label htmlFor="streetAddress">Street address</Label>
             <InputWrapper>
               <Input
                 {...register("streetAddress", {

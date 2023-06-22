@@ -10,7 +10,7 @@ import { useForm } from "react-hook-form";
 import {
   namePattern,
   emailPattern,
-  phoneNumberPattern,
+  numberPattern,
 } from "@/utils/regexPatterns";
 
 export default function Form() {
@@ -93,7 +93,7 @@ export default function Form() {
           <InputWrapper>
             <Input
               {...register("phoneNumber", {
-                pattern: phoneNumberPattern,
+                pattern: numberPattern,
               })}
             />
           </InputWrapper>
