@@ -1,49 +1,27 @@
-import { ComponentWithChildren, Product as ProductType } from "@/types";
-import { faker } from "@faker-js/faker";
+"use client";
+
+import { ComponentWithChildren } from "@/types";
+
+import { useState, useEffect } from "react";
 
 import Section from "@/theme/Section";
 import { H2 } from "@/theme/typography";
-import Product from "@/components/cart/Product";
+import OrderedProduct from "@/components/cart/OrderedProduct";
 
-const id = faker.string.uuid();
-const product: ProductType = {
-  id,
-  name: faker.commerce.productName(),
-  description: faker.commerce.productDescription(),
-  intro: faker.commerce.productDescription(),
-  link: `/shop/${faker.lorem.slug()}/${id}`,
-  images: [
-    {
-      id: "main_image_id",
-      src: "https://picsum.photos/seed/1/600/600",
-      alt: faker.commerce.productName(),
-    },
-    {
-      id: faker.string.uuid(),
-      src: "https://picsum.photos/seed/2/600/600",
-      alt: faker.commerce.productName(),
-    },
-    {
-      id: faker.string.uuid(),
-      src: "https://picsum.photos/seed/3/600/600",
-      alt: faker.commerce.productName(),
-    },
-    {
-      id: faker.string.uuid(),
-      src: "https://picsum.photos/seed/4/600/600",
-      alt: faker.commerce.productName(),
-    },
-    {
-      id: faker.string.uuid(),
-      src: "https://picsum.photos/seed/5/600/600",
-      alt: faker.commerce.productName(),
-    },
-  ],
-  mainImageID: "main_image_id",
-  price: Number(faker.commerce.price()) / 10,
-};
+import getProducts from "@/data/products";
+
+import type { OrderedProduct as OrderedProductType } from "@/types";
+import { faker } from "@faker-js/faker";
 
 export default function ShoppingCart() {
+  const [orderedProducts, setOrderedProducts] = useState<OrderedProductType[]>(
+    []
+  );
+
+  useEffect(() => {
+    setOrderedProducts(getOrderedProducts(5));
+  }, []);
+
   return (
     <Wrapper>
       <Title>
@@ -51,15 +29,11 @@ export default function ShoppingCart() {
       </Title>
       <Section>
         <List>
-          <Item>
-            <Product product={product} />
-          </Item>
-          <Item>
-            <Product product={product} />
-          </Item>
-          <Item>
-            <Product product={product} />
-          </Item>
+          {orderedProducts.map((orderedProduct) => (
+            <Item key={orderedProduct.id}>
+              <OrderedProduct orderedProduct={orderedProduct} />
+            </Item>
+          ))}
         </List>
       </Section>
       <Section>
@@ -107,3 +81,22 @@ const TotalLabel: ComponentWithChildren = ({ children }) => (
 const TotalPrice: ComponentWithChildren = ({ children }) => (
   <div className="text-red-700">{children}</div>
 );
+
+/*********************
+ * Utils
+ */
+
+const getOrderedProducts = (count: number): OrderedProductType[] => {
+  const products = getProducts(count);
+  const orderedProducts: OrderedProductType[] = [];
+
+  for (let i = 0; i < count; i++) {
+    const product = products[i];
+    orderedProducts.push({
+      ...product,
+      quantity: faker.number.int({ min: 1, max: 10 }),
+    });
+  }
+
+  return orderedProducts;
+};

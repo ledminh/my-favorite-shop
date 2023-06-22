@@ -1,6 +1,6 @@
 import { FC, ReactNode } from "react";
 import ShippingAddress from "./components/cart/ShippingAddress";
-import { description } from "@/theme/metadata";
+import OrderedProduct from "./components/confirmation/OrderedProduct";
 
 export type ComponentWithChildren = FC<{ children: ReactNode }>;
 
@@ -43,6 +43,10 @@ export type Product = {
   promotion?: Promotion;
 };
 
+export type OrderedProduct = Product & {
+  quantity: number;
+};
+
 export type Order = {
   id: string;
   shippingAddress: ShippingAddress;
@@ -64,19 +68,6 @@ type ShippingAddress = {
   address: string;
   state: string;
   zip: string;
-};
-
-type OrderedProduct = {
-  id: string;
-  name: string;
-  price: number;
-  quantity: number;
-  intro: string;
-  link: string;
-  image: {
-    src: string;
-    alt: string;
-  };
 };
 
 type PaymentInfo = {

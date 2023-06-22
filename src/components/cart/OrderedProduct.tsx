@@ -1,16 +1,19 @@
 "use client";
 
-import { Product as ProductType } from "@/types";
+import { useState } from "react";
+import { OrderedProduct as OrderedProductType } from "@/types";
 import { ComponentWithChildren } from "@/types";
 import Image from "next/image";
 import QuantityControl from "@/components/QuantityControl";
 
 type Props = {
-  product: ProductType;
+  orderedProduct: OrderedProductType;
 };
 
-export default function Product({ product }: Props) {
-  const mainImage = getMainImage(product);
+export default function OrderedProduct({ orderedProduct }: Props) {
+  const mainImage = getMainImage(orderedProduct);
+
+  const [quantity, setQuantity] = useState(orderedProduct.quantity);
 
   return (
     <Wrapper>
@@ -25,12 +28,12 @@ export default function Product({ product }: Props) {
         />
       </ImageWrapper>
       <Content>
-        <Name>{product.name}</Name>
-        <Price>$100</Price>
+        <Name>{orderedProduct.name}</Name>
+        <Price>{orderedProduct.price}</Price>
       </Content>
       <Function>
         <QCWrapper>
-          <QuantityControl quantity={5} setQuantity={() => {}} />
+          <QuantityControl quantity={quantity} setQuantity={setQuantity} />
         </QCWrapper>
         <Button>REMOVE</Button>
       </Function>
@@ -54,7 +57,7 @@ const ImageWrapper: ComponentWithChildren = ({ children }) => (
 );
 
 const Content: ComponentWithChildren = ({ children }) => (
-  <div className="flex flex-col justify-between basis-auto">{children}</div>
+  <div className="flex flex-col justify-between basis-full">{children}</div>
 );
 
 const Name: ComponentWithChildren = ({ children }) => (
@@ -85,9 +88,9 @@ const Button: ComponentWithChildren = ({ children }) => (
  * Utilities
  */
 
-function getMainImage(product: ProductType) {
-  const mainImage = product.images.find(
-    (image) => image.id === product.mainImageID
+function getMainImage(orderedProduct: OrderedProductType) {
+  const mainImage = orderedProduct.images.find(
+    (image) => image.id === orderedProduct.mainImageID
   );
 
   if (!mainImage) {
