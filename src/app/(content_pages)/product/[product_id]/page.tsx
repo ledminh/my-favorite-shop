@@ -1,6 +1,8 @@
 import Section from "@/theme/Section";
 import getProducts from "@/data/products";
 
+import Link from "next/link";
+
 import Gallery from "@/components/product/Gallery";
 import { H2, H3 } from "@/theme/typography";
 
@@ -8,6 +10,7 @@ import Footer from "@/components/product/Footer";
 
 import { ComponentWithChildren, Product } from "@/types";
 import Variants from "@/components/product/Variants";
+import { Component } from "react";
 
 type Props = {
   params: {
@@ -21,7 +24,9 @@ export default async function ProductPage({ params }: Props) {
   return (
     <>
       {/* HEADER */}
-      <Section>Go back to Category</Section>
+      <Section>
+        <CategoryLink />
+      </Section>
       <Section>
         <Title>
           <H2>{product.name}</H2>
@@ -129,6 +134,18 @@ const SubSection: ComponentWithChildren = ({ children }) => {
 /***********************
  * Components
  */
+
+const CategoryLink = ({}) => {
+  return (
+    <Link
+      className="ml-4 font-semibold border-bottom block border-transparent hover:border-blue-700"
+      href="/"
+    >
+      <span aria-hidden="true"> &larr;</span> Go back to Category
+    </Link>
+  );
+};
+
 const Promotion: ComponentWithChildren = ({ children }) => {
   return (
     <div className="flex items-center justify-center p-2 text-lg font-semibold text-center text-red-500 bg-red-100 border-2 border-red-300 rounded-md">
