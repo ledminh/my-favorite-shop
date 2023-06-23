@@ -2,9 +2,11 @@
 
 import { ComponentWithChildren } from "@/types";
 
+import { State, City } from "country-state-city";
+
 import { H2 } from "@/theme/typography";
 import { Button } from "@/theme/basics";
-import { ForwardedRef, forwardRef } from "react";
+import { ForwardedRef, forwardRef, useState } from "react";
 
 import { useForm } from "react-hook-form";
 
@@ -93,17 +95,21 @@ export default function ShippingAddress() {
               <Label htmlFor="state">State / Province</Label>
               <InputWrapper>
                 <select
-                  id="country"
-                  name="country"
                   autoComplete="country-name"
-                  className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 p-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                  {...register("state", { required: true })}
                 >
                   <option />
-                  <option>California</option>
-                  <option>Texas</option>
-                  <option>South Carolina</option>
+                  {State.getStatesOfCountry("US").map((state) => (
+                    <option key={state.isoCode} value={state.isoCode}>
+                      {state.name}
+                    </option>
+                  ))}
                 </select>
               </InputWrapper>
+              {errors?.state?.type === "required" && (
+                <FormErrorMessage>State is required</FormErrorMessage>
+              )}
             </Col3>
 
             <Col3>
@@ -236,13 +242,6 @@ const Label = ({ children, htmlFor }: LabelProps) => (
   </label>
 );
 
-type InputProps = {
-  type: string;
-  name: string;
-  id: string;
-  autoComplete: string;
-};
-
 const Input = forwardRef(function MyInput(
   props,
   ref: ForwardedRef<HTMLInputElement>
@@ -251,7 +250,7 @@ const Input = forwardRef(function MyInput(
     <input
       ref={ref}
       {...props}
-      className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+      className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
     />
   );
 });
