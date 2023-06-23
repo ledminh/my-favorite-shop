@@ -1,7 +1,12 @@
 import { FC, ReactNode } from "react";
 import OrderedProduct from "./components/confirmation/OrderedProduct";
+import Variant from "./components/product/Variants/Variant";
 
 export type ComponentWithChildren = FC<{ children: ReactNode }>;
+
+/**********************
+ * Category types
+ */
 
 export type Category = {
   id: string;
@@ -14,6 +19,9 @@ export type Category = {
   };
 };
 
+/**********************
+ * Product types
+ */
 export type Promotion =
   | {
       type: "discount";
@@ -25,6 +33,13 @@ export type Promotion =
       salePrice: number;
       description: string;
     };
+
+export type Variant = {
+  id: string;
+  name: string;
+  price: number;
+  shown: boolean;
+};
 
 export type Product = {
   id: string;
@@ -40,11 +55,16 @@ export type Product = {
     alt: string;
   }[];
   promotion?: Promotion;
+  variants?: Variant[];
 };
 
 export type OrderedProduct = Product & {
   quantity: number;
 };
+
+/**********************
+ * Order types
+ */
 
 export type Order = {
   id: string;

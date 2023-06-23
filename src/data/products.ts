@@ -45,6 +45,7 @@ function _getProducts(num: number): Product[] {
       images,
     });
 
+    // Add promotion
     if (i % 3 === 0) {
       products[i].promotion = {
         type: "discount",
@@ -59,6 +60,30 @@ function _getProducts(num: number): Product[] {
         salePrice: 10,
         description: "Sale $10",
       };
+    }
+
+    // Add variants
+    if (i === 0) {
+      products[i].variants = [
+        {
+          id: "variant-1",
+          name: "Variant 1",
+          price: 10,
+          shown: true,
+        },
+        {
+          id: "variant-2",
+          name: "Variant 2",
+          price: 20,
+          shown: true,
+        },
+        {
+          id: "variant-3",
+          name: "Variant 3",
+          price: 30,
+          shown: true,
+        },
+      ];
     }
   }
 

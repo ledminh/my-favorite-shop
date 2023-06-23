@@ -7,6 +7,7 @@ import { H2, H3 } from "@/theme/typography";
 import Footer from "@/components/product/Footer";
 
 import { ComponentWithChildren, Product } from "@/types";
+import Variants from "@/components/product/Variants";
 
 type Props = {
   params: {
@@ -46,31 +47,22 @@ export default async function ProductPage({ params }: Props) {
               <SubHeader>
                 <H3>Product Details</H3>
               </SubHeader>
-              <p>{product.description}</p>
-              <ul>
-                <li>
-                  <div>Variant 1</div>
-                  <div>Description of variant 1</div>
-                </li>
-                <li>
-                  <div>Variant 2</div>
-                  <div>Description of variant 2</div>
-                </li>
-                <li>
-                  <div>Variant 3</div>
-                  <div>Description of variant 3</div>
-                </li>
-                <li>
-                  <div>Variant 4</div>
-                  <div>Description of variant 4</div>
-                </li>
-                <li>
-                  <div>Variant 5</div>
-                  <div>Description of variant 5</div>
-                </li>
-              </ul>
+              <SubSection>
+                <p>{product.description}</p>
+              </SubSection>
+
+              {product.variants && (
+                <SubSection>
+                  <Variants
+                    productID={product.id}
+                    variants={product.variants}
+                  />
+                </SubSection>
+              )}
               {product.promotion && (
-                <Promotion>{product.promotion.description}</Promotion>
+                <SubSection>
+                  <Promotion>{product.promotion.description}</Promotion>
+                </SubSection>
               )}
             </Content>
           </Section>
@@ -130,12 +122,16 @@ const SubHeader: ComponentWithChildren = ({ children }) => {
   );
 };
 
+const SubSection: ComponentWithChildren = ({ children }) => {
+  return <div className="mb-8">{children}</div>;
+};
+
 /***********************
  * Components
  */
 const Promotion: ComponentWithChildren = ({ children }) => {
   return (
-    <div className="flex items-center justify-center p-2 mt-4 text-lg font-semibold text-center text-red-500 bg-red-100 border-2 border-red-300 rounded-md">
+    <div className="flex items-center justify-center p-2 text-lg font-semibold text-center text-red-500 bg-red-100 border-2 border-red-300 rounded-md">
       {children}
     </div>
   );
