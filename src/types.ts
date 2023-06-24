@@ -37,6 +37,10 @@ export type Promotion =
 export type Variant = {
   id: string;
   name: string;
+  image: {
+    src: string;
+    alt: string;
+  };
   price: number;
   shown: boolean;
 };

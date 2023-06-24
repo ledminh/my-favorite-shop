@@ -26,19 +26,22 @@ export default function Footer({ unitPrice = 0, promotion }: Props) {
         <H3>
           UNIT PRICE:{" "}
           {promotion && (
-            <span className="line-through text-black font-normal">
-              ${unitPrice.toFixed(2) + " "}
-            </span>
+            <>
+              <span className="font-normal text-black line-through">
+                ${unitPrice.toFixed(2)}
+              </span>
+              <span> </span>
+            </>
           )}
           {unitPriceWithPromotion && (
-            <span className="text-red-700 font-bold">
+            <span className="font-bold text-red-700">
               ${unitPriceWithPromotion}
             </span>
           )}
           {
             // If there is no promotion, show the unit price without promotion
             !promotion && (
-              <span className="text-red-700 font-bold">
+              <span className="font-bold text-red-700">
                 ${unitPrice.toFixed(2)}
               </span>
             )

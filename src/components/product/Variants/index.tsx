@@ -4,6 +4,7 @@ import { ComponentWithChildren } from "@/types";
 import { Variant as VariantType } from "@/types";
 import Variant from "./Variant";
 import VariantListModal from "./VariantListModal";
+import VariantModal from "./VariantModal";
 
 import { useState } from "react";
 
@@ -12,7 +13,8 @@ type Props = {
 };
 
 export default function Variants({ variants }: Props) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isListModalOpen, setIsListModalOpen] = useState(false);
+  const [isVariantModalOpen, setIsVariantModalOpen] = useState(true);
 
   return (
     <>
@@ -23,13 +25,18 @@ export default function Variants({ variants }: Props) {
           </Item>
         ))}
         <Item>
-          <Button onClick={() => setIsModalOpen(true)}>MORE ...</Button>
+          <Button onClick={() => setIsListModalOpen(true)}>MORE ...</Button>
         </Item>
       </Wrapper>
       <VariantListModal
-        setIsOpen={setIsModalOpen}
-        isOpen={isModalOpen}
+        setIsOpen={setIsListModalOpen}
+        isOpen={isListModalOpen}
         variants={variants}
+      />
+      <VariantModal
+        setIsOpen={setIsVariantModalOpen}
+        isOpen={isVariantModalOpen}
+        variant={variants[0]}
       />
     </>
   );

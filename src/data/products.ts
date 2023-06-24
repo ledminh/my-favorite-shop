@@ -79,18 +79,30 @@ function _getProducts(num: number): Product[] {
           id: "variant-1",
           name: "Variant 1",
           price: 10,
+          image: {
+            src: `https://picsum.photos/seed/${i + 1}/300/300`,
+            alt: `variant 1`,
+          },
           shown: true,
         },
         {
           id: "variant-2",
           name: "Variant 2",
           price: 20,
+          image: {
+            src: `https://picsum.photos/seed/${i + 1}/300/300`,
+            alt: `variant 2`,
+          },
           shown: true,
         },
         {
           id: "variant-3",
           name: "Variant 3",
           price: 30,
+          image: {
+            src: `https://picsum.photos/seed/${i + 1}/300/300`,
+            alt: `variant 3`,
+          },
           shown: true,
         },
       ];
