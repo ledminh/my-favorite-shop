@@ -36,6 +36,16 @@ function _getProducts(num: number): Product[] {
 
     products.push({
       id,
+      category: {
+        id: `category-${generateRandomNumber(1000, 999999)}`,
+        name: faker.commerce.department(),
+        description: faker.commerce.productDescription(),
+        link: `/category/${id}`,
+        image: {
+          src: `https://picsum.photos/seed/${i + 1}/300/300`,
+          alt: `Category ${i + 1}`,
+        },
+      },
       link: `/product/${id}`,
       name: faker.commerce.productName(),
       price: Number(faker.commerce.price()) / 10,

@@ -43,7 +43,7 @@ export type Variant = {
 
 export type Product = {
   id: string;
-  // category: Category;
+  category: Category;
   link: string;
   name: string;
   price: number;

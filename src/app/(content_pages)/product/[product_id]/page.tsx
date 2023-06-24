@@ -10,7 +10,6 @@ import Footer from "@/components/product/Footer";
 
 import { ComponentWithChildren, Product } from "@/types";
 import Variants from "@/components/product/Variants";
-import { Component } from "react";
 
 type Props = {
   params: {
@@ -25,7 +24,7 @@ export default async function ProductPage({ params }: Props) {
     <>
       {/* HEADER */}
       <Section>
-        <CategoryLink />
+        <CategoryLink {...product.category} />
       </Section>
       <Section>
         <Title>
@@ -135,13 +134,25 @@ const SubSection: ComponentWithChildren = ({ children }) => {
  * Components
  */
 
-const CategoryLink = ({}) => {
+type CategoryLinkProps = {
+  link: string;
+  name: string;
+};
+
+const CategoryLink = ({ link, name }: CategoryLinkProps) => {
   return (
     <Link
-      className="ml-4 font-semibold border-bottom block border-transparent hover:border-blue-700"
-      href="/"
+      className="pb-1 pl-2 ml-4 font-semibold text-blue-700 border-b-2 border-transparent hover:border-blue-700 group"
+      href={link}
     >
-      <span aria-hidden="true"> &larr;</span> Go back to Category
+      <span
+        aria-hidden="true"
+        className="inline-block transition-all duration-150 group-hover:-translate-x-2"
+      >
+        {" "}
+        &larr;
+      </span>{" "}
+      Go back to {name}
     </Link>
   );
 };
