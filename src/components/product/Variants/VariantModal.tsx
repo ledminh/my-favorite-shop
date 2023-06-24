@@ -2,7 +2,6 @@ import { ComponentWithChildren, Variant as VariantType } from "@/types";
 import Image from "next/image";
 
 import Modal from "@/theme/Modal";
-import { Description } from "@headlessui/react/dist/components/description/description";
 
 type Props = {
   isOpen: boolean;
@@ -12,22 +11,30 @@ type Props = {
 
 export default function VariantModal({ isOpen, setIsOpen, variant }: Props) {
   return (
-    <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
-      <ImageWrapper>
-        <Image
-          src={variant.image.src}
-          alt={variant.image.alt}
-          className="object-cover object-center"
-          fill
-        />
-      </ImageWrapper>
-      <Content>
-        <Name>{variant.name}</Name>
-        <Price>{variant.price}</Price>
-      </Content>
-      <Footer>
-        <Button onClick={() => {}}>SELECT</Button>
-      </Footer>
+    <Modal isOpen={isOpen} setIsOpen={setIsOpen} size="auto">
+      <Wrapper>
+        <ImageWrapper>
+          <Image
+            src={variant.image.src}
+            alt={variant.image.alt}
+            className="object-cover object-center"
+            fill
+            sizes=""
+          />
+        </ImageWrapper>
+        <Content>
+          <Name>{variant.name}</Name>
+          <Price>${variant.price}</Price>
+        </Content>
+        <Footer>
+          <Button type="select" onClick={() => {}}>
+            SELECT
+          </Button>
+          <Button type="cancel" onClick={() => setIsOpen(false)}>
+            CANCEL
+          </Button>
+        </Footer>
+      </Wrapper>
     </Modal>
   );
 }
@@ -35,24 +42,40 @@ export default function VariantModal({ isOpen, setIsOpen, variant }: Props) {
 /***********************
  * Styles
  */
+const Wrapper: ComponentWithChildren = ({ children }) => {
+  return (
+    <div className="flex flex-col w-full max-w-[400px] min-w-[300px] gap-8 p-5 mx-auto border-2 border-black rounded-lg bg-white">
+      {children}
+    </div>
+  );
+};
+
 const ImageWrapper: ComponentWithChildren = ({ children }) => {
-  return <div className="relative">{children}</div>;
+  return (
+    <div className="relative h-[350px] rounded-xl shadow-sm shadow-black overflow-hidden">
+      {children}
+    </div>
+  );
 };
 
 const Content: ComponentWithChildren = ({ children }) => {
-  return <div className="flex flex-col gap-2">{children}</div>;
+  return (
+    <div className="flex justify-between w-11/12 gap-2 mx-auto text-2xl font-bold">
+      {children}
+    </div>
+  );
 };
 
 const Name: ComponentWithChildren = ({ children }) => {
-  return <h3 className="text-xl font-bold">{children}</h3>;
+  return <div>{children}</div>;
 };
 
 const Price: ComponentWithChildren = ({ children }) => {
-  return <p className="text-xl font-bold">{children}</p>;
+  return <div className="text-red-600">{children}</div>;
 };
 
 const Footer: ComponentWithChildren = ({ children }) => {
-  return <div className="flex justify-center">{children}</div>;
+  return <div className="flex justify-center gap-4">{children}</div>;
 };
 
 /*************************
@@ -61,12 +84,20 @@ const Footer: ComponentWithChildren = ({ children }) => {
 type ButtonProps = {
   children: React.ReactNode;
   onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  type: "select" | "cancel";
 };
 
-const Button = ({ children, onClick }: ButtonProps) => {
+const Button = ({ children, onClick, type }: ButtonProps) => {
+  const classNames = {
+    select:
+      "border-2 border-gray-700 text-gray-700 hover:bg-gray-500 hover:text-white hover:border-black",
+    cancel:
+      "border-2 border-gray-700 text-red-700 bg-white hover:bg-red-300 hover:text-black hover:border-black",
+  };
+
   return (
     <button
-      className="flex flex-col items-center justify-center h-full p-2 cursor-pointer"
+      className={"block px-5 py-2 font-bold " + classNames[type]}
       onClick={onClick}
     >
       {children}

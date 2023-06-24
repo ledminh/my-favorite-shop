@@ -14,7 +14,7 @@ type Props = {
 
 export default function Variants({ variants }: Props) {
   const [isListModalOpen, setIsListModalOpen] = useState(false);
-  const [isVariantModalOpen, setIsVariantModalOpen] = useState(true);
+  const [isVariantModalOpen, setIsVariantModalOpen] = useState(false);
 
   return (
     <>

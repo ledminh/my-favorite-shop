@@ -59,9 +59,8 @@ export default function Gallery({
           src={mainImage.src}
           alt={mainImage.alt}
           fill
-          style={{
-            objectFit: "cover",
-          }}
+          className="object-cover"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
       </MainImage>
       <List>
@@ -74,9 +73,8 @@ export default function Gallery({
                   src={image.src}
                   alt={image.alt}
                   fill
-                  style={{
-                    objectFit: "cover",
-                  }}
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
               </Button>
             </Item>

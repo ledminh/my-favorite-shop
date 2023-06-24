@@ -15,7 +15,7 @@ export default function VariantListModal({
   variants,
 }: Props) {
   return (
-    <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
+    <Modal isOpen={isOpen} setIsOpen={setIsOpen} size="full">
       <List>
         {variants.map((variant) => (
           <Item key={variant.id}>
@@ -31,7 +31,11 @@ export default function VariantListModal({
  * Styles
  */
 const List: ComponentWithChildren = ({ children }) => {
-  return <ul className="flex flex-row flex-wrap w-10/12 gap-5">{children}</ul>;
+  return (
+    <ul className="flex flex-row flex-wrap w-10/12 gap-5 mx-auto">
+      {children}
+    </ul>
+  );
 };
 
 const Item: ComponentWithChildren = ({ children }) => {

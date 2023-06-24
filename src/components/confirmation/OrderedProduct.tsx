@@ -21,9 +21,8 @@ const OrderedProduct = ({ product }: Props) => {
           src={mainImage.src}
           alt={mainImage.alt}
           fill
-          style={{
-            objectFit: "cover",
-          }}
+          className="object-cover object-center"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
       </ImageWrapper>
       <Content>
@@ -52,17 +51,17 @@ const Wrapper: ComponentWithChildren = ({ children }) => (
 );
 
 const ImageWrapper: ComponentWithChildren = ({ children }) => (
-  <div className="relative basis-20 h-20 rounded-md overflow-hidden">
+  <div className="relative h-20 overflow-hidden rounded-md basis-20">
     {children}
   </div>
 );
 
 const Content: ComponentWithChildren = ({ children }) => (
-  <div className="basis-2/3 flex-auto space-y-1">{children}</div>
+  <div className="flex-auto space-y-1 basis-2/3">{children}</div>
 );
 
 const MetaData: ComponentWithChildren = ({ children }) => (
-  <div className="basis-14 flex flex-col items-end font-medium text-gray-900">
+  <div className="flex flex-col items-end font-medium text-gray-900 basis-14">
     {children}
   </div>
 );
