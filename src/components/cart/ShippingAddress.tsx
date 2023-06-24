@@ -2,7 +2,7 @@
 
 import { ComponentWithChildren } from "@/types";
 
-import { State, City } from "country-state-city";
+import { State } from "country-state-city";
 
 import { H2 } from "@/theme/typography";
 import { Button } from "@/theme/basics";
@@ -11,6 +11,8 @@ import { ForwardedRef, forwardRef, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import FormErrorMessage from "@/theme/FormErrorMessage";
+
+import useCart from "@/utils/useCart";
 
 import {
   namePattern,
@@ -24,6 +26,8 @@ export default function ShippingAddress() {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  const { cart } = useCart();
 
   const onSubmit = (data: any) => {
     console.log(data);
@@ -182,7 +186,7 @@ export default function ShippingAddress() {
           </Grid6>
         </div>
         <div className="flex content-center justify-center px-8 pt-6">
-          <Button>Continue to Payment</Button>
+          <Button disabled={cart.length === 0}>Continue to Payment</Button>
         </div>
       </Form>
     </Wrapper>

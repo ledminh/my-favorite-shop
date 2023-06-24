@@ -26,21 +26,31 @@ export default function ShoppingCart() {
       <Title>
         <H2>Shopping Cart</H2>
       </Title>
-      <Section>
-        <List>
-          {cart.map((orderedProduct) => (
-            <Item key={orderedProduct.id}>
-              <OrderedProduct orderedProduct={orderedProduct} />
-            </Item>
-          ))}
-        </List>
-      </Section>
-      <Section>
-        <Total>
-          <TotalLabel>Total</TotalLabel>
-          <TotalPrice>${totalPrice.toFixed(2)}</TotalPrice>
-        </Total>
-      </Section>
+      {cart.length === 0 && (
+        <div className="flex items-center justify-center h-96">
+          <p className="text-2xl text-gray-500">Your cart is empty</p>
+        </div>
+      )}
+
+      {cart.length !== 0 && (
+        <>
+          <Section>
+            <List>
+              {cart.map((orderedProduct) => (
+                <Item key={orderedProduct.id}>
+                  <OrderedProduct orderedProduct={orderedProduct} />
+                </Item>
+              ))}
+            </List>
+          </Section>
+          <Section>
+            <Total>
+              <TotalLabel>Total</TotalLabel>
+              <TotalPrice>${totalPrice.toFixed(2)}</TotalPrice>
+            </Total>
+          </Section>
+        </>
+      )}
     </Wrapper>
   );
 }

@@ -10,6 +10,7 @@ export type Button = FC<{
   onClick?: MouseEventHandler<HTMLButtonElement>;
   children: ReactNode;
   buttonType?: "submit";
+  disabled?: boolean;
 }>;
 
 export type Input = FC<{
