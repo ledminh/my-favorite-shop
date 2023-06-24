@@ -21,12 +21,17 @@ export default function OrderedProduct({ orderedProduct }: Props) {
   const unitPrice = getPrice(orderedProduct);
 
   useEffect(() => {
-
     orderedProduct.quantity = quantity;
     updateCart(orderedProduct);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [quantity]);
+
+  useEffect(() => {
+    if (orderedProduct.quantity !== quantity)
+      setQuantity(orderedProduct.quantity);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [orderedProduct]);
 
   return (
     <Wrapper>
@@ -47,7 +52,11 @@ export default function OrderedProduct({ orderedProduct }: Props) {
       </Content>
       <Function>
         <QCWrapper>
-          <QuantityControl quantity={quantity} setQuantity={setQuantity} min = {1}/>
+          <QuantityControl
+            quantity={quantity}
+            setQuantity={setQuantity}
+            min={1}
+          />
         </QCWrapper>
         <Button onClick={() => removeFromCart(orderedProduct)}>REMOVE</Button>
       </Function>

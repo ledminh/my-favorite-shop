@@ -21,6 +21,7 @@ export default function Footer({ product }: Props) {
     <Wrapper highLighted={quantity > 0}>
       <QuantityControl quantity={quantity} setQuantity={setQuantity} />
       <Button
+        disabled={quantity === 0}
         size="md"
         onClick={(e) => {
           e.preventDefault();
