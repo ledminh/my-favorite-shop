@@ -1,7 +1,7 @@
 import Section from "@/theme/Section";
 import getProducts from "@/data/products";
 
-import Link from "next/link";
+import CategoryLink from "@/components/product/CategoryLink";
 
 import Gallery from "@/components/product/Gallery";
 import { H2, H3 } from "@/theme/typography";
@@ -133,29 +133,6 @@ const SubSection: ComponentWithChildren = ({ children }) => {
 /***********************
  * Components
  */
-
-type CategoryLinkProps = {
-  link: string;
-  name: string;
-};
-
-const CategoryLink = ({ link, name }: CategoryLinkProps) => {
-  return (
-    <Link
-      className="pb-1 pl-2 ml-4 font-semibold text-blue-700 border-b-2 border-transparent hover:border-blue-700 group"
-      href={link}
-    >
-      <span
-        aria-hidden="true"
-        className="inline-block transition-all duration-150 group-hover:-translate-x-2"
-      >
-        {" "}
-        &larr;
-      </span>{" "}
-      Go back to {name}
-    </Link>
-  );
-};
 
 const Promotion: ComponentWithChildren = ({ children }) => {
   return (

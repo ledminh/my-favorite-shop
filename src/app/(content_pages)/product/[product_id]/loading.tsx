@@ -7,14 +7,18 @@ import { H2, H3 } from "@/theme/typography";
 import Footer from "@/components/product/Footer";
 
 import { ComponentWithChildren } from "@/types";
+import CategoryLink from "@/components/product/CategoryLink";
 
 export default function Loading() {
   return (
     <>
       {/* HEADER */}
       <Section>
+        <CategoryLink skeleton={true} />
+      </Section>
+      <Section>
         <Title>
-          <div className="w-11/12 h-9 mb-4 bg-gray-300 rounded" />
+          <div className="w-11/12 mb-4 bg-gray-300 rounded h-9" />
         </Title>
       </Section>
 
@@ -74,7 +78,7 @@ const Col3: ComponentWithChildren = ({ children }) => {
 
 const Title: ComponentWithChildren = ({ children }) => {
   return (
-    <div className="inline-block px-5 ml-4 font-semibold w-60 border-b-4 border-red-400">
+    <div className="inline-block px-5 ml-4 font-semibold border-b-4 border-red-400 w-60">
       {children}
     </div>
   );
@@ -85,7 +89,7 @@ const GalleryWrapper: ComponentWithChildren = ({ children }) => {
 };
 
 const Content: ComponentWithChildren = ({ children }) => {
-  return <div className="px-5 w-full">{children}</div>;
+  return <div className="w-full px-5">{children}</div>;
 };
 
 const SubHeader: ComponentWithChildren = ({ children }) => {

@@ -1,6 +1,11 @@
+"use client";
+
 import { ComponentWithChildren } from "@/types";
 import { Variant as VariantType } from "@/types";
 import Variant from "./Variant";
+import VariantListModal from "./VariantListModal";
+
+import { useState } from "react";
 
 type Props = {
   productID: string;
@@ -8,17 +13,22 @@ type Props = {
 };
 
 export default function Variants({ productID, variants }: Props) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
-    <Wrapper>
-      {variants.map((variant) => (
-        <Item key={variant.id}>
-          <Variant productID={productID} variant={variant} />
+    <>
+      <Wrapper>
+        {variants.map((variant) => (
+          <Item key={variant.id}>
+            <Variant productID={productID} variant={variant} />
+          </Item>
+        ))}
+        <Item>
+          <Button onClick={() => setIsModalOpen(true)}>MORE ...</Button>
         </Item>
-      ))}
-      <Item>
-        <Button>MORE ...</Button>
-      </Item>
-    </Wrapper>
+      </Wrapper>
+      <VariantListModal setIsOpen={setIsModalOpen} isOpen={isModalOpen} />
+    </>
   );
 }
 
@@ -31,7 +41,7 @@ const Wrapper: ComponentWithChildren = ({ children }) => {
 
 const Item: ComponentWithChildren = ({ children }) => {
   return (
-    <li className="border border-dashed border-gray-600 rounded-md hover:bg-gray-100 transition duration-150 ease-in-out">
+    <li className="transition duration-150 ease-in-out border border-gray-600 border-dashed rounded-md hover:bg-gray-100">
       {children}
     </li>
   );
@@ -39,14 +49,14 @@ const Item: ComponentWithChildren = ({ children }) => {
 
 type ButtonProps = {
   children: React.ReactNode;
-  props?: any;
+  onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
-const Button = ({ children, props }: ButtonProps) => {
+const Button = ({ children, onClick }: ButtonProps) => {
   return (
     <button
-      className="flex flex-col items-center justify-center p-2 cursor-pointer h-full"
-      {...props}
+      className="flex flex-col items-center justify-center h-full p-2 cursor-pointer"
+      onClick={onClick}
     >
       {children}
     </button>

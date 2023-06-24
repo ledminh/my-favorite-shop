@@ -26,8 +26,8 @@ function _getProducts(num: number): Product[] {
     for (let j = 0; j < 3; j++) {
       images.push({
         id: `image-${generateRandomNumber(1000, 999999)}`,
-        src: `https://picsum.photos/seed/${i + 1}${j}/300/300`,
-        alt: `Nail Polish ${i + 1} ${j + 1}`,
+        src: `https://picsum.photos/seed/${j + 1}/300/300`,
+        alt: `Nail Polish ${i + 1} - ${j}`,
       });
     }
 
@@ -40,7 +40,7 @@ function _getProducts(num: number): Product[] {
         id: `category-${generateRandomNumber(1000, 999999)}`,
         name: faker.commerce.department(),
         description: faker.commerce.productDescription(),
-        link: `/category/${id}`,
+        link: `/shop/nail-polish`,
         image: {
           src: `https://picsum.photos/seed/${i + 1}/300/300`,
           alt: `Category ${i + 1}`,
