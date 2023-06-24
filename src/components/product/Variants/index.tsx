@@ -8,11 +8,10 @@ import VariantListModal from "./VariantListModal";
 import { useState } from "react";
 
 type Props = {
-  productID: string;
   variants: VariantType[];
 };
 
-export default function Variants({ productID, variants }: Props) {
+export default function Variants({ variants }: Props) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
@@ -20,14 +19,18 @@ export default function Variants({ productID, variants }: Props) {
       <Wrapper>
         {variants.map((variant) => (
           <Item key={variant.id}>
-            <Variant productID={productID} variant={variant} />
+            <Variant variant={variant} />
           </Item>
         ))}
         <Item>
           <Button onClick={() => setIsModalOpen(true)}>MORE ...</Button>
         </Item>
       </Wrapper>
-      <VariantListModal setIsOpen={setIsModalOpen} isOpen={isModalOpen} />
+      <VariantListModal
+        setIsOpen={setIsModalOpen}
+        isOpen={isModalOpen}
+        variants={variants}
+      />
     </>
   );
 }

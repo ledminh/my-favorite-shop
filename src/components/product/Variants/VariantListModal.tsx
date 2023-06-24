@@ -1,47 +1,31 @@
-import categories from "@/data/categories";
-import { ComponentWithChildren } from "@/types";
-import { Dialog } from "@headlessui/react";
+import { ComponentWithChildren, Variant as VariantType } from "@/types";
 
-import Category from "@/components/shop/Category";
-import { CloseIcon } from "@/theme/Icons";
+import Modal from "@/theme/Modal";
+import Variant from "./Variant";
 
 type Props = {
   isOpen: boolean;
   setIsOpen: (arg: boolean) => void;
+  variants: VariantType[];
 };
 
-export default function VariantListModal({ isOpen, setIsOpen }: Props) {
+export default function VariantListModal({
+  isOpen,
+  setIsOpen,
+  variants,
+}: Props) {
   return (
-    <Dialog
-      className="absolute z-50 flex items-center justify-center w-full h-full bg-white"
-      open={isOpen}
-      onClose={() => setIsOpen(false)}
-    >
-      <CloseButton />
-      <Dialog.Panel
-        as="div"
-        className="container flex justify-center items-start py-4 overflow-hidden border-y-8 border-red-950 border-double overflow-y-auto w-full h-[calc(80vh-80px)] mt-[30px]"
-      >
-        <List>
-          {[...Array(10)].map((_, index) => (
-            <Item key={index}>Variant {index}</Item>
-          ))}
-        </List>
-      </Dialog.Panel>
-    </Dialog>
+    <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
+      <List>
+        {variants.map((variant) => (
+          <Item key={variant.id}>
+            <Variant variant={variant} />
+          </Item>
+        ))}
+      </List>
+    </Modal>
   );
 }
-
-/**************************
- * Components
- */
-const CloseButton = () => {
-  return (
-    <button className="absolute top-0 right-1 w-[50px] h-[50px] hover:bg-blue-950/40 hover:text-white rounded-full ">
-      <CloseIcon />
-    </button>
-  );
-};
 
 /****************************
  * Styles
@@ -51,5 +35,9 @@ const List: ComponentWithChildren = ({ children }) => {
 };
 
 const Item: ComponentWithChildren = ({ children }) => {
-  return <li className="">{children}</li>;
+  return (
+    <li className="transition duration-150 ease-in-out border border-gray-600 border-dashed rounded-md hover:bg-gray-100">
+      {children}
+    </li>
+  );
 };
