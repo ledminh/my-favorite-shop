@@ -3,10 +3,19 @@
 import { Button } from "@/theme/basics";
 import QuantityControl from "../../QuantityControl";
 
+import useCart from "@/utils/useCart";
+import { Product as ProductType } from "@/types";
+
 import { useState } from "react";
 
-export default function Footer() {
+type Props = {
+  product: ProductType;
+};
+
+export default function Footer({ product }: Props) {
   const [quantity, setQuantity] = useState(0);
+
+  const { addToCart } = useCart();
 
   return (
     <Wrapper highLighted={quantity > 0}>
@@ -15,7 +24,10 @@ export default function Footer() {
         size="md"
         onClick={(e) => {
           e.preventDefault();
-
+          addToCart({
+            ...product,
+            quantity,
+          });
           setQuantity(0);
         }}
       >

@@ -2,8 +2,7 @@
 
 import { ComponentWithChildren } from "@/types";
 
-import { useState, useEffect } from "react";
-
+import useCart from "@/utils/useCart";
 import Section from "@/theme/Section";
 import { H2 } from "@/theme/typography";
 import OrderedProduct from "@/components/cart/OrderedProduct";
@@ -14,13 +13,7 @@ import type { OrderedProduct as OrderedProductType } from "@/types";
 import { faker } from "@faker-js/faker";
 
 export default function ShoppingCart() {
-  const [orderedProducts, setOrderedProducts] = useState<OrderedProductType[]>(
-    []
-  );
-
-  useEffect(() => {
-    setOrderedProducts(getOrderedProducts(5));
-  }, []);
+  const { cart } = useCart();
 
   return (
     <Wrapper>
@@ -29,7 +22,7 @@ export default function ShoppingCart() {
       </Title>
       <Section>
         <List>
-          {orderedProducts.map((orderedProduct) => (
+          {cart.map((orderedProduct) => (
             <Item key={orderedProduct.id}>
               <OrderedProduct orderedProduct={orderedProduct} />
             </Item>

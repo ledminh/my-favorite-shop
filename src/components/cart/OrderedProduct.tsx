@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import useCart from "@/utils/useCart";
 import { OrderedProduct as OrderedProductType } from "@/types";
 import { ComponentWithChildren } from "@/types";
 import Image from "next/image";
@@ -15,6 +16,7 @@ export default function OrderedProduct({ orderedProduct }: Props) {
 
   const [quantity, setQuantity] = useState(orderedProduct.quantity);
 
+  const { removeFromCart } = useCart();
   return (
     <Wrapper>
       <ImageWrapper>
@@ -29,13 +31,16 @@ export default function OrderedProduct({ orderedProduct }: Props) {
       </ImageWrapper>
       <Content>
         <Name>{orderedProduct.name}</Name>
-        <Price>{orderedProduct.price}</Price>
+        <Price>Unit Price: ${orderedProduct.price.toFixed(2)}</Price>
+        <TotalPrice>
+          Total: ${(orderedProduct.price * quantity).toFixed(2)}
+        </TotalPrice>
       </Content>
       <Function>
         <QCWrapper>
           <QuantityControl quantity={quantity} setQuantity={setQuantity} />
         </QCWrapper>
-        <Button>REMOVE</Button>
+        <Button onClick={() => removeFromCart(orderedProduct)}>REMOVE</Button>
       </Function>
     </Wrapper>
   );
@@ -61,11 +66,15 @@ const Content: ComponentWithChildren = ({ children }) => (
 );
 
 const Name: ComponentWithChildren = ({ children }) => (
-  <div className="font-semibold">{children}</div>
+  <div className="font-bold">{children}</div>
 );
 
 const Price: ComponentWithChildren = ({ children }) => (
-  <div className="text-red-600">{children}</div>
+  <div className="font-semibold text-red-700">{children}</div>
+);
+
+const TotalPrice: ComponentWithChildren = ({ children }) => (
+  <div className="font-semibold text-red-700">{children}</div>
 );
 
 const Function: ComponentWithChildren = ({ children }) => (
@@ -78,8 +87,15 @@ const QCWrapper: ComponentWithChildren = ({ children }) => (
   <div className="">{children}</div>
 );
 
-const Button: ComponentWithChildren = ({ children }) => (
-  <button className="px-1 py-1 text-sm text-white bg-red-500 rounded-md hover:bg-red-800 active:bg-red-900">
+type ButtonProps = {
+  children: React.ReactNode;
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
+};
+const Button = ({ children, onClick }: ButtonProps) => (
+  <button
+    className="px-1 py-1 text-sm text-white bg-red-500 rounded-md hover:bg-red-800 active:bg-red-900"
+    onClick={onClick}
+  >
     {children}
   </button>
 );
