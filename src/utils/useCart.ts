@@ -15,9 +15,19 @@ export default function useCart() {
     setCart(newCart);
   };
 
+  const updateCart = (product: OrderedProductType) => {
+    const newCart = cart.map((item) => {
+      if (item.id === product.id) {
+        return product;
+      }
+      return item;
+    });
+    setCart(newCart);
+  };
+
   const clearCart = () => {
     setCart([]);
   };
 
-  return { cart, addToCart, removeFromCart, clearCart };
+  return { cart, addToCart, removeFromCart, updateCart, clearCart };
 }

@@ -11,9 +11,15 @@ import getProducts from "@/data/products";
 
 import type { OrderedProduct as OrderedProductType } from "@/types";
 import { faker } from "@faker-js/faker";
+import { getPrice } from "@/utils/getPrice";
 
 export default function ShoppingCart() {
   const { cart } = useCart();
+
+  const totalPrice = cart.reduce((total, orderedProduct) => {
+    const price = getPrice(orderedProduct) * orderedProduct.quantity;
+    return total + price;
+  }, 0);
 
   return (
     <Wrapper>
@@ -32,7 +38,7 @@ export default function ShoppingCart() {
       <Section>
         <Total>
           <TotalLabel>Total</TotalLabel>
-          <TotalPrice>$100</TotalPrice>
+          <TotalPrice>${totalPrice.toFixed(2)}</TotalPrice>
         </Total>
       </Section>
     </Wrapper>

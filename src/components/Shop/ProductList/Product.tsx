@@ -68,7 +68,7 @@ export default function Product({ product, skeleton = false }: Props) {
           <Intro>{product.intro}</Intro>
         </Text>
       </Content>
-      <Footer product={product} />
+      {!product.variants && <Footer product={product} />}
     </Link>
   );
 }

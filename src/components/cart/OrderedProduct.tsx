@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useCart from "@/utils/useCart";
 import { OrderedProduct as OrderedProductType } from "@/types";
 import { ComponentWithChildren } from "@/types";
 import Image from "next/image";
 import QuantityControl from "@/components/QuantityControl";
+import { getPrice } from "@/utils/getPrice";
 
 type Props = {
   orderedProduct: OrderedProductType;
@@ -16,7 +17,17 @@ export default function OrderedProduct({ orderedProduct }: Props) {
 
   const [quantity, setQuantity] = useState(orderedProduct.quantity);
 
-  const { removeFromCart } = useCart();
+  const { removeFromCart, updateCart } = useCart();
+  const unitPrice = getPrice(orderedProduct);
+
+  useEffect(() => {
+
+    orderedProduct.quantity = quantity;
+    updateCart(orderedProduct);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [quantity]);
+
   return (
     <Wrapper>
       <ImageWrapper>
@@ -31,14 +42,12 @@ export default function OrderedProduct({ orderedProduct }: Props) {
       </ImageWrapper>
       <Content>
         <Name>{orderedProduct.name}</Name>
-        <Price>Unit Price: ${orderedProduct.price.toFixed(2)}</Price>
-        <TotalPrice>
-          Total: ${(orderedProduct.price * quantity).toFixed(2)}
-        </TotalPrice>
+        <Price>Unit Price: ${unitPrice.toFixed(2)}</Price>
+        <TotalPrice>Total: ${(unitPrice * quantity).toFixed(2)}</TotalPrice>
       </Content>
       <Function>
         <QCWrapper>
-          <QuantityControl quantity={quantity} setQuantity={setQuantity} />
+          <QuantityControl quantity={quantity} setQuantity={setQuantity} min = {1}/>
         </QCWrapper>
         <Button onClick={() => removeFromCart(orderedProduct)}>REMOVE</Button>
       </Function>

@@ -4,18 +4,27 @@ import { Dispatch, SetStateAction } from "react";
 type Props = {
   size?: "sm" | "md";
   quantity: number;
+  min?: number;
+  max?: number;
   setQuantity: Dispatch<SetStateAction<number>>;
 };
 
 export default function QuantityControl({
   quantity,
   setQuantity,
+  min = 0,
+  max,
   size = "sm",
 }: Props) {
-  const increase = () => setQuantity((prev) => prev + 1);
+  const increase = () =>
+    setQuantity((prev) => {
+      if (max && prev === max) return prev;
+
+      return prev + 1;
+    });
   const decrease = () =>
     setQuantity((prev) => {
-      if (prev === 0) return prev;
+      if (prev === min) return prev;
       return prev - 1;
     });
 
