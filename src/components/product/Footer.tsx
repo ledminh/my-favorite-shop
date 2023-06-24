@@ -85,7 +85,7 @@ export default function Footer({ unitPrice = 0, promotion }: Props) {
 
 const Wrapper: ComponentWithChildren = ({ children }) => {
   return (
-    <div className="flex flex-row flex-wrap items-center justify-between p-5 gap-y-4 gap-x-8 md:justify-between md:flex-nowrap">
+    <div className="flex flex-col sm:flex-row flex-wrap items-center justify-between p-5 gap-y-4 gap-x-8 md:justify-between md:flex-nowrap">
       {children}
     </div>
   );
@@ -93,7 +93,9 @@ const Wrapper: ComponentWithChildren = ({ children }) => {
 
 const Price: ComponentWithChildren = ({ children }) => {
   return (
-    <div className="font-bold text-red-700 md:basis-[40%]">{children}</div>
+    <div className="font-bold text-red-700 md:basis-[40%]">
+      {children}
+    </div>
   );
 };
 
