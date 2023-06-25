@@ -57,7 +57,10 @@ export default async function ProductPage({ params }: Props) {
 
               {product.variants && (
                 <SubSection>
-                  <Variants variants={product.variants} />
+                  <Variants
+                    variants={product.variants}
+                    productID={product.id}
+                  />
                 </SubSection>
               )}
               {product.promotion && (

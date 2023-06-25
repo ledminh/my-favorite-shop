@@ -9,10 +9,11 @@ import VariantModal from "./VariantModal";
 import { useState } from "react";
 
 type Props = {
+  productID: string;
   variants: VariantType[];
 };
 
-export default function Variants({ variants }: Props) {
+export default function Variants({ variants, productID }: Props) {
   const [isListModalOpen, setIsListModalOpen] = useState(false);
   const [isVariantModalOpen, setIsVariantModalOpen] = useState(false);
 
@@ -21,7 +22,7 @@ export default function Variants({ variants }: Props) {
       <Wrapper>
         {variants.map((variant) => (
           <Item key={variant.id}>
-            <Variant variant={variant} />
+            <Variant variant={variant} productID={productID} />
           </Item>
         ))}
         <Item>
