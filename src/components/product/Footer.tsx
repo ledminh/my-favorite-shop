@@ -1,5 +1,6 @@
 "use client";
 
+import useVariant from "@/utils/useVariant";
 import { Button } from "@/theme/basics";
 import { useState } from "react";
 import { H3 } from "@/theme/typography";
@@ -21,8 +22,14 @@ export default function Footer({ product }: Props) {
 
   let _product: ProductType | Variant | undefined = product;
 
-  if (product?.variants) {
-    _product = product.variants.find((variant) => variant.selected);
+  const { getCurrentVariant } = useVariant();
+
+  const currentVariant = getCurrentVariant(product.id);
+
+  if (product?.variants && currentVariant) {
+    _product = product.variants.find(
+      (variant) => variant.id === currentVariant.id
+    );
   }
 
   if (!_product) {

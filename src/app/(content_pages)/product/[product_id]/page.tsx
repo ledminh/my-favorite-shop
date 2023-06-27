@@ -10,6 +10,7 @@ import Footer from "@/components/product/Footer";
 
 import { ComponentWithChildren, Product } from "@/types";
 import Variants from "@/components/product/Variants";
+import Promotion from "@/components/product/Promotion";
 
 type Props = {
   params: {
@@ -63,11 +64,11 @@ export default async function ProductPage({ params }: Props) {
                   />
                 </SubSection>
               )}
-              {product.promotion && (
+              {
                 <SubSection>
-                  <Promotion>{product.promotion.description}</Promotion>
+                  <Promotion product={product} />
                 </SubSection>
-              )}
+              }
             </Content>
           </Section>
           <Section>
@@ -127,19 +128,11 @@ const SubHeader: ComponentWithChildren = ({ children }) => {
 };
 
 const SubSection: ComponentWithChildren = ({ children }) => {
+  if (!children) {
+    return null;
+  }
+
   return <div className="mb-8">{children}</div>;
-};
-
-/***********************
- * Components
- */
-
-const Promotion: ComponentWithChildren = ({ children }) => {
-  return (
-    <div className="flex items-center justify-center p-2 text-lg font-semibold text-center text-red-500 bg-red-100 border-2 border-red-300 rounded-md">
-      {children}
-    </div>
-  );
 };
 
 /**********************

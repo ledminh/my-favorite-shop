@@ -86,6 +86,12 @@ function _getProducts(num: number): Product[] {
             alt: `variant 1`,
           },
 
+          promotion: {
+            type: "discount",
+            discountPercent: 20,
+            description: "Independent day discount var 1: 20%",
+          },
+
           shown: true,
         },
         {
@@ -97,11 +103,6 @@ function _getProducts(num: number): Product[] {
             alt: `variant 2`,
           },
 
-          promotion: {
-            type: "discount",
-            discountPercent: 20,
-            description: "Independent day discount: 20%",
-          },
           shown: true,
         },
         {
@@ -111,6 +112,12 @@ function _getProducts(num: number): Product[] {
           image: {
             src: `https://picsum.photos/seed/${i + 1}/300/300`,
             alt: `variant 3`,
+          },
+
+          promotion: {
+            type: "sale",
+            salePrice: 10,
+            description: "Sale var 3 $10",
           },
 
           shown: true,

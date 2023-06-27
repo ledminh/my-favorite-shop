@@ -9,6 +9,7 @@ type Props = {
   setIsOpen: (arg: boolean) => void;
   variant?: VariantType;
   productID: string;
+  setIsListModalOpen: (arg: boolean) => void;
 };
 
 export default function VariantModal({
@@ -16,6 +17,7 @@ export default function VariantModal({
   setIsOpen,
   variant,
   productID,
+  setIsListModalOpen,
 }: Props) {
   const { setCurrentVariant } = useVariant();
 
@@ -24,6 +26,7 @@ export default function VariantModal({
   const selectHandle = () => {
     setCurrentVariant(productID, variant);
     setIsOpen(false);
+    setIsListModalOpen(false);
   };
 
   return (

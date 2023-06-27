@@ -7,7 +7,6 @@ import VariantListModal from "./VariantListModal";
 import VariantModal from "./VariantModal";
 
 import { useState } from "react";
-import useVariant from "@/utils/useVariant";
 
 type Props = {
   productID: string;
@@ -49,6 +48,7 @@ export default function Variants({ variants, productID }: Props) {
       />
       <VariantModal
         setIsOpen={setIsVariantModalOpen}
+        setIsListModalOpen={setIsListModalOpen}
         isOpen={isVariantModalOpen}
         variant={currentVariant}
         productID={productID}
