@@ -21,6 +21,10 @@ type Props = {
 export default async function ProductPage({ params }: Props) {
   const product = await getProduct(params.product_id);
 
+  if (!product) {
+    return <div>Product not found</div>;
+  }
+
   return (
     <>
       {/* HEADER */}
@@ -55,20 +59,12 @@ export default async function ProductPage({ params }: Props) {
               <SubSection>
                 <p>{product.description}</p>
               </SubSection>
-
-              {product.variants && (
-                <SubSection>
-                  <Variants
-                    variants={product.variants}
-                    productID={product.id}
-                  />
-                </SubSection>
-              )}
-              {
-                <SubSection>
-                  <Promotion product={product} />
-                </SubSection>
-              }
+              <SubSection>
+                <Variants product={product} />
+              </SubSection>
+              <SubSection>
+                <Promotion product={product} />
+              </SubSection>
             </Content>
           </Section>
           <Section>
@@ -146,6 +142,6 @@ const getProduct: GetProduct = (id: string) => {
     setTimeout(() => {
       const product = getProducts(1)[0];
       resolve(product);
-    }, 3000);
+    }, 1000);
   });
 };

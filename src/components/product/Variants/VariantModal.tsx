@@ -6,25 +6,27 @@ import useVariant from "@/utils/useVariant";
 
 type Props = {
   isOpen: boolean;
+  currentVariant?: VariantType;
   setIsOpen: (arg: boolean) => void;
-  variant?: VariantType;
-  productID: string;
   setIsListModalOpen: (arg: boolean) => void;
+  productID: string;
 };
 
 export default function VariantModal({
   isOpen,
+  currentVariant,
   setIsOpen,
-  variant,
   productID,
   setIsListModalOpen,
 }: Props) {
-  const { setCurrentVariant } = useVariant();
+  const { setSelectedVariant } = useVariant();
 
-  if (!variant) return null;
+  if (!currentVariant) {
+    return null;
+  }
 
   const selectHandle = () => {
-    setCurrentVariant(productID, variant);
+    setSelectedVariant(productID, currentVariant);
     setIsOpen(false);
     setIsListModalOpen(false);
   };
@@ -34,16 +36,16 @@ export default function VariantModal({
       <Wrapper>
         <ImageWrapper>
           <Image
-            src={variant.image.src}
-            alt={variant.image.alt}
+            src={currentVariant.image.src}
+            alt={currentVariant.image.alt}
             className="object-cover object-center"
             fill
             sizes=""
           />
         </ImageWrapper>
         <Content>
-          <Name>{variant.name}</Name>
-          <Price>${variant.price}</Price>
+          <Name>{currentVariant.name}</Name>
+          <Price>${currentVariant.price}</Price>
         </Content>
         <Footer>
           <Button type="select" onClick={selectHandle}>

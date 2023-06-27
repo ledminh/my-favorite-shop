@@ -1,25 +1,42 @@
 "use client";
 
-import { ComponentWithChildren } from "@/types";
-import { Variant as VariantType } from "@/types";
+import {
+  ComponentWithChildren,
+  Product as ProductType,
+  Variant as VariantType,
+} from "@/types";
+
 import Variant from "./Variant";
 import VariantListModal from "./VariantListModal";
 import VariantModal from "./VariantModal";
 
-import { useState } from "react";
+import useVariant from "@/utils/useVariant";
+
+import { useEffect, useState } from "react";
 
 type Props = {
-  productID: string;
-  variants: VariantType[];
+  product: ProductType;
 };
 
-export default function Variants({ variants, productID }: Props) {
+export default function Variants({ product }: Props) {
   const [isListModalOpen, setIsListModalOpen] = useState(false);
   const [isVariantModalOpen, setIsVariantModalOpen] = useState(false);
 
-  const [currentVariant, setCurrentVariant] = useState<VariantType | undefined>(
-    undefined
-  );
+  const { getSelectedVariant } = useVariant();
+
+  const [currentVariant, setCurrentVariant] = useState<
+    VariantType | undefined
+  >();
+
+  useEffect(() => {
+    setCurrentVariant(getSelectedVariant(product.id));
+  }, [product]);
+
+  if (!product.variants) {
+    return null;
+  }
+
+  const { variants, id: productID } = product;
 
   return (
     <>
@@ -28,9 +45,9 @@ export default function Variants({ variants, productID }: Props) {
           <Item key={variant.id}>
             <Variant
               variant={variant}
-              productID={productID}
-              setCurrentVariant={setCurrentVariant}
+              selectedVariant={getSelectedVariant(productID)}
               setIsVariantModalOpen={setIsVariantModalOpen}
+              setCurrentVariant={setCurrentVariant}
             />
           </Item>
         ))}
@@ -42,15 +59,15 @@ export default function Variants({ variants, productID }: Props) {
         setIsOpen={setIsListModalOpen}
         isOpen={isListModalOpen}
         variants={variants}
-        productID={productID}
-        setIsVariantModalOpen={setIsVariantModalOpen}
+        selectedVariant={getSelectedVariant(productID)}
         setCurrentVariant={setCurrentVariant}
+        setIsVariantModalOpen={setIsVariantModalOpen}
       />
       <VariantModal
+        isOpen={isVariantModalOpen}
+        currentVariant={currentVariant}
         setIsOpen={setIsVariantModalOpen}
         setIsListModalOpen={setIsListModalOpen}
-        isOpen={isVariantModalOpen}
-        variant={currentVariant}
         productID={productID}
       />
     </>

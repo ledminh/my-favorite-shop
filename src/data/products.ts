@@ -64,7 +64,7 @@ function _getProducts(num: number): Product[] {
       };
     }
 
-    if (i === 0) {
+    if (i === 10) {
       products[i].promotion = {
         type: "sale",
         salePrice: 10,

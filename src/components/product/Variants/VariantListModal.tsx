@@ -1,3 +1,5 @@
+"use client";
+
 import { ComponentWithChildren, Variant as VariantType } from "@/types";
 
 import Modal from "@/theme/Modal";
@@ -7,16 +9,17 @@ type Props = {
   isOpen: boolean;
   setIsOpen: (arg: boolean) => void;
   variants: VariantType[];
-  productID: string;
+  selectedVariant?: VariantType;
+  setCurrentVariant: (arg: VariantType) => void;
+
   setIsVariantModalOpen: (arg: boolean) => void;
-  setCurrentVariant: (variant: VariantType) => void;
 };
 
 export default function VariantListModal({
   isOpen,
   setIsOpen,
   variants,
-  productID,
+  selectedVariant,
   setIsVariantModalOpen,
   setCurrentVariant,
 }: Props) {
@@ -27,8 +30,8 @@ export default function VariantListModal({
           <Item key={variant.id}>
             <Variant
               variant={variant}
-              productID={productID}
               setIsVariantModalOpen={setIsVariantModalOpen}
+              selectedVariant={selectedVariant}
               setCurrentVariant={setCurrentVariant}
             />
           </Item>

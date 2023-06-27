@@ -3,32 +3,34 @@
 import {
   ComponentWithChildren,
   Product as ProductType,
-  Variant as VariantType,
+  Promotion,
 } from "@/types";
 import useVariant from "@/utils/useVariant";
+
+import { useEffect, useState } from "react";
 
 type Props = {
   product: ProductType;
 };
 
 export default function Promotion({ product }: Props) {
-  const { getCurrentVariant } = useVariant();
+  const { getSelectedVariant } = useVariant();
 
-  const currentVariant = getCurrentVariant(product.id);
+  const selectedVariant = getSelectedVariant(product.id);
 
-  let _product: ProductType | VariantType | undefined = product;
+  const [promotion, setPromotion] = useState<Promotion | undefined>();
 
-  if (product?.variants && currentVariant) {
-    _product = product.variants.find(
-      (variant) => variant.id === currentVariant.id
+  useEffect(() => {
+    setPromotion(
+      selectedVariant ? selectedVariant.promotion : product.promotion
     );
+  }, [selectedVariant]);
+
+  if (promotion) {
+    return <Wrapper>{promotion.description}</Wrapper>;
   }
 
-  if (!_product || !_product.promotion) {
-    return null;
-  }
-
-  return <Wrapper>{_product.promotion.description}</Wrapper>;
+  return null;
 }
 
 /***************

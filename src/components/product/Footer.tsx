@@ -2,42 +2,42 @@
 
 import useVariant from "@/utils/useVariant";
 import { Button } from "@/theme/basics";
-import { useState } from "react";
+import { use, useEffect, useState } from "react";
 import { H3 } from "@/theme/typography";
 import QuantityControl from "@/components/QuantityControl";
-import {
-  ComponentWithChildren,
-  Product as ProductType,
-  Variant,
-} from "@/types";
+import { ComponentWithChildren, Product as ProductType } from "@/types";
 
 import { getPrice } from "@/utils/getPrice";
+import { set } from "react-hook-form";
 
 type Props = {
-  product: ProductType;
+  product?: ProductType;
 };
 
 export default function Footer({ product }: Props) {
   const [quantity, setQuantity] = useState(0);
 
-  let _product: ProductType | Variant | undefined = product;
+  const [oldUnitPrice, setOldUnitPrice] = useState(0);
+  const [newUnitPrice, setNewUnitPrice] = useState(0);
 
-  const { getCurrentVariant } = useVariant();
-
-  const currentVariant = getCurrentVariant(product.id);
-
-  if (product?.variants && currentVariant) {
-    _product = product.variants.find(
-      (variant) => variant.id === currentVariant.id
-    );
-  }
-
-  if (!_product) {
+  if (!product) {
     return null;
   }
 
-  const oldUnitPrice = _product.price;
-  const newUnitPrice = getPrice(_product);
+  const { getSelectedVariant } = useVariant();
+  const selectedVariant = getSelectedVariant(product.id);
+
+  useEffect(() => {
+    setOldUnitPrice(selectedVariant ? selectedVariant.price : product.price);
+    setNewUnitPrice(
+      selectedVariant ? getPrice(selectedVariant) : getPrice(product)
+    );
+    setQuantity(0);
+  }, [selectedVariant]);
+
+  if (!product) {
+    return null;
+  }
 
   return (
     <Wrapper>
@@ -68,7 +68,10 @@ export default function Footer({ product }: Props) {
         </H3>
       </Price>
       <QCWrapper>
-        <span>Total: ${(newUnitPrice * quantity).toFixed(2)}</span>
+        <span>
+          Total: $
+          {((newUnitPrice ? newUnitPrice : oldUnitPrice) * quantity).toFixed(2)}
+        </span>
         <QuantityControl
           quantity={quantity}
           setQuantity={setQuantity}

@@ -4,18 +4,22 @@ import useLocalStorage from "use-local-storage";
 type VariantStorage = Record<string, Variant | undefined>;
 
 export default function useVariant() {
-  const [currentVariants, setCurrentVariants] = useLocalStorage<VariantStorage>(
-    "currentVariants",
-    {}
-  );
+  const [selectedVariants, setSelectedVariants] =
+    useLocalStorage<VariantStorage>("selectedVariants", {});
+
+  const getSelectedVariant = (productID: string) => {
+    return selectedVariants[productID];
+  };
+
+  const setSelectedVariant = (productID: string, variant: Variant) => {
+    setSelectedVariants({
+      ...selectedVariants,
+      [productID]: variant,
+    });
+  };
 
   return {
-    getCurrentVariant: (productID: string) => currentVariants[productID],
-    setCurrentVariant: (productID: string, variant: Variant) => {
-      setCurrentVariants({
-        ...currentVariants,
-        [productID]: variant,
-      });
-    },
+    getSelectedVariant,
+    setSelectedVariant,
   };
 }
