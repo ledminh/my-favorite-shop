@@ -64,7 +64,7 @@ function _getProducts(num: number): Product[] {
       };
     }
 
-    if (i === 2) {
+    if (i === 0) {
       products[i].promotion = {
         type: "sale",
         salePrice: 10,
@@ -74,6 +74,8 @@ function _getProducts(num: number): Product[] {
 
     // Add variants
     if (i === 0) {
+      products[i].id = "product-1";
+
       products[i].variants = [
         {
           id: "variant-1",
@@ -83,6 +85,7 @@ function _getProducts(num: number): Product[] {
             src: `https://picsum.photos/seed/${i + 1}/300/300`,
             alt: `variant 1`,
           },
+
           shown: true,
         },
         {
@@ -92,6 +95,12 @@ function _getProducts(num: number): Product[] {
           image: {
             src: `https://picsum.photos/seed/${i + 1}/300/300`,
             alt: `variant 2`,
+          },
+
+          promotion: {
+            type: "discount",
+            discountPercent: 20,
+            description: "Independent day discount: 20%",
           },
           shown: true,
         },
@@ -103,6 +112,7 @@ function _getProducts(num: number): Product[] {
             src: `https://picsum.photos/seed/${i + 1}/300/300`,
             alt: `variant 3`,
           },
+
           shown: true,
         },
       ];

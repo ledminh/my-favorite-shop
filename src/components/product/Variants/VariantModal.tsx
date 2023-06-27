@@ -2,14 +2,30 @@ import { ComponentWithChildren, Variant as VariantType } from "@/types";
 import Image from "next/image";
 
 import Modal from "@/theme/Modal";
+import useVariant from "@/utils/useVariant";
 
 type Props = {
   isOpen: boolean;
   setIsOpen: (arg: boolean) => void;
-  variant: VariantType;
+  variant?: VariantType;
+  productID: string;
 };
 
-export default function VariantModal({ isOpen, setIsOpen, variant }: Props) {
+export default function VariantModal({
+  isOpen,
+  setIsOpen,
+  variant,
+  productID,
+}: Props) {
+  const { setCurrentVariant } = useVariant();
+
+  if (!variant) return null;
+
+  const selectHandle = () => {
+    setCurrentVariant(productID, variant);
+    setIsOpen(false);
+  };
+
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen} size="auto">
       <Wrapper>
@@ -27,7 +43,7 @@ export default function VariantModal({ isOpen, setIsOpen, variant }: Props) {
           <Price>${variant.price}</Price>
         </Content>
         <Footer>
-          <Button type="select" onClick={() => {}}>
+          <Button type="select" onClick={selectHandle}>
             SELECT
           </Button>
           <Button type="cancel" onClick={() => setIsOpen(false)}>

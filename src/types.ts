@@ -43,8 +43,7 @@ export type Variant = {
   };
   price: number;
   shown: boolean;
-  promotions?: Promotion;
-  current?: boolean;
+  promotion?: Promotion;
 };
 
 export type Product = {

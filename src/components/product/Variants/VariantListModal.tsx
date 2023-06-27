@@ -7,19 +7,30 @@ type Props = {
   isOpen: boolean;
   setIsOpen: (arg: boolean) => void;
   variants: VariantType[];
+  productID: string;
+  setIsVariantModalOpen: (arg: boolean) => void;
+  setCurrentVariant: (variant: VariantType) => void;
 };
 
 export default function VariantListModal({
   isOpen,
   setIsOpen,
   variants,
+  productID,
+  setIsVariantModalOpen,
+  setCurrentVariant,
 }: Props) {
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen} size="full">
       <List>
         {variants.map((variant) => (
           <Item key={variant.id}>
-            <Variant variant={variant} />
+            <Variant
+              variant={variant}
+              productID={productID}
+              setIsVariantModalOpen={setIsVariantModalOpen}
+              setCurrentVariant={setCurrentVariant}
+            />
           </Item>
         ))}
       </List>

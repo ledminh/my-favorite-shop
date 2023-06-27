@@ -1,39 +1,18 @@
-import { OrderedProduct } from "@/types";
-import { Variant } from "@/types";
+import type { Promotion } from "@/types";
 
-export const getPrice = (product: OrderedProduct) => {
-  if (product.variants) {
-    const variant = product.variants.find((variant) => variant.current);
-    if (!variant) {
-      throw new Error("No current variant");
-    }
-
-    return _getVariantPrice(variant);
-  }
-
-  if (product.promotion) {
-    if (product.promotion.type === "discount") {
-      return product.price * (1 - product.promotion.discountPercent / 100);
-    } else {
-      return product.promotion.salePrice;
-    }
-  }
-
-  return product.price;
+type ItemType = {
+  price: number;
+  promotion?: Promotion;
 };
 
-/******************
- * Helper
- */
-
-function _getVariantPrice(variant: Variant) {
-  if (variant.promotions) {
-    if (variant.promotions.type === "discount") {
-      return variant.price * (1 - variant.promotions.discountPercent / 100);
+export const getPrice = (item: ItemType) => {
+  if (item.promotion) {
+    if (item.promotion.type === "discount") {
+      return item.price * (1 - item.promotion.discountPercent / 100);
     } else {
-      return variant.promotions.salePrice;
+      return item.promotion.salePrice;
     }
   }
 
-  return variant.price;
-}
+  return item.price;
+};

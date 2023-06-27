@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import useCart from "@/utils/useCart";
 import { OrderedProduct as OrderedProductType } from "@/types";
-import { ComponentWithChildren } from "@/types";
+import { ComponentWithChildren, Variant } from "@/types";
 import Image from "next/image";
 import QuantityControl from "@/components/QuantityControl";
 import { getPrice } from "@/utils/getPrice";
@@ -18,6 +18,20 @@ export default function OrderedProduct({ orderedProduct }: Props) {
   const [quantity, setQuantity] = useState(orderedProduct.quantity);
 
   const { removeFromCart, updateCart } = useCart();
+
+  let _orderedProduct: OrderedProductType | Variant | undefined =
+    orderedProduct;
+
+  if (orderedProduct.variants) {
+    _orderedProduct = orderedProduct.variants.find(
+      (variant) => variant.selected
+    )!;
+  }
+
+  if (!_orderedProduct) {
+    return null;
+  }
+
   const unitPrice = getPrice(orderedProduct);
 
   useEffect(() => {

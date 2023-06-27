@@ -71,7 +71,7 @@ export default async function ProductPage({ params }: Props) {
             </Content>
           </Section>
           <Section>
-            <Footer unitPrice={product.price} promotion={product.promotion} />
+            <Footer product={product} />
           </Section>
         </Col3>
       </Body>

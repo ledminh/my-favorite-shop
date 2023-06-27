@@ -7,6 +7,7 @@ import VariantListModal from "./VariantListModal";
 import VariantModal from "./VariantModal";
 
 import { useState } from "react";
+import useVariant from "@/utils/useVariant";
 
 type Props = {
   productID: string;
@@ -17,12 +18,21 @@ export default function Variants({ variants, productID }: Props) {
   const [isListModalOpen, setIsListModalOpen] = useState(false);
   const [isVariantModalOpen, setIsVariantModalOpen] = useState(false);
 
+  const [currentVariant, setCurrentVariant] = useState<VariantType | undefined>(
+    undefined
+  );
+
   return (
     <>
       <Wrapper>
         {variants.map((variant) => (
           <Item key={variant.id}>
-            <Variant variant={variant} productID={productID} />
+            <Variant
+              variant={variant}
+              productID={productID}
+              setCurrentVariant={setCurrentVariant}
+              setIsVariantModalOpen={setIsVariantModalOpen}
+            />
           </Item>
         ))}
         <Item>
@@ -33,11 +43,15 @@ export default function Variants({ variants, productID }: Props) {
         setIsOpen={setIsListModalOpen}
         isOpen={isListModalOpen}
         variants={variants}
+        productID={productID}
+        setIsVariantModalOpen={setIsVariantModalOpen}
+        setCurrentVariant={setCurrentVariant}
       />
       <VariantModal
         setIsOpen={setIsVariantModalOpen}
         isOpen={isVariantModalOpen}
-        variant={variants[0]}
+        variant={currentVariant}
+        productID={productID}
       />
     </>
   );

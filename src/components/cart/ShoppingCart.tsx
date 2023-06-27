@@ -9,7 +9,7 @@ import OrderedProduct from "@/components/cart/OrderedProduct";
 
 import getProducts from "@/data/products";
 
-import type { OrderedProduct as OrderedProductType } from "@/types";
+import type { OrderedProduct as OrderedProductType, Variant } from "@/types";
 import { faker } from "@faker-js/faker";
 import { getPrice } from "@/utils/getPrice";
 
@@ -17,7 +17,20 @@ export default function ShoppingCart() {
   const { cart } = useCart();
 
   const totalPrice = cart.reduce((total, orderedProduct) => {
-    const price = getPrice(orderedProduct) * orderedProduct.quantity;
+    let _orderedProduct: OrderedProductType | Variant | undefined =
+      orderedProduct;
+
+    if (orderedProduct.variants) {
+      _orderedProduct = orderedProduct.variants.find(
+        (variant) => variant.selected
+      );
+    }
+
+    if (!_orderedProduct) {
+      return total;
+    }
+
+    const price = getPrice(_orderedProduct) * orderedProduct.quantity;
     return total + price;
   }, 0);
 

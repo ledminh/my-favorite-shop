@@ -4,60 +4,64 @@ import { Button } from "@/theme/basics";
 import { useState } from "react";
 import { H3 } from "@/theme/typography";
 import QuantityControl from "@/components/QuantityControl";
-import { ComponentWithChildren, Promotion } from "@/types";
+import {
+  ComponentWithChildren,
+  Product as ProductType,
+  Variant,
+} from "@/types";
+
+import { getPrice } from "@/utils/getPrice";
 
 type Props = {
-  unitPrice?: number;
-  promotion?: Promotion;
+  product: ProductType;
 };
 
-export default function Footer({ unitPrice = 0, promotion }: Props) {
+export default function Footer({ product }: Props) {
   const [quantity, setQuantity] = useState(0);
 
-  const unitPriceWithPromotion = promotion
-    ? promotion.type === "discount"
-      ? (unitPrice * (1 - promotion.discountPercent / 100)).toFixed(2)
-      : promotion.salePrice.toFixed(2)
-    : undefined;
+  let _product: ProductType | Variant | undefined = product;
+
+  if (product?.variants) {
+    _product = product.variants.find((variant) => variant.selected);
+  }
+
+  if (!_product) {
+    return null;
+  }
+
+  const oldUnitPrice = _product.price;
+  const newUnitPrice = getPrice(_product);
 
   return (
     <Wrapper>
       <Price>
         <H3>
           UNIT PRICE:{" "}
-          {promotion && (
+          {oldUnitPrice !== newUnitPrice && (
             <>
               <span className="font-normal text-black line-through">
-                ${unitPrice.toFixed(2)}
+                ${oldUnitPrice.toFixed(2)}
               </span>
               <span> </span>
             </>
           )}
-          {unitPriceWithPromotion && (
+          {oldUnitPrice !== newUnitPrice && (
             <span className="font-bold text-red-700">
-              ${unitPriceWithPromotion}
+              ${newUnitPrice.toFixed(2)}
             </span>
           )}
           {
             // If there is no promotion, show the unit price without promotion
-            !promotion && (
+            oldUnitPrice === newUnitPrice && (
               <span className="font-bold text-red-700">
-                ${unitPrice.toFixed(2)}
+                ${newUnitPrice.toFixed(2)}
               </span>
             )
           }
         </H3>
       </Price>
       <QCWrapper>
-        <span>
-          (Total: $
-          {(
-            (unitPriceWithPromotion
-              ? Number(unitPriceWithPromotion)
-              : unitPrice) * quantity
-          ).toFixed(2)}
-          )
-        </span>
+        <span>Total: ${(newUnitPrice * quantity).toFixed(2)}</span>
         <QuantityControl
           quantity={quantity}
           setQuantity={setQuantity}
@@ -85,7 +89,7 @@ export default function Footer({ unitPrice = 0, promotion }: Props) {
 
 const Wrapper: ComponentWithChildren = ({ children }) => {
   return (
-    <div className="flex flex-col sm:flex-row flex-wrap items-center justify-between p-5 gap-y-4 gap-x-8 md:justify-between md:flex-nowrap">
+    <div className="flex flex-col flex-wrap items-center justify-between p-5 sm:flex-row gap-y-4 gap-x-8 md:justify-between md:flex-nowrap">
       {children}
     </div>
   );
@@ -93,9 +97,7 @@ const Wrapper: ComponentWithChildren = ({ children }) => {
 
 const Price: ComponentWithChildren = ({ children }) => {
   return (
-    <div className="font-bold text-red-700 md:basis-[40%]">
-      {children}
-    </div>
+    <div className="font-bold text-red-700 md:basis-[40%]">{children}</div>
   );
 };
 
