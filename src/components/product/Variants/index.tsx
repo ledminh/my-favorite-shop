@@ -61,13 +61,13 @@ export default function Variants({ product }: Props) {
         variants={variants}
         selectedVariant={getSelectedVariant(productID)}
         setCurrentVariant={setCurrentVariant}
-        setIsVariantModalOpen={setIsVariantModalOpen}
+        currentVariant={currentVariant}
+        productID={productID}
       />
       <VariantModal
         isOpen={isVariantModalOpen}
         currentVariant={currentVariant}
         setIsOpen={setIsVariantModalOpen}
-        setIsListModalOpen={setIsListModalOpen}
         productID={productID}
       />
     </>

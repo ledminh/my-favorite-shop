@@ -2,6 +2,10 @@
 
 import { ComponentWithChildren, Variant as VariantType } from "@/types";
 
+import { useState } from "react";
+
+import VariantModal from "./VariantModal";
+
 import Modal from "@/theme/Modal";
 import Variant from "./Variant";
 
@@ -11,8 +15,8 @@ type Props = {
   variants: VariantType[];
   selectedVariant?: VariantType;
   setCurrentVariant: (arg: VariantType) => void;
-
-  setIsVariantModalOpen: (arg: boolean) => void;
+  currentVariant?: VariantType;
+  productID: string;
 };
 
 export default function VariantListModal({
@@ -20,24 +24,35 @@ export default function VariantListModal({
   setIsOpen,
   variants,
   selectedVariant,
-  setIsVariantModalOpen,
   setCurrentVariant,
+  currentVariant,
+  productID,
 }: Props) {
+  const [isVariantModalOpen, setIsVariantModalOpen] = useState(true);
+
   return (
-    <Modal isOpen={isOpen} setIsOpen={setIsOpen} size="full">
-      <List>
-        {variants.map((variant) => (
-          <Item key={variant.id}>
-            <Variant
-              variant={variant}
-              setIsVariantModalOpen={setIsVariantModalOpen}
-              selectedVariant={selectedVariant}
-              setCurrentVariant={setCurrentVariant}
-            />
-          </Item>
-        ))}
-      </List>
-    </Modal>
+    <>
+      <Modal isOpen={isOpen} setIsOpen={setIsOpen} size="full">
+        <List>
+          {variants.map((variant) => (
+            <Item key={variant.id}>
+              <Variant
+                variant={variant}
+                setIsVariantModalOpen={setIsVariantModalOpen}
+                selectedVariant={selectedVariant}
+                setCurrentVariant={setCurrentVariant}
+              />
+            </Item>
+          ))}
+        </List>
+        <VariantModal
+          isOpen={isVariantModalOpen}
+          currentVariant={currentVariant}
+          setIsOpen={setIsVariantModalOpen}
+          productID={productID}
+        />
+      </Modal>
+    </>
   );
 }
 
