@@ -82,6 +82,18 @@ export type Order = {
   paymentInfo: PaymentInfo;
 };
 
+/***********************
+ * Customer Message
+ */
+
+export type CustomerMessage = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone?: string;
+  message: string;
+};
+
 /**********************
  * Other types
  */

@@ -5,6 +5,9 @@ import { ComponentWithChildren } from "@/types";
 
 import { useState, FormEventHandler, ForwardedRef, forwardRef } from "react";
 
+import { CustomerMessage } from "@/types";
+import { SubmitHandler, FieldValues } from "react-hook-form";
+
 import { useForm } from "react-hook-form";
 
 import FormErrorMessage from "@/theme/FormErrorMessage";
@@ -24,8 +27,17 @@ export default function Form() {
 
   const [sent, setSent] = useState(false);
 
-  const onSubmit = (data: any) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    const message: CustomerMessage = {
+      firstName: data.firstName,
+      lastName: data.lastName,
+      email: data.email,
+      phone: data.phone,
+      message: data.message,
+    };
+
+    console.log(message);
+
     setSent(true);
   };
 
@@ -95,10 +107,10 @@ export default function Form() {
           )}
         </Col2>
         <Col2>
-          <Label htmlFor="phoneNumber">Phone Number</Label>
+          <Label htmlFor="phone">Phone Number</Label>
           <InputWrapper>
             <Input
-              {...register("phoneNumber", {
+              {...register("phone", {
                 pattern: numberPattern,
               })}
             />
