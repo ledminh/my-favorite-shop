@@ -8,31 +8,27 @@ import Image from "next/image";
 import QuantityControl from "@/components/QuantityControl";
 import { getPrice } from "@/utils/getPrice";
 
+import useVariant from "@/utils/useVariant";
+
 type Props = {
   orderedProduct: OrderedProductType;
 };
 
 export default function OrderedProduct({ orderedProduct }: Props) {
-  const mainImage = getMainImage(orderedProduct);
-
   const [quantity, setQuantity] = useState(orderedProduct.quantity);
 
   const { removeFromCart, updateCart } = useCart();
 
-  let _orderedProduct: OrderedProductType | Variant | undefined =
-    orderedProduct;
+  const mainImage = getMainImage(orderedProduct);
+  const unitPrice = getPrice(
+    orderedProduct.selectedVariant
+      ? orderedProduct.selectedVariant
+      : orderedProduct
+  );
 
-  if (orderedProduct.variants) {
-    _orderedProduct = orderedProduct.variants.find(
-      (variant) => variant.selected
-    )!;
-  }
-
-  if (!_orderedProduct) {
-    return null;
-  }
-
-  const unitPrice = getPrice(orderedProduct);
+  const productName = orderedProduct.selectedVariant
+    ? orderedProduct.name + " - " + orderedProduct.selectedVariant.name
+    : orderedProduct.name;
 
   useEffect(() => {
     orderedProduct.quantity = quantity;
@@ -41,6 +37,7 @@ export default function OrderedProduct({ orderedProduct }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [quantity]);
 
+  // This is to fix the bug when user add more of the same product to cart but the quantity doesn't update
   useEffect(() => {
     if (orderedProduct.quantity !== quantity)
       setQuantity(orderedProduct.quantity);
@@ -60,7 +57,7 @@ export default function OrderedProduct({ orderedProduct }: Props) {
         />
       </ImageWrapper>
       <Content>
-        <Name>{orderedProduct.name}</Name>
+        <Name>{productName}</Name>
         <Price>Unit Price: ${unitPrice.toFixed(2)}</Price>
         <TotalPrice>Total: ${(unitPrice * quantity).toFixed(2)}</TotalPrice>
       </Content>
@@ -137,6 +134,11 @@ const Button = ({ children, onClick }: ButtonProps) => (
  */
 
 function getMainImage(orderedProduct: OrderedProductType) {
+  // If the product is a variant, return the image of the variant
+  if (orderedProduct.selectedVariant) {
+    return orderedProduct.selectedVariant.image;
+  }
+
   const mainImage = orderedProduct.images.find(
     (image) => image.id === orderedProduct.mainImageID
   );

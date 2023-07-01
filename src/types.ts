@@ -66,6 +66,7 @@ export type Product = {
 
 export type OrderedProduct = Product & {
   quantity: number;
+  selectedVariant?: Variant;
 };
 
 /**********************

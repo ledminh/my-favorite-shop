@@ -13,25 +13,22 @@ import type { OrderedProduct as OrderedProductType, Variant } from "@/types";
 import { faker } from "@faker-js/faker";
 import { getPrice } from "@/utils/getPrice";
 
+import useVariant from "@/utils/useVariant";
+
 export default function ShoppingCart() {
   const { cart } = useCart();
 
-  const totalPrice = cart.reduce((total, orderedProduct) => {
-    let _orderedProduct: OrderedProductType | Variant | undefined =
-      orderedProduct;
+  const { getSelectedVariant } = useVariant();
 
-    if (orderedProduct.variants) {
-      _orderedProduct = orderedProduct.variants.find(
-        (variant) => variant.selected
+  const totalPrice = cart.reduce((total, orderedProduct) => {
+    if (orderedProduct.selectedVariant) {
+      return (
+        total +
+        getPrice(orderedProduct.selectedVariant) * orderedProduct.quantity
       );
     }
 
-    if (!_orderedProduct) {
-      return total;
-    }
-
-    const price = getPrice(_orderedProduct) * orderedProduct.quantity;
-    return total + price;
+    return total + getPrice(orderedProduct) * orderedProduct.quantity;
   }, 0);
 
   return (

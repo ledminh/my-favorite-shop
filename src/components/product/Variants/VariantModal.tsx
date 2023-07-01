@@ -3,6 +3,7 @@ import Image from "next/image";
 
 import Modal from "@/theme/Modal";
 import useVariant from "@/utils/useVariant";
+import { getPrice } from "@/utils/getPrice";
 
 type Props = {
   isOpen: boolean;
@@ -28,6 +29,8 @@ export default function VariantModal({
     setIsOpen(false);
   };
 
+  const newPrice = getPrice(currentVariant);
+
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen} size="auto">
       <Wrapper>
@@ -41,8 +44,19 @@ export default function VariantModal({
           />
         </ImageWrapper>
         <Content>
+          {currentVariant.promotion && (
+            <Promotion>{currentVariant.promotion.description}</Promotion>
+          )}
           <Name>{currentVariant.name}</Name>
-          <Price>${currentVariant.price}</Price>
+          {newPrice === currentVariant.price && <Price>${newPrice}</Price>}
+          {newPrice !== currentVariant.price && (
+            <Price>
+              <span className="font-normal text-black line-through">
+                ${currentVariant.price}
+              </span>{" "}
+              ${newPrice}
+            </Price>
+          )}
         </Content>
         <Footer>
           <Button type="select" onClick={selectHandle}>
@@ -62,7 +76,7 @@ export default function VariantModal({
  */
 const Wrapper: ComponentWithChildren = ({ children }) => {
   return (
-    <div className="flex flex-col w-full max-w-[400px] min-w-[300px] gap-8 p-5 mx-auto border-2 border-black rounded-lg bg-white">
+    <div className="flex flex-col w-full max-w-[400px] min-w-[300px] gap-8 p-5 mx-auto border-2 border-black rounded-lg bg-white relative">
       {children}
     </div>
   );
@@ -83,6 +97,12 @@ const Content: ComponentWithChildren = ({ children }) => {
     </div>
   );
 };
+
+const Promotion: ComponentWithChildren = ({ children }) => (
+  <div className="absolute top-0 right-0 z-10 px-2 py-1 text-sm font-bold text-white bg-red-600 rounded-bl-lg">
+    {children}
+  </div>
+);
 
 const Name: ComponentWithChildren = ({ children }) => {
   return <div>{children}</div>;

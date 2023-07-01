@@ -2,13 +2,18 @@
 
 import useVariant from "@/utils/useVariant";
 import { Button } from "@/theme/basics";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { H3 } from "@/theme/typography";
 import QuantityControl from "@/components/QuantityControl";
-import { ComponentWithChildren, Product as ProductType } from "@/types";
+import {
+  ComponentWithChildren,
+  OrderedProduct,
+  Product as ProductType,
+} from "@/types";
+
+import useCart from "@/utils/useCart";
 
 import { getPrice } from "@/utils/getPrice";
-import { set } from "react-hook-form";
 
 type Props = {
   product?: ProductType;
@@ -19,6 +24,8 @@ export default function Footer({ product }: Props) {
 
   const [oldUnitPrice, setOldUnitPrice] = useState(0);
   const [newUnitPrice, setNewUnitPrice] = useState(0);
+
+  const { addToCart } = useCart();
 
   if (!product) {
     return null;
@@ -38,6 +45,16 @@ export default function Footer({ product }: Props) {
   if (!product) {
     return null;
   }
+
+  const addToCartHandle = () => {
+    if (quantity === 0) {
+      return;
+    }
+
+    addToCart(product, quantity);
+
+    setQuantity(0);
+  };
 
   return (
     <Wrapper>
@@ -82,9 +99,8 @@ export default function Footer({ product }: Props) {
         <Button
           type="normal"
           size="lg"
-          onClick={() => {
-            setQuantity(0);
-          }}
+          onClick={addToCartHandle}
+          disabled={quantity === 0}
         >
           Add to Cart
         </Button>
