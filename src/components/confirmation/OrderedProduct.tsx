@@ -1,18 +1,31 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ComponentWithChildren, Product as ProductType } from "@/types";
+import {
+  ComponentWithChildren,
+  OrderedProduct as OrderedProductType,
+} from "@/types";
+import { getPrice } from "@/utils/getPrice";
 
 type Props = {
-  product: ProductType;
+  orderedProduct: OrderedProductType;
 };
 
-const OrderedProduct = ({ product }: Props) => {
-  const mainImage = product.images.find(
-    (image) => image.id === product.mainImageID
+const OrderedProduct = ({ orderedProduct }: Props) => {
+  const { intro, link, quantity } = orderedProduct;
+
+  const name = orderedProduct.selectedVariant
+    ? orderedProduct.name + " (" + orderedProduct.selectedVariant.name + ")"
+    : orderedProduct.name;
+
+  const price = orderedProduct.selectedVariant
+    ? getPrice(orderedProduct.selectedVariant)
+    : getPrice(orderedProduct);
+
+  const mainImage = orderedProduct.images.find(
+    (image) => image.id === orderedProduct.mainImageID
   );
 
-  if (!mainImage)
-    throw new Error(`Main image not found for product ${product.name}`);
+  if (!mainImage) throw new Error(`Main image not found for product ${name}`);
 
   return (
     <Wrapper>
@@ -27,14 +40,14 @@ const OrderedProduct = ({ product }: Props) => {
       </ImageWrapper>
       <Content>
         <h3 className="text-gray-900">
-          <Link href={product.link}>{product.name}</Link>
+          <Link href={link}>{name}</Link>
         </h3>
-        <p>{product.intro}</p>
+        <p>{intro}</p>
       </Content>
 
       <MetaData>
-        <p>${product.price}</p>
-        <p className="text-xs">Qty: 4</p>
+        <p>${price.toFixed(2)}</p>
+        <p className="text-xs">Qty: {quantity}</p>
       </MetaData>
     </Wrapper>
   );

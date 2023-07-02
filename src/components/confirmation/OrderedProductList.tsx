@@ -1,17 +1,17 @@
 import { ComponentWithChildren } from "@/types";
-import { Product as ProductType } from "@/types";
+import { OrderedProduct as OrderedProductType } from "@/types";
 import OrderedProduct from "./OrderedProduct";
 
 type Props = {
-  products: ProductType[];
+  orderedProducts: OrderedProductType[];
 };
 
-export default function OrderedProductList({ products }: Props) {
+export default function OrderedProductList({ orderedProducts }: Props) {
   return (
     <List>
-      {products.map((product) => (
-        <Item key={product.id}>
-          <OrderedProduct product={product} />
+      {orderedProducts.map((orderedProduct) => (
+        <Item key={orderedProduct.id}>
+          <OrderedProduct orderedProduct={orderedProduct} />
         </Item>
       ))}
     </List>

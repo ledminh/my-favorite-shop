@@ -73,6 +73,23 @@ export type OrderedProduct = Product & {
  * Order types
  */
 
+export type ShippingAddress = {
+  firstName: string;
+  lastName: string;
+  streetAddress: string;
+  state: string;
+  city: string;
+  zip: string;
+  phone: string;
+  email: string;
+};
+
+export type PaymentInfo = {
+  cardType: "Visa" | "MasterCard" | "American Express";
+  lastFourDigits: string;
+  expireDate: Date;
+};
+
 export type Order = {
   id: string;
   shippingAddress: ShippingAddress;
@@ -92,24 +109,4 @@ export type CustomerMessage = {
   email: string;
   phone?: string;
   message: string;
-};
-
-/**********************
- * Other types
- */
-type ShippingAddress = {
-  firstName: string;
-  lastName: string;
-  streetAddress: string;
-  state: string;
-  city: string;
-  zip: string;
-  phone: string;
-  email: string;
-};
-
-type PaymentInfo = {
-  cardType: "Visa" | "MasterCard" | "American Express";
-  lastFourDigits: string;
-  expireDate: Date;
 };

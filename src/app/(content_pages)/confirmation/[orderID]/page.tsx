@@ -1,13 +1,20 @@
 import Image from "next/image";
-import { ComponentWithChildren, Product as ProductType } from "@/types";
+import {
+  ComponentWithChildren,
+  Order as OrderType,
+  ShippingAddress,
+  PaymentInfo,
+} from "@/types";
 
 import ConfirmHeroImage from "@/assets/images/confirm-hero-image.jpg";
 
-import getProducts from "@/data/products";
+import { getOrder } from "@/data/order";
 
 import Link from "next/link";
 import OrderedProductList from "@/components/confirmation/OrderedProductList";
 import Header from "@/components/confirmation/Header";
+import { getPrice } from "@/utils/getPrice";
+import { MasterCardIcon, VisaIcon } from "@/theme/Icons";
 
 type Props = {
   params: {
@@ -17,7 +24,18 @@ type Props = {
 
 export default async function Confirmation({ params }: Props) {
   const { orderID } = params;
-  const products = await getOrderedProducts();
+  const order = await getOrderAsync(orderID);
+
+  const { orderedProducts, shippingFee, taxes, shippingAddress, paymentInfo } =
+    order;
+
+  const subTotal = orderedProducts.reduce(
+    (total, orderedProduct) =>
+      total +
+      getPrice(orderedProduct.selectedVariant || orderedProduct) *
+        orderedProduct.quantity,
+    0
+  );
 
   return (
     <Wrapper>
@@ -33,12 +51,12 @@ export default async function Confirmation({ params }: Props) {
       <Content>
         <Header orderID={orderID} />
         <TrackingNumber number={orderID} />
-        <OrderedProductList products={products} />
-        <Total />
+        <OrderedProductList orderedProducts={orderedProducts} />
+        <Total subTotal={subTotal} shipping={shippingFee} taxes={taxes} />
 
         <Footer>
-          <ShippingAddress />
-          <PaymentMethod />
+          <ShippingAddress shippingAddress={shippingAddress} />
+          <PaymentMethod paymentInfo={paymentInfo} />
         </Footer>
 
         <Navigation>
@@ -101,81 +119,118 @@ const TrackingNumber = ({ number }: TrackingNumberProps) => (
   </dl>
 );
 
-const Total = () => (
+type TotalProps = {
+  subTotal: number;
+  shipping?: number;
+  taxes?: number;
+};
+
+const Total = ({ subTotal, shipping = 8, taxes = 4.3 }: TotalProps) => (
   <dl className="pt-6 space-y-6 text-sm font-medium text-gray-500 border-t border-gray-200">
     <div className="flex justify-between">
       <dt>Subtotal</dt>
-      <dd className="text-gray-900">$72.00</dd>
+      <dd className="text-gray-900">${subTotal.toFixed()}</dd>
     </div>
 
     <div className="flex justify-between">
       <dt>Shipping</dt>
-      <dd className="text-gray-900">$8.00</dd>
+      <dd className="text-gray-900">${shipping.toFixed(2)}</dd>
     </div>
 
     <div className="flex justify-between">
       <dt>Taxes</dt>
-      <dd className="text-gray-900">$6.40</dd>
+      <dd className="text-gray-900">${taxes.toFixed(2)}</dd>
     </div>
 
     <div className="flex items-center justify-between pt-6 text-gray-900 border-t border-gray-200">
       <dt className="text-base">Total</dt>
-      <dd className="text-base">$86.40</dd>
+      <dd className="text-base">${(subTotal + shipping + taxes).toFixed(2)}</dd>
     </div>
   </dl>
 );
 
-const ShippingAddress = () => (
-  <div>
-    <dt className="font-medium text-gray-900">Shipping Address</dt>
-    <dd className="mt-2">
-      <address className="not-italic">
-        <span className="block">Kristin Watson</span>
-        <span className="block">7363 Cynthia Pass</span>
-        <span className="block">Toronto, ON N3Y 4H8</span>
-      </address>
-    </dd>
-  </div>
-);
+type ShippingAddressProps = {
+  shippingAddress: ShippingAddress;
+};
 
-const PaymentMethod = () => (
-  <div>
-    <dt className="font-medium text-gray-900">Payment Information</dt>
-    <dd className="mt-2 space-y-2 sm:flex sm:space-x-4 sm:space-y-0">
-      <div className="flex-none">
-        <svg
-          aria-hidden="true"
-          width={36}
-          height={24}
-          viewBox="0 0 36 24"
-          className="w-auto h-6"
-        >
-          <rect width={36} height={24} rx={4} fill="#224DBA" />
-          <path
-            d="M10.925 15.673H8.874l-1.538-6c-.073-.276-.228-.52-.456-.635A6.575 6.575 0 005 8.403v-.231h3.304c.456 0 .798.347.855.75l.798 4.328 2.05-5.078h1.994l-3.076 7.5zm4.216 0h-1.937L14.8 8.172h1.937l-1.595 7.5zm4.101-5.422c.057-.404.399-.635.798-.635a3.54 3.54 0 011.88.346l.342-1.615A4.808 4.808 0 0020.496 8c-1.88 0-3.248 1.039-3.248 2.481 0 1.097.969 1.673 1.653 2.02.74.346 1.025.577.968.923 0 .519-.57.75-1.139.75a4.795 4.795 0 01-1.994-.462l-.342 1.616a5.48 5.48 0 002.108.404c2.108.057 3.418-.981 3.418-2.539 0-1.962-2.678-2.077-2.678-2.942zm9.457 5.422L27.16 8.172h-1.652a.858.858 0 00-.798.577l-2.848 6.924h1.994l.398-1.096h2.45l.228 1.096h1.766zm-2.905-5.482l.57 2.827h-1.596l1.026-2.827z"
-            fill="#fff"
-          />
-        </svg>
-        <p className="sr-only">Visa</p>
-      </div>
-      <div className="flex-auto">
-        <p className="text-gray-900">Ending with 4242</p>
-        <p>Expires 12 / 21</p>
-      </div>
-    </dd>
-  </div>
-);
+const ShippingAddress = ({ shippingAddress }: ShippingAddressProps) => {
+  const { firstName, lastName, streetAddress, city, state, zip, phone, email } =
+    shippingAddress;
+
+  return (
+    <div>
+      <dt className="font-medium text-gray-900">Shipping Address</dt>
+      <dd className="mt-2">
+        <address className="not-italic">
+          <div className="block">
+            <span className="font-semibold">Name: </span>
+            <span>{firstName + " " + lastName}</span>
+          </div>
+          <div className="block">
+            <span className="font-semibold">Addr: </span>
+            <span>{streetAddress}</span>
+          </div>
+          <div className="block">{city + ", " + state + ", " + zip}</div>
+          <div className="block">
+            <span className="font-semibold">Phone: </span>
+            <span>{phone}</span>
+          </div>
+          <div className="block">
+            <span className="font-semibold">Email: </span>
+            <span>{email}</span>
+          </div>
+        </address>
+      </dd>
+    </div>
+  );
+};
+
+type PaymentMethodProps = {
+  paymentInfo: PaymentInfo;
+};
+
+const PaymentMethod = ({ paymentInfo }: PaymentMethodProps) => {
+  const { cardType, lastFourDigits, expireDate } = paymentInfo;
+
+  const expireMonth = expireDate.getMonth() + 1;
+  const expireYear = expireDate.getFullYear();
+
+  return (
+    <div>
+      <dt className="font-medium text-gray-900">Payment Information</dt>
+      <dd className="mt-2 space-y-2 sm:flex sm:space-x-4 sm:space-y-0">
+        <div className="flex-none">
+          {/* <VisaIcon className="w-auto h-6" /> */}
+          {cardType === "Visa" ? (
+            <VisaIcon className="w-auto h-6" />
+          ) : (
+            <MasterCardIcon className="w-12 h-10" />
+          )}
+          <p className="sr-only">
+            {cardType === "Visa" ? "Visa" : "MasterCard"}
+          </p>
+        </div>
+        <div className="flex-auto">
+          <p className="text-gray-900">Ending with {lastFourDigits}</p>
+          <p>
+            Expires {expireMonth} / {expireYear}
+          </p>
+        </div>
+      </dd>
+    </div>
+  );
+};
 
 /***********************
  * Utilities
  */
 
-type GetOrderedProducts = () => Promise<ProductType[]>;
+type GetOrderAsync = (orderID: string) => Promise<OrderType>;
 
-const getOrderedProducts: GetOrderedProducts = () => {
+const getOrderAsync: GetOrderAsync = (orderID) => {
   return new Promise((resolve) => {
     setTimeout(() => {
-      const products = getProducts(4);
+      const products = getOrder(orderID);
 
       resolve(products);
     }, 1000);
