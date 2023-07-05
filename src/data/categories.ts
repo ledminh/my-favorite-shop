@@ -1,6 +1,6 @@
-import type { Category } from "@/types";
+import type { Category as CategoryType } from "@/types";
 
-const categories: Category[] = [
+const categories: CategoryType[] = [
   {
     id: "1",
     name: "Nail Polish",
@@ -223,4 +223,93 @@ const categories: Category[] = [
   },
 ];
 
-export default categories;
+/*****************************************
+ * API
+ *****************************************/
+
+/*******************************************************************
+ * getCategories
+ * @returns Promise<CategoryType[]>
+ * @description Returns a promise that resolves to an array of
+ * all categories in the database
+ * @example
+ * const categories = await getCategories();
+ * console.log(categories);
+ * // [
+ * //   {
+ * //     id: "1",
+ * //     name: "Nail Polish",
+ * //     description: "A wide range of nail polish",
+ * //     link: "/shop/nail-polish",
+ * //     image: {
+ *       src: "https://picsum.photos/seed/1/300/300",
+ *      alt: "Nail Polish",
+ *    },
+ * },
+ * ...
+ * ]
+ */
+
+type GetCategories = () => Promise<CategoryType[]>;
+
+export const getCategories: GetCategories = async () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(categories);
+    }, 1000);
+  });
+};
+
+/*******************************************************************
+ * getCategory
+ * @param {slug, id}
+ * @returns Promise<CategoryType>
+ * @description Returns a promise that resolves to a category that has slug or * id that matches the slug or id passed in
+ * @example
+ * const category = await getCategory("nail-polish");
+ * console.log(category);
+ * // {
+ * //   id: "1",
+ * //   name: "Nail Polish",
+ * //   description: "A wide range of nail polish",
+ * //   link: "/shop/nail-polish",
+ * //   image: {
+ * //     src: "https://picsum.photos/seed/1/300/300",
+ * //     alt: "Nail Polish",
+ * //   },
+ * // }
+ *
+ * const category = await getCategory("1");
+ * console.log(category);
+ * // {
+ * //   id: "1",
+ * //   name: "Nail Polish",
+ * //   description: "A wide range of nail polish",
+ * //   link: "/shop/nail-polish",
+ * //   image: {
+ * //     src: "https://picsum.photos/seed/1/300/300",
+ * //     alt: "Nail Polish",
+ * //   },
+ * // }
+ */
+
+type GetCategoryProps = {
+  slug?: string;
+  id?: string;
+};
+type GetCategory = (props: GetCategoryProps) => Promise<CategoryType>;
+
+export const getCategory: GetCategory = async ({ slug, id }) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const category = categories.find(
+        (category) => category.id === id || category.link === "/shop/" + slug
+      );
+      if (category) {
+        resolve(category);
+      } else {
+        reject(new Error("Category not found"));
+      }
+    }, 1000);
+  });
+};

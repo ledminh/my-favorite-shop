@@ -1,22 +1,12 @@
 import { H2 } from "@/theme/typography";
 import { ComponentWithChildren, Category as CategoryType } from "@/types";
 
-import Category from "@/components/shop/Category";
 import Banner from "@/theme/Banner";
 import Section from "@/theme/Section";
 
-import categories from "@/data/categories";
 import CategoryList from "@/components/shop/CategoryList";
 
-type GetCategories = () => Promise<CategoryType[]>;
-
-const getCategories: GetCategories = async () => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(categories);
-    }, 2000);
-  });
-};
+import { getCategories } from "@/data/categories";
 
 export default async function Shop() {
   const categories = await getCategories();
