@@ -61,11 +61,17 @@ export default async function Confirmation({ params }: Props) {
 
         <Navigation>
           <Link
-            href="#"
-            className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
+            href="/shop"
+            className="flex justify-end gap-1 text-sm font-medium text-indigo-600 hover:text-indigo-500 group"
           >
             Continue Shopping
-            <span aria-hidden="true"> &rarr;</span>
+            <span
+              aria-hidden="true"
+              className="inline-block transition-all duration-200 group-hover:translate-x-1"
+            >
+              {" "}
+              &rarr;
+            </span>
           </Link>
         </Navigation>
       </Content>

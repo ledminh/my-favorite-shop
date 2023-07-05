@@ -48,6 +48,8 @@ const OrderedProduct = ({ orderedProduct }: Props) => {
       <MetaData>
         <p>${price.toFixed(2)}</p>
         <p className="text-xs">Qty: {quantity}</p>
+        <div className="w-full h-[1px] bg-gray-800 my-2" />
+        <p className="text-xs">${(quantity * price).toFixed(2)}</p>
       </MetaData>
     </Wrapper>
   );

@@ -90,6 +90,8 @@ export type PaymentInfo = {
   expireDate: Date;
 };
 
+export type OrderStatus = "processing" | "shipped" | "delivered";
+
 export type Order = {
   id: string;
   shippingAddress: ShippingAddress;
