@@ -32,17 +32,23 @@ export default function OrderPage({ params }: OrderPageProps) {
     <Wrapper>
       <Header orderID={orderID} status="processing" />
 
-      <div className="mt-8 border-t border-gray-600">
+      <div className="mt-8 border-t border-gray-600 md:flex md:justify-between md:items-start md:gap-5">
         <h2 className="sr-only">Order Summary</h2>
-        <OrderList orderedProducts={orderedProducts} />
-        <div>
-          <Summary
-            subtotal={subtotal}
-            shippingFee={shippingFee}
-            taxes={taxes}
-          />
-          <ShippingAddress shippingAddress={order.shippingAddress} />
-          <PaymentMethod paymentInfo={order.paymentInfo} />
+        <div className="basis-[45%]">
+          <OrderList orderedProducts={orderedProducts} />
+        </div>
+        <div className="flex flex-col gap-10 mb-10 basis-[45%]">
+          <div className="pb-4 border-b border-gray-600">
+            <Summary
+              subtotal={subtotal}
+              shippingFee={shippingFee}
+              taxes={taxes}
+            />
+          </div>
+          <div className="flex items-start justify-between">
+            <ShippingAddress shippingAddress={order.shippingAddress} />
+            <PaymentMethod paymentInfo={order.paymentInfo} />
+          </div>
         </div>
       </div>
     </Wrapper>
@@ -86,12 +92,12 @@ type OrderListProps = {
 
 const OrderList = ({ orderedProducts }: OrderListProps) => {
   return (
-    <>
+    <div>
       <h3 className="sr-only">Items</h3>
       {orderedProducts.map((orderedProduct) => (
         <ProductTab key={orderedProduct.id} orderedProduct={orderedProduct} />
       ))}
-    </>
+    </div>
   );
 };
 
