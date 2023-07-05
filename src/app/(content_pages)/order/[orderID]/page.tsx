@@ -4,7 +4,9 @@ import Link from "next/link";
 import { getOrder } from "@/data/order";
 
 import Image from "next/image";
-import Product from "@/components/shop/ProductList/Product";
+import { getPrice } from "@/utils/getPrice";
+import ShippingAddress from "@/components/ShippingAddress";
+import PaymentMethod from "@/components/PaymentMethod";
 
 type OrderPageProps = {
   params: {
@@ -16,7 +18,15 @@ export default function OrderPage({ params }: OrderPageProps) {
   const { orderID } = params;
 
   const order = getOrder(orderID);
-  const { orderedProducts } = order;
+  const { orderedProducts, shippingFee, taxes } = order;
+
+  const subtotal = orderedProducts.reduce((acc, oP) => {
+    if (oP.selectedVariant) {
+      return acc + getPrice(oP.selectedVariant) * oP.quantity;
+    }
+
+    return acc + getPrice(oP) * oP.quantity;
+  }, 0);
 
   return (
     <Wrapper>
@@ -25,7 +35,15 @@ export default function OrderPage({ params }: OrderPageProps) {
       <div className="mt-8 border-t border-gray-600">
         <h2 className="sr-only">Order Summary</h2>
         <OrderList orderedProducts={orderedProducts} />
-        <CustomerInfo />
+        <div>
+          <Summary
+            subtotal={subtotal}
+            shippingFee={shippingFee}
+            taxes={taxes}
+          />
+          <ShippingAddress shippingAddress={order.shippingAddress} />
+          <PaymentMethod paymentInfo={order.paymentInfo} />
+        </div>
       </div>
     </Wrapper>
   );
@@ -122,8 +140,43 @@ const ProductTab = ({ orderedProduct }: ProductTabProps) => {
   );
 };
 
+type SummaryProps = {
+  subtotal: number;
+  shippingFee: number;
+  taxes: number;
+};
+
+const Summary = ({ subtotal, shippingFee, taxes }: SummaryProps) => {
+  return (
+    <>
+      <h3 className="sr-only">Summary</h3>
+
+      <dl className="pt-10 space-y-6 text-sm border-t border-gray-200">
+        <div className="flex justify-between">
+          <dt className="font-medium text-gray-900">Subtotal</dt>
+          <dd className="text-gray-700">${subtotal.toFixed(2)}</dd>
+        </div>
+        <div className="flex justify-between">
+          <dt className="flex font-medium text-gray-900">Taxes</dt>
+          <dd className="text-gray-700">${taxes.toFixed(2)}</dd>
+        </div>
+        <div className="flex justify-between">
+          <dt className="font-medium text-gray-900">Shipping</dt>
+          <dd className="text-gray-700">${shippingFee.toFixed(2)}</dd>
+        </div>
+        <div className="flex justify-between">
+          <dt className="font-medium text-gray-900">Total</dt>
+          <dd className="text-gray-900">
+            ${(subtotal + shippingFee + taxes).toFixed(2)}
+          </dd>
+        </div>
+      </dl>
+    </>
+  );
+};
+
 const CustomerInfo = () => (
-  <div className="sm:ml-40 sm:pl-6">
+  <div>
     <h3 className="sr-only">Your information</h3>
 
     <h4 className="sr-only">Addresses</h4>
@@ -169,32 +222,6 @@ const CustomerInfo = () => (
           <p>DHL</p>
           <p>Takes up to 3 working days</p>
         </dd>
-      </div>
-    </dl>
-
-    <h3 className="sr-only">Summary</h3>
-
-    <dl className="pt-10 space-y-6 text-sm border-t border-gray-200">
-      <div className="flex justify-between">
-        <dt className="font-medium text-gray-900">Subtotal</dt>
-        <dd className="text-gray-700">$36.00</dd>
-      </div>
-      <div className="flex justify-between">
-        <dt className="flex font-medium text-gray-900">
-          Discount
-          <span className="ml-2 rounded-full bg-gray-200 px-2 py-0.5 text-xs text-gray-600">
-            STUDENT50
-          </span>
-        </dt>
-        <dd className="text-gray-700">-$18.00 (50%)</dd>
-      </div>
-      <div className="flex justify-between">
-        <dt className="font-medium text-gray-900">Shipping</dt>
-        <dd className="text-gray-700">$5.00</dd>
-      </div>
-      <div className="flex justify-between">
-        <dt className="font-medium text-gray-900">Total</dt>
-        <dd className="text-gray-900">$23.00</dd>
       </div>
     </dl>
   </div>

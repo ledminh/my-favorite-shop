@@ -25,10 +25,7 @@ export default function Footer({ product }: Props) {
         size="md"
         onClick={(e) => {
           e.preventDefault();
-          addToCart({
-            ...product,
-            quantity,
-          });
+          addToCart(product, quantity);
           setQuantity(0);
         }}
       >

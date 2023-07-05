@@ -1,10 +1,5 @@
 import Image from "next/image";
-import {
-  ComponentWithChildren,
-  Order as OrderType,
-  ShippingAddress,
-  PaymentInfo,
-} from "@/types";
+import { ComponentWithChildren, Order as OrderType } from "@/types";
 
 import ConfirmHeroImage from "@/assets/images/confirm-hero-image.jpg";
 
@@ -14,7 +9,9 @@ import Link from "next/link";
 import OrderedProductList from "@/components/confirmation/OrderedProductList";
 import Header from "@/components/confirmation/Header";
 import { getPrice } from "@/utils/getPrice";
-import { MasterCardIcon, VisaIcon } from "@/theme/Icons";
+
+import PaymentMethod from "@/components/PaymentMethod";
+import ShippingAddress from "@/components/ShippingAddress";
 
 type Props = {
   params: {
@@ -154,78 +151,6 @@ const Total = ({ subTotal, shipping = 8, taxes = 4.3 }: TotalProps) => (
     </div>
   </dl>
 );
-
-type ShippingAddressProps = {
-  shippingAddress: ShippingAddress;
-};
-
-const ShippingAddress = ({ shippingAddress }: ShippingAddressProps) => {
-  const { firstName, lastName, streetAddress, city, state, zip, phone, email } =
-    shippingAddress;
-
-  return (
-    <div>
-      <dt className="font-medium text-gray-900">Shipping Address</dt>
-      <dd className="mt-2">
-        <address className="not-italic">
-          <div className="block">
-            <span className="font-semibold">Name: </span>
-            <span>{firstName + " " + lastName}</span>
-          </div>
-          <div className="block">
-            <span className="font-semibold">Addr: </span>
-            <span>{streetAddress}</span>
-          </div>
-          <div className="block">{city + ", " + state + ", " + zip}</div>
-          <div className="block">
-            <span className="font-semibold">Phone: </span>
-            <span>{phone}</span>
-          </div>
-          <div className="block">
-            <span className="font-semibold">Email: </span>
-            <span>{email}</span>
-          </div>
-        </address>
-      </dd>
-    </div>
-  );
-};
-
-type PaymentMethodProps = {
-  paymentInfo: PaymentInfo;
-};
-
-const PaymentMethod = ({ paymentInfo }: PaymentMethodProps) => {
-  const { cardType, lastFourDigits, expireDate } = paymentInfo;
-
-  const expireMonth = expireDate.getMonth() + 1;
-  const expireYear = expireDate.getFullYear();
-
-  return (
-    <div>
-      <dt className="font-medium text-gray-900">Payment Information</dt>
-      <dd className="mt-2 space-y-2 sm:flex sm:space-x-4 sm:space-y-0">
-        <div className="flex-none">
-          {/* <VisaIcon className="w-auto h-6" /> */}
-          {cardType === "Visa" ? (
-            <VisaIcon className="w-auto h-6" />
-          ) : (
-            <MasterCardIcon className="w-12 h-10" />
-          )}
-          <p className="sr-only">
-            {cardType === "Visa" ? "Visa" : "MasterCard"}
-          </p>
-        </div>
-        <div className="flex-auto">
-          <p className="text-gray-900">Ending with {lastFourDigits}</p>
-          <p>
-            Expires {expireMonth} / {expireYear}
-          </p>
-        </div>
-      </dd>
-    </div>
-  );
-};
 
 /***********************
  * Utilities
