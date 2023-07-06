@@ -1,7 +1,7 @@
 import Section from "@/theme/Section";
 import { H2 } from "@/theme/typography";
 import ProductList from "@/components/shop/ProductList";
-import { ComponentWithChildren, Product as ProductType } from "@/types";
+import { ComponentWithChildren } from "@/types";
 
 import { NotFoundIcon } from "@/theme/Icons";
 import { getProducts } from "@/data/products";
