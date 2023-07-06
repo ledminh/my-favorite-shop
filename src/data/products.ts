@@ -1,14 +1,80 @@
 import type { Product } from "@/types";
 import { faker } from "@faker-js/faker";
 
-let products: Product[] = [];
+/*****************************
+ * APIs
+ *****************************/
 
-export default function getProducts(numProducts?: number) {
-  if (products.length === 0) {
-    products = _getProducts(numProducts !== undefined ? numProducts : 20);
+/***********************************************
+ * getProducts
+ * @param {catID: string, sortBy: "name" | "price", order: "asc" |
+ *  "desc", limit: number, offset: number}
+ * @returns Promise<Product[]>
+ */
+
+type GetProductsParams = (
+  | {
+      catID: string;
+      searchTerm?: undefined;
+    }
+  | {
+      catID?: undefined;
+      searchTerm: string;
+    }
+) & {
+  sortBy?: "name" | "price";
+  order?: "asc" | "desc";
+  limit?: number;
+  offset?: number;
+};
+
+export async function getProducts({
+  catID,
+  searchTerm,
+  sortBy = "name",
+  order = "asc",
+  limit = 10,
+  offset = 0,
+}: GetProductsParams): Promise<Product[]> {
+  let products = _getProducts(limit);
+
+  // if (catID) {
+  //   products = products.filter((product) => product.category.id === catID);
+  // }
+
+  if (searchTerm) {
+    products = products.filter((product) =>
+      product.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
   }
 
-  return products;
+  if (sortBy === "name") {
+    products.sort((a, b) => {
+      if (a.name > b.name) {
+        return order === "asc" ? 1 : -1;
+      } else if (a.name < b.name) {
+        return order === "asc" ? -1 : 1;
+      } else {
+        return 0;
+      }
+    });
+  } else if (sortBy === "price") {
+    products.sort((a, b) => {
+      if (a.price > b.price) {
+        return order === "asc" ? 1 : -1;
+      } else if (a.price < b.price) {
+        return order === "asc" ? -1 : 1;
+      } else {
+        return 0;
+      }
+    });
+  }
+
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(products);
+    }, 1000);
+  });
 }
 
 function generateRandomNumber(min: number, max: number): number {

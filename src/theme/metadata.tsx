@@ -35,3 +35,5 @@ export const orderStatuses: Record<
     long: "Your order has been delivered.",
   },
 };
+
+export const itemsPerPage = 10;

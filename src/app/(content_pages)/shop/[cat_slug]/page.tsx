@@ -2,15 +2,17 @@ import CategoryMenu from "@/components/shop/CategoryMenu";
 import FilterPanel from "@/components/shop/FilterPanel";
 import Banner from "@/theme/Banner";
 import { H2 } from "@/theme/typography";
-import { ComponentWithChildren, Product } from "@/types";
+import { ComponentWithChildren } from "@/types";
 
 import Section from "@/theme/Section";
-import getDBProducts from "@/data/products";
+
+import { getProducts } from "@/data/products";
 
 import ProductList from "@/components/shop/ProductList";
-import { Button } from "@/theme/basics";
 
-import { getCategories, getCategory } from "@/data/categories";
+import { getCategories } from "@/data/categories";
+
+import { itemsPerPage } from "@/theme/metadata";
 
 type Props = {
   params: {
@@ -26,14 +28,25 @@ export default async function ShopCategoryPage({
   params,
   searchParams,
 }: Props) {
-  const currentCategory = await getCategory({ slug: params.cat_slug });
+  const categories = await getCategories();
+  const currentCategory = categories.find(
+    (cat) => cat.link === "/shop/" + params.cat_slug
+  );
+
+  if (!currentCategory) {
+    throw new Error("Category not found");
+  }
 
   const sortBy = searchParams.sortBy || "name";
   const order = searchParams.order || "asc";
 
-  const categories = await getCategories();
-
-  const products = await getProducts(currentCategory.id, sortBy, order);
+  const products = await getProducts({
+    catID: currentCategory.id,
+    sortBy,
+    order,
+    offset: 0,
+    limit: itemsPerPage,
+  });
 
   return (
     <>
@@ -52,14 +65,12 @@ export default async function ShopCategoryPage({
       <Section>
         <FilterPanel sortByInit={sortBy} orderInit={order} />
       </Section>
-      <Section>
-        <ProductList products={products} />
-      </Section>
-      <Section>
-        <LoadMore>
-          <Button>Load more</Button>
-        </LoadMore>
-      </Section>
+      <ProductList
+        productsInit={products}
+        sortBy={sortBy}
+        order={order}
+        catID={currentCategory.id}
+      />
     </>
   );
 }
@@ -80,25 +91,4 @@ const Description: ComponentWithChildren = ({ children }) => {
 
 const LoadMore: ComponentWithChildren = ({ children }) => {
   return <div className="w-[200px] mx-auto">{children}</div>;
-};
-
-/************************************************
- * Utils
- ************************************************/
-
-type GetProducts = (
-  catID: string,
-  sortBy: "name" | "price",
-  order: "asc" | "desc"
-) => Promise<Product[]>;
-
-const getProducts: GetProducts = (
-  catID: string,
-  sortBy: "name" | "price",
-  order: "asc" | "desc"
-) => {
-  return new Promise((resolve, reject) => {
-    const products = getDBProducts();
-    resolve(products);
-  });
 };
