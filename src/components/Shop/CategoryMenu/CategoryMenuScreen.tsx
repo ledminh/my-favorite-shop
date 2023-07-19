@@ -1,5 +1,4 @@
-import categories from "@/data/categories";
-import { ComponentWithChildren } from "@/types";
+import { Category as CategoryType, ComponentWithChildren } from "@/types";
 
 import Category from "@/components/shop/Category";
 import Modal from "@/theme/Modal";
@@ -7,6 +6,7 @@ import Modal from "@/theme/Modal";
 type Props = {
   isOpen: boolean;
   setIsOpen: (arg: boolean) => void;
+  categories: CategoryType[];
   currentCategory: {
     id: string;
   };
@@ -15,6 +15,7 @@ type Props = {
 export default function CategoryMenuScreen({
   isOpen,
   setIsOpen,
+  categories,
   currentCategory,
 }: Props) {
   return (

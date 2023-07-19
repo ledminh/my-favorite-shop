@@ -90,6 +90,7 @@ export default function CategoryMenu({ skeleton = false, categories }: Props) {
         isOpen={isMenuOpen}
         setIsOpen={setIsMenuOpen}
         currentCategory={currentCategory}
+        categories={categories}
       />
     </>
   );
