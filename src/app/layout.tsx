@@ -50,7 +50,7 @@ export const BackgroundImage: ComponentWithChildren = ({ children }) => {
 
 export const Overlay: ComponentWithChildren = ({ children }) => {
   return (
-    <div className="absolute w-full h-full min-w-[350px] bg-red-200/70 overflow-y-scroll">
+    <div className="absolute w-full h-full min-w-[350px] bg-neutral-700/80 overflow-y-scroll">
       {children}
     </div>
   );

@@ -11,6 +11,6 @@ export function Logo() {
 
 const Wrapper: ComponentWithChildren = ({ children }) => {
   return (
-    <div className="inline-block p-3 text-white bg-blue-950">{children}</div>
+    <div className="inline-block p-3 text-gray-400 bg-blue-950">{children}</div>
   );
 };

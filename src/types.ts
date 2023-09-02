@@ -1,6 +1,9 @@
 import { FC, ReactNode } from "react";
-import OrderedProduct from "./components/confirmation/OrderedProduct";
-import Variant from "./components/product/Variants/Variant";
+
+export type Image = {
+  src: string;
+  alt: string;
+};
 
 export type ComponentWithChildren = FC<{ children: ReactNode }>;
 
@@ -9,14 +12,12 @@ export type ComponentWithChildren = FC<{ children: ReactNode }>;
  */
 
 export type Category = {
-  id: string;
   name: string;
   description: string;
   link: string;
-  image: {
-    src: string;
-    alt: string;
-  };
+  image: Image;
+  createdAt: Date;
+  modifiedAt: Date;
 };
 
 /**********************
@@ -35,43 +36,36 @@ export type Promotion =
     };
 
 export type Variant = {
-  id: string;
   name: string;
-  image: {
-    src: string;
-    alt: string;
-  };
   price: number;
-  shown: boolean;
   promotion?: Promotion;
+  image: Image;
+  shown: boolean;
 };
 
 export type Product = {
-  id: string;
-  category: Category;
+  category: WithID<Category>;
   link: string;
   name: string;
   price: number;
   intro: string;
   description: string;
   mainImageID: string;
-  images: {
-    id: string;
-    src: string;
-    alt: string;
-  }[];
+  images: WithID<Image>[];
   promotion?: Promotion;
-  variants?: Variant[];
-};
-
-export type OrderedProduct = Product & {
-  quantity: number;
-  selectedVariant?: Variant;
+  variants?: WithID<Variant>[];
+  createdAt: Date;
+  modifiedAt: Date;
 };
 
 /**********************
  * Order types
  */
+
+export type OrderedProduct = Product & {
+  quantity: number;
+  selectedVariant?: Variant;
+};
 
 export type ShippingAddress = {
   firstName: string;
@@ -93,17 +87,21 @@ export type PaymentInfo = {
 export type OrderStatus = "processing" | "shipped" | "delivered";
 
 export type Order = {
-  id: string;
   shippingAddress: ShippingAddress;
-  orderedProducts: OrderedProduct[];
+  orderedProducts: WithID<OrderedProduct>[];
   shippingFee: number;
   taxes: number;
   paymentInfo: PaymentInfo;
+  status: OrderStatus;
+  createdAt: Date;
+  modifiedAt: Date;
 };
 
 /***********************
  * Customer Message
  */
+
+export type CustomerMessageStatus = "unread" | "read";
 
 export type CustomerMessage = {
   firstName: string;
@@ -111,4 +109,72 @@ export type CustomerMessage = {
   email: string;
   phone?: string;
   message: string;
+  status: CustomerMessageStatus;
+  createdAt: Date;
 };
+
+/***********************
+ * WithID
+ */
+export type WithID<T> = T & { id: string };
+
+/**********************
+ * Server types
+ */
+type ServerResponse<T> =
+  | {
+      errorMessage?: undefined;
+      data: T;
+    }
+  | {
+      errorMessage: string;
+      data?: undefined;
+    };
+
+export type DeleteMessageResponse = ServerResponse<WithID<CustomerMessage>>;
+export type UpdateMessageResponse = ServerResponse<WithID<CustomerMessage>>;
+
+export type DeleteOrderResponse = ServerResponse<WithID<Order>>;
+export type UpdateOrderResponse = ServerResponse<WithID<Order>>;
+
+// Category
+export type CategoryRequest = {
+  slug?: string;
+  id?: string;
+};
+
+export type CategoriesRequest = {
+  offset?: number;
+  limit?: number;
+  searchTerm?: string;
+  sortBy: "name" | "createdAt" | "modifiedAt";
+  order: "asc" | "desc";
+};
+
+export type CategoryResponse = ServerResponse<WithID<Category>>;
+export type CategoriesResponse = ServerResponse<{
+  categories: WithID<Category>[];
+  total: number;
+}>;
+
+// Product
+
+export type ProductRequest = { id: string };
+export type ProductsRequest = {
+  offset?: number;
+  limit?: number;
+
+  sortBy: "name" | "price" | "createdAt" | "modifiedAt";
+  order: "asc" | "desc";
+
+  catID: string;
+  searchTerm?: string;
+
+  filter: "with-variants" | "with-promotion" | null;
+};
+
+export type ProductResponse = ServerResponse<WithID<Product>>;
+export type ProductsResponse = ServerResponse<{
+  products: WithID<Product>[];
+  total: number;
+}>;

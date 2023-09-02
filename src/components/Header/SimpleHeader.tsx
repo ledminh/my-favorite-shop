@@ -22,7 +22,7 @@ export default function HeaderFull() {
 
 const Wrapper: ComponentWithChildren = ({ children }) => {
   return (
-    <div className="container max-w-5xl p-6 pb-0 border-4 border-white mb-9 rounded-2xl">
+    <div className="container max-w-5xl p-6 pb-0 border-4 border-gray-300 shadow-md bg-gray-100/10 mb-9 rounded-2xl shadow-black/60">
       {children}
     </div>
   );
@@ -34,7 +34,7 @@ const LogoWrapper: ComponentWithChildren = ({ children }) => {
 
 const Slogan: ComponentWithChildren = ({ children }) => {
   return (
-    <div className="font-bold text-center -translate-y-6 text-blue-950">
+    <div className="font-bold text-center text-gray-200 -translate-y-6">
       {children}
     </div>
   );

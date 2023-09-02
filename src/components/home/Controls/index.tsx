@@ -10,7 +10,7 @@ import { Button } from "@/theme/basics";
 import { useState } from "react";
 import SearchBar from "@/components/SearchBar";
 
-export default function Controls () {
+export default function Controls() {
   const [isSearch, setIsSearch] = useState(false);
 
   if (isSearch) {
@@ -65,7 +65,7 @@ const CloseWrapper: ComponentWithChildren = ({ children }) => {
 const CloseButton: Type.CloseButton = ({ onClick }) => {
   return (
     <button
-      className="w-[46px] h-[46px] text-blue-950 hover:bg-blue-950/40 hover:text-white active:bg-blue-950/60 focus:bg-blue-950/60 rounded-full"
+      className="w-[46px] h-[46px] text-white hover:bg-black/80 hover:text-white active:bg-blue-950/60 focus:bg-blue-950/60 rounded-full"
       onClick={onClick}
     >
       <CloseIcon />

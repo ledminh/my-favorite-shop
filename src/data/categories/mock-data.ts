@@ -1,8 +1,9 @@
-import type { Category as CategoryType } from "@/types";
+import type { WithID, Category as CategoryType } from "@/types";
+import { faker } from "@faker-js/faker";
 
-const categories: CategoryType[] = [
+const CATEGORIES: WithID<CategoryType>[] = [
   {
-    id: "1",
+    id: "cat-1-nail-polish",
     name: "Nail Polish",
     description: "A wide range of nail polish colors",
     link: "/shop/nail-polish",
@@ -10,9 +11,11 @@ const categories: CategoryType[] = [
       src: "https://picsum.photos/seed/1/300/300",
       alt: "Nail Polish",
     },
+    createdAt: faker.date.past(),
+    modifiedAt: faker.date.past(),
   },
   {
-    id: "2",
+    id: "cat-2-nail-care",
     name: "Nail Care",
     description: "A wide range of nail care products",
     link: "/shop/nail-care",
@@ -20,9 +23,11 @@ const categories: CategoryType[] = [
       src: "https://picsum.photos/seed/2/300/300",
       alt: "Nail Care",
     },
+    createdAt: faker.date.past(),
+    modifiedAt: faker.date.past(),
   },
   {
-    id: "3",
+    id: "cat-3-nail-tools",
     name: "Nail Tools",
     description: "A wide range of nail tools",
     link: "/shop/nail-tools",
@@ -30,9 +35,11 @@ const categories: CategoryType[] = [
       src: "https://picsum.photos/seed/3/300/300",
       alt: "Nail Tools",
     },
+    createdAt: faker.date.past(),
+    modifiedAt: faker.date.past(),
   },
   {
-    id: "4",
+    id: "cat-4-nail-art",
     name: "Nail Art",
     description: "A wide range of nail art products",
     link: "/shop/nail-art",
@@ -40,9 +47,11 @@ const categories: CategoryType[] = [
       src: "https://picsum.photos/seed/4/300/300",
       alt: "Nail Art",
     },
+    createdAt: faker.date.past(),
+    modifiedAt: faker.date.past(),
   },
   {
-    id: "5",
+    id: "cat-5-nail-extensions",
     name: "Nail Extensions",
     description: "A wide range of nail extensions",
     link: "/shop/nail-extensions",
@@ -50,9 +59,11 @@ const categories: CategoryType[] = [
       src: "https://picsum.photos/seed/5/300/300",
       alt: "Nail Extensions",
     },
+    createdAt: faker.date.past(),
+    modifiedAt: faker.date.past(),
   },
   {
-    id: "6",
+    id: "cat-6-nail-accessories",
     name: "Nail Accessories",
     description: "A wide range of nail accessories",
     link: "/shop/nail-accessories",
@@ -60,6 +71,8 @@ const categories: CategoryType[] = [
       src: "https://picsum.photos/seed/6/300/300",
       alt: "Nail Accessories",
     },
+    createdAt: faker.date.past(),
+    modifiedAt: faker.date.past(),
   },
   {
     id: "7",
@@ -70,6 +83,8 @@ const categories: CategoryType[] = [
       src: "https://picsum.photos/seed/7/300/300",
       alt: "Nail Treatments",
     },
+    createdAt: faker.date.past(),
+    modifiedAt: faker.date.past(),
   },
   {
     id: "8",
@@ -80,6 +95,8 @@ const categories: CategoryType[] = [
       src: "https://picsum.photos/seed/8/300/300",
       alt: "Nail Polish Remover",
     },
+    createdAt: faker.date.past(),
+    modifiedAt: faker.date.past(),
   },
   {
     id: "9",
@@ -90,6 +107,8 @@ const categories: CategoryType[] = [
       src: "https://picsum.photos/seed/9/300/300",
       alt: "Nail Polish Sets",
     },
+    createdAt: faker.date.past(),
+    modifiedAt: faker.date.past(),
   },
   {
     id: "10",
@@ -100,6 +119,8 @@ const categories: CategoryType[] = [
       src: "https://picsum.photos/seed/10/300/300",
       alt: "Nail Polish Accessories",
     },
+    createdAt: faker.date.past(),
+    modifiedAt: faker.date.past(),
   },
   {
     id: "11",
@@ -110,6 +131,8 @@ const categories: CategoryType[] = [
       src: "https://picsum.photos/seed/11/300/300",
       alt: "Nail Polish Remover Accessories",
     },
+    createdAt: faker.date.past(),
+    modifiedAt: faker.date.past(),
   },
   {
     id: "12",
@@ -120,6 +143,8 @@ const categories: CategoryType[] = [
       src: "https://picsum.photos/seed/12/300/300",
       alt: "Nail Polish Remover Sets",
     },
+    createdAt: faker.date.past(),
+    modifiedAt: faker.date.past(),
   },
   {
     id: "13",
@@ -130,6 +155,8 @@ const categories: CategoryType[] = [
       src: "https://picsum.photos/seed/13/300/300",
       alt: "Nail Polish Remover Tools",
     },
+    createdAt: faker.date.past(),
+    modifiedAt: faker.date.past(),
   },
   {
     id: "14",
@@ -140,6 +167,8 @@ const categories: CategoryType[] = [
       src: "https://picsum.photos/seed/14/300/300",
       alt: "Nail Polish Remover Treatments",
     },
+    createdAt: faker.date.past(),
+    modifiedAt: faker.date.past(),
   },
   {
     id: "15",
@@ -150,6 +179,8 @@ const categories: CategoryType[] = [
       src: "https://picsum.photos/seed/15/300/300",
       alt: "Nail Polish Remover Accessories",
     },
+    createdAt: faker.date.past(),
+    modifiedAt: faker.date.past(),
   },
   {
     id: "16",
@@ -160,6 +191,8 @@ const categories: CategoryType[] = [
       src: "https://picsum.photos/seed/16/300/300",
       alt: "Nail Polish Remover Sets",
     },
+    createdAt: faker.date.past(),
+    modifiedAt: faker.date.past(),
   },
   {
     id: "17",
@@ -170,6 +203,8 @@ const categories: CategoryType[] = [
       src: "https://picsum.photos/seed/17/300/300",
       alt: "Nail Polish Remover Tools",
     },
+    createdAt: faker.date.past(),
+    modifiedAt: faker.date.past(),
   },
   {
     id: "18",
@@ -180,6 +215,8 @@ const categories: CategoryType[] = [
       src: "https://picsum.photos/seed/18/300/300",
       alt: "Nail Polish Remover Treatments",
     },
+    createdAt: faker.date.past(),
+    modifiedAt: faker.date.past(),
   },
   {
     id: "19",
@@ -190,6 +227,8 @@ const categories: CategoryType[] = [
       src: "https://picsum.photos/seed/19/300/300",
       alt: "Nail Polish Remover Accessories",
     },
+    createdAt: faker.date.past(),
+    modifiedAt: faker.date.past(),
   },
   {
     id: "20",
@@ -200,6 +239,8 @@ const categories: CategoryType[] = [
       src: "https://picsum.photos/seed/20/300/300",
       alt: "Nail Polish Remover Sets",
     },
+    createdAt: faker.date.past(),
+    modifiedAt: faker.date.past(),
   },
   {
     id: "21",
@@ -210,6 +251,8 @@ const categories: CategoryType[] = [
       src: "https://picsum.photos/seed/21/300/300",
       alt: "Nail Polish Remover Tools",
     },
+    createdAt: faker.date.past(),
+    modifiedAt: faker.date.past(),
   },
   {
     id: "22",
@@ -220,6 +263,8 @@ const categories: CategoryType[] = [
       src: "https://picsum.photos/seed/22/300/300",
       alt: "Nail Polish Remover Treatments",
     },
+    createdAt: faker.date.past(),
+    modifiedAt: faker.date.past(),
   },
 ];
 
@@ -233,9 +278,9 @@ const categories: CategoryType[] = [
  * @description Returns a promise that resolves to an array of
  * all categories in the database
  * @example
- * const categories = await getCategories();
+ * const data = await getCategories();
  * console.log(categories);
- * // [
+ * // {items: [
  * //   {
  * //     id: "1",
  * //     name: "Nail Polish",
@@ -247,16 +292,135 @@ const categories: CategoryType[] = [
  *    },
  * },
  * ...
- * ]
+ * ],
+ * total: 22
+ *
+ * }
  */
 
-type GetCategories = () => Promise<CategoryType[]>;
+type GetCategories = ({
+  offset,
+  limit,
+  sortBy,
+  order,
+  searchTerm,
+}: {
+  offset?: number;
+  limit?: number;
+  searchTerm?: string;
+  sortBy: "name" | "createdAt" | "modifiedAt";
+  order: "asc" | "desc";
+}) => Promise<{
+  total: number;
+  items: WithID<CategoryType>[];
+}>;
 
-export const getCategories: GetCategories = async () => {
+export const getCategories: GetCategories = async ({
+  offset,
+  limit,
+  searchTerm,
+  sortBy,
+  order,
+}) => {
+  let categories = [...CATEGORIES];
+
+  if (searchTerm) {
+    categories = categories.filter((category) =>
+      category.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }
+
+  const total = categories.length;
+
+  if (sortBy === "name") {
+    categories.sort((a, b) => {
+      if (order === "asc") {
+        return a.name.localeCompare(b.name);
+      } else {
+        return b.name.localeCompare(a.name);
+      }
+    });
+  } else if (sortBy === "createdAt") {
+    categories.sort((a, b) => {
+      if (order === "asc") {
+        return a.createdAt.getTime() - b.createdAt.getTime();
+      } else {
+        return b.createdAt.getTime() - a.createdAt.getTime();
+      }
+    });
+  } else if (sortBy === "modifiedAt") {
+    categories.sort((a, b) => {
+      if (order === "asc") {
+        return a.modifiedAt.getTime() - b.modifiedAt.getTime();
+      } else {
+        return b.modifiedAt.getTime() - a.modifiedAt.getTime();
+      }
+    });
+  }
+
+  const _offset = offset || 0;
+  const _limit = limit || categories.length;
+
+  categories = categories.slice(_offset, _offset + _limit);
+
   return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(categories);
-    }, 1000);
+    resolve({
+      total,
+      items: categories,
+    });
+  });
+};
+
+export const addCategory = async (
+  category: Omit<CategoryType, "id" | "createdAt" | "modifiedAt">
+): Promise<WithID<CategoryType>> => {
+  return new Promise((resolve) => {
+    const newCat = {
+      id: faker.string.nanoid(10),
+      ...category,
+      createdAt: new Date(),
+      modifiedAt: new Date(),
+    };
+
+    CATEGORIES.push(newCat);
+    return resolve(newCat);
+  });
+};
+
+export const updateCategory = async (
+  id: string,
+  category: Partial<Omit<CategoryType, "id" | "createdAt" | "modifiedAt">>
+): Promise<WithID<CategoryType>> => {
+  return new Promise((resolve, reject) => {
+    const index = CATEGORIES.findIndex((cat) => cat.id === id);
+
+    if (index === -1) {
+      return reject(new Error("Category not found"));
+    }
+
+    const updatedCat = {
+      ...CATEGORIES[index],
+      ...category,
+      modifiedAt: new Date(),
+    };
+
+    CATEGORIES[index] = updatedCat;
+
+    return resolve(updatedCat);
+  });
+};
+
+export const deleteCategory = async (id: string): Promise<void> => {
+  return new Promise((resolve, reject) => {
+    const index = CATEGORIES.findIndex((cat) => cat.id === id);
+
+    if (index === -1) {
+      return reject(new Error("Category not found"));
+    }
+
+    CATEGORIES.splice(index, 1);
+
+    return resolve();
   });
 };
 
@@ -297,12 +461,12 @@ type GetCategoryProps = {
   slug?: string;
   id?: string;
 };
-type GetCategory = (props: GetCategoryProps) => Promise<CategoryType>;
+type GetCategory = (props: GetCategoryProps) => Promise<WithID<CategoryType>>;
 
 export const getCategory: GetCategory = async ({ slug, id }) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      const category = categories.find(
+      const category = CATEGORIES.find(
         (category) => category.id === id || category.link === "/shop/" + slug
       );
       if (category) {
@@ -310,6 +474,6 @@ export const getCategory: GetCategory = async ({ slug, id }) => {
       } else {
         reject(new Error("Category not found"));
       }
-    }, 1000);
+    }, 500);
   });
 };

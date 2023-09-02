@@ -1,5 +1,5 @@
 import { H2 } from "@/theme/typography";
-import { ComponentWithChildren, Category as CategoryType } from "@/types";
+import { ComponentWithChildren } from "@/types";
 
 import Banner from "@/theme/Banner";
 import Section from "@/theme/Section";
@@ -9,20 +9,24 @@ import CategoryList from "@/components/shop/CategoryList";
 import { getCategories } from "@/data/categories";
 
 export default async function Shop() {
-  const categories = await getCategories();
+  return <>Shop</>;
+  // const { items: categories, total } = await getCategories({
+  //   sortBy: "name",
+  //   order: "asc",
+  // });
 
-  return (
-    <>
-      <Section>
-        <Banner>
-          <H2>Explore our wide range of nail care categories</H2>
-        </Banner>
-      </Section>
-      <Section>
-        <CategoryList categories={categories} />
-      </Section>
-    </>
-  );
+  // return (
+  //   <>
+  //     <Section>
+  //       <Banner>
+  //         <H2>Explore our wide range of nail care categories</H2>
+  //       </Banner>
+  //     </Section>
+  //     <Section>
+  //       <CategoryList categories={categories} />
+  //     </Section>
+  //   </>
+  // );
 }
 
 /************************
