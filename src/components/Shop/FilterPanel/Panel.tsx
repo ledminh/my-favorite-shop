@@ -11,12 +11,9 @@ import { ChangeEventHandler, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context";
 
-type Props = {
-  sortByInit: "name" | "price";
-  orderInit: ProductsRequest["order"];
-};
+import { PanelProps } from "./types";
 
-export default function Panel(props: Props) {
+export default function Panel(props: PanelProps) {
   const { sortByInit, orderInit } = props;
 
   const [sortByValue, setSortByValue] = useState(sortByInit);

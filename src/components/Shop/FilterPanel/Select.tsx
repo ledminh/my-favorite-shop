@@ -1,12 +1,4 @@
-import { ChangeEventHandler } from "react";
-
-type SelectProps = {
-  id: string;
-  name: string;
-  defaultValue?: string;
-  onChange?: ChangeEventHandler<HTMLSelectElement>;
-  children: React.ReactNode;
-};
+import { SelectProps } from "./types";
 
 const Select = ({
   id,

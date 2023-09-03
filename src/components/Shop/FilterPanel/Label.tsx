@@ -1,7 +1,4 @@
-type LabelProps = {
-  children: React.ReactNode;
-  htmlFor: string;
-};
+import { LabelProps } from "./types";
 
 const Label = ({ children, htmlFor }: LabelProps) => {
   return (
