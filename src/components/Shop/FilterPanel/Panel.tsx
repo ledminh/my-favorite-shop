@@ -1,17 +1,20 @@
 "use client";
 
 import Wrapper from "@/components/Shop/FilterPanel/Wrapper";
-import { ProductsRequest } from "@/types";
 
 import Section from "@/components/Shop/FilterPanel/Section";
 import Label from "@/components/Shop/FilterPanel/Label";
 import Select from "@/components/Shop/FilterPanel/Select";
-import { ChangeEventHandler, useState } from "react";
+import { ChangeEventHandler, useEffect, useState } from "react";
 
 import { usePathname, useRouter } from "next/navigation";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context";
 
-import { PanelProps } from "./types";
+import {
+  PanelProps,
+  SortBy as SortByType,
+  OrderBy as OrderByType,
+} from "./types";
 
 export default function Panel(props: PanelProps) {
   const { sortByInit, orderInit } = props;
@@ -22,18 +25,18 @@ export default function Panel(props: PanelProps) {
   const pathname = usePathname();
   const router = useRouter();
 
-  const handleSortByChange: ChangeEventHandler<HTMLSelectElement> = (e) => {
-    const sortByValue = e.target.value as "name" | "price";
-    setSortByValue(sortByValue);
-
+  useEffect(() => {
     setUrl(pathname, sortByValue, orderByValue, router);
+  }, [sortByValue, orderByValue]);
+
+  const handleSortByChange: ChangeEventHandler<HTMLSelectElement> = (e) => {
+    const sortByValue = e.target.value as SortByType;
+    setSortByValue(sortByValue);
   };
 
   const handleOrderByChange: ChangeEventHandler<HTMLSelectElement> = (e) => {
-    const orderByValue = e.target.value as ProductsRequest["order"];
+    const orderByValue = e.target.value as OrderByType;
     setOrderByValue(orderByValue);
-
-    setUrl(pathname, sortByValue, orderByValue, router);
   };
 
   return (
@@ -77,8 +80,8 @@ export default function Panel(props: PanelProps) {
  */
 const setUrl = (
   pathname: string,
-  sortByValue: string,
-  orderByValue: string,
+  sortByValue: SortByType,
+  orderByValue: OrderByType,
   router: AppRouterInstance
 ) => {
   const url = new URL(pathname, window.location.origin);
@@ -92,7 +95,10 @@ const setUrl = (
 /**************************
  * Data
  */
-const sortBy = [
+const sortBy: {
+  id: SortByType;
+  name: string;
+}[] = [
   {
     id: "name",
     name: "Name",
@@ -103,7 +109,12 @@ const sortBy = [
   },
 ];
 
-const orderBy = {
+const orderBy: {
+  [sortBy in SortByType]: {
+    id: OrderByType;
+    name: string;
+  }[];
+} = {
   name: [
     {
       id: "asc",

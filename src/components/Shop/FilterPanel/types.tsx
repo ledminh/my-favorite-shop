@@ -1,8 +1,8 @@
 import { ProductsRequest } from "@/types";
 import { ChangeEventHandler } from "react";
 
-type SortBy = "name" | "price";
-type OrderBy = ProductsRequest["order"];
+export type SortBy = "name" | "price";
+export type OrderBy = ProductsRequest["order"];
 
 export type Props =
   | {
