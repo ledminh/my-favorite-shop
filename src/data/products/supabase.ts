@@ -7,7 +7,6 @@ import {
   Variant as VariantType,
 } from "@/types";
 
-import getID from "@/utils/getID";
 import prismaClient from "../prismaClient";
 
 /***********************************

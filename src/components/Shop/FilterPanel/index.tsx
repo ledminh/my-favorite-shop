@@ -1,6 +1,6 @@
 "use client";
 
-import { ComponentWithChildren } from "@/types";
+import { ComponentWithChildren, ProductsRequest } from "@/types";
 import { ChangeEventHandler, useState } from "react";
 
 import { usePathname, useRouter } from "next/navigation";
@@ -41,18 +41,18 @@ const orderBy = {
 };
 
 type Props = {
-  sortByInit?: "name" | "price";
-  orderInit?: "asc" | "desc";
+  sortByInit: "name" | "price";
+  orderInit: ProductsRequest["order"];
   skeleton?: boolean;
 };
 
 export default function FilterPanel({
-  sortByInit = "name",
-  orderInit = "asc",
+  sortByInit,
+  orderInit,
   skeleton = false,
 }: Props) {
-  const [sortByValue, setSortByValue] = useState<"name" | "price">(sortByInit);
-  const [orderByValue, setOrderByValue] = useState<"asc" | "desc">(orderInit);
+  const [sortByValue, setSortByValue] = useState(sortByInit);
+  const [orderByValue, setOrderByValue] = useState(orderInit);
 
   const pathname = usePathname();
   const router = useRouter();
@@ -69,7 +69,7 @@ export default function FilterPanel({
   };
 
   const handleOrderByChange: ChangeEventHandler<HTMLSelectElement> = (e) => {
-    const orderByValue = e.target.value as "asc" | "desc";
+    const orderByValue = e.target.value as ProductsRequest["order"];
     setOrderByValue(orderByValue);
 
     setUrl(pathname, sortByValue, orderByValue, router);

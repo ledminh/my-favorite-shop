@@ -4,6 +4,8 @@ import Image from "next/image";
 import { Category, ComponentWithChildren } from "@/types";
 import { H3 } from "@/theme/typography";
 
+import { categoryFolder } from "@/theme/metadata";
+
 type Props = {
   category?: Category;
   skeleton?: boolean;
@@ -20,7 +22,7 @@ export default function Card({ category, skeleton }: Props) {
   const { name, description, image, link } = category;
 
   return (
-    <Wrapper link={link}>
+    <Wrapper link={categoryFolder + link}>
       <ImageWrapper>
         <Image
           src={image.src}

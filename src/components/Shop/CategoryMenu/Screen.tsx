@@ -1,18 +1,22 @@
-import { Category as CategoryType, ComponentWithChildren } from "@/types";
+import {
+  Category as CategoryType,
+  ComponentWithChildren,
+  WithID,
+} from "@/types";
 
-import Category from "@/components/shop/Category";
+import Category from "@/components/Shop/Category";
 import Modal from "@/theme/Modal";
 
 type Props = {
   isOpen: boolean;
   setIsOpen: (arg: boolean) => void;
-  categories: CategoryType[];
+  categories: WithID<CategoryType>[];
   currentCategory: {
     id: string;
   };
 };
 
-export default function CategoryMenuScreen({
+export default function Screen({
   isOpen,
   setIsOpen,
   categories,
