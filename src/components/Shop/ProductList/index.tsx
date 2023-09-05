@@ -3,38 +3,18 @@
 import type { ComponentWithChildren, Product as ProductType } from "@/types";
 import Product from "./Product";
 
-import Section from "@/theme/Section";
+import List from "@/components/Shop/ProductList/List";
 
-import { Button } from "@/theme/basics";
+import Section from "@/theme/Section";
 
 import { useState } from "react";
 
-import { getProducts } from "@/data/products";
+import getProducts from "@/api-calls/getProducts";
 import { itemsPerPage } from "@/theme/metadata";
-type Props =
-  | {
-      skeleton: true;
-      productsInit?: undefined;
-      catID?: undefined;
-      searchTerm?: undefined;
-      sortBy?: undefined;
-      order?: undefined;
-    }
-  | ({
-      skeleton?: false;
-      productsInit: ProductType[];
-      sortBy: "name" | "price";
-      order: "asc" | "desc";
-    } & (
-      | {
-          catID: string;
-          searchTerm?: undefined;
-        }
-      | {
-          catID?: undefined;
-          searchTerm: string;
-        }
-    ));
+import Skeleton from "./Skeleton";
+
+import { Props } from "./types";
+import LoadMoreButton from "@/components/LoadMoreButton";
 
 export default function ProductList({
   productsInit,
@@ -42,45 +22,27 @@ export default function ProductList({
   searchTerm,
   sortBy = "name",
   order = "asc",
-  skeleton = false,
+  skeleton,
+  initTotal,
 }: Props) {
   if (skeleton) {
-    return (
-      <List>
-        {[...Array(8)].map((_, i) => (
-          <Product key={i} skeleton={true} />
-        ))}
-      </List>
-    );
+    return <Skeleton />;
   }
 
-  const [products, setProducts] = useState<ProductType[]>(productsInit || []);
-  const [offset, setOffset] = useState(0);
+  const [products, setProducts] = useState(productsInit || []);
+  const [total, setTotal] = useState(initTotal || 0);
 
   const loadMore = async () => {
-    if (catID) {
-      const newProducts = await getProducts({
-        catID,
-        sortBy,
-        order,
-        offset: offset + itemsPerPage,
-      });
-      setProducts([...products, ...newProducts]);
-      setOffset(offset + itemsPerPage);
-      return;
-    }
-
-    if (searchTerm) {
-      const newProducts = await getProducts({
-        searchTerm,
-        sortBy,
-        order,
-        offset: offset + itemsPerPage,
-      });
-      setProducts([...products, ...newProducts]);
-      setOffset(offset + itemsPerPage);
-      return;
-    }
+    const { products: newProducts } = await getProducts({
+      catID: catID || "",
+      sortBy,
+      order,
+      offset: products.length,
+      limit: itemsPerPage,
+      searchTerm,
+      filter: null,
+    });
+    setProducts([...products, ...newProducts]);
   };
 
   return (
@@ -93,25 +55,8 @@ export default function ProductList({
         </List>
       </Section>
       <Section>
-        <LoadMore>
-          <Button onClick={loadMore}>Load more</Button>
-        </LoadMore>
+        {total > products.length && <LoadMoreButton onLoadMore={loadMore} />}
       </Section>
     </>
   );
 }
-
-/************************
- * Styles
- */
-const List: ComponentWithChildren = ({ children }) => {
-  return (
-    <ul className="grid w-11/12 mx-auto gap-7 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-      {children}
-    </ul>
-  );
-};
-
-const LoadMore: ComponentWithChildren = ({ children }) => {
-  return <div className="w-[200px] mx-auto">{children}</div>;
-};
