@@ -39,3 +39,4 @@ export const orderStatuses: Record<
 export const itemsPerPage = 10;
 
 export const categoryFolder = "/shop/";
+export const productFolder = "/product/";

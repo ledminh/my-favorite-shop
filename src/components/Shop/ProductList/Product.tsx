@@ -6,6 +6,9 @@ import type { Product as ProductType } from "@/types";
 
 import { H3, H4 } from "@/theme/typography";
 import Footer from "./Footer";
+
+import { productFolder } from "@/theme/metadata";
+
 type Props = {
   product?: ProductType;
   skeleton?: boolean;
@@ -22,9 +25,11 @@ export default function Product({ product, skeleton = false }: Props) {
 
   const mainImage = getMainImage(product);
 
+  const link = `${productFolder}/${product.link}`;
+
   return (
     <Link
-      href={product.link}
+      href={link}
       className="flex flex-col justify-between overflow-hidden rounded-md shadow-lg shadow-neutral-400 hover:ring-4 group"
     >
       <Content>
@@ -68,7 +73,9 @@ export default function Product({ product, skeleton = false }: Props) {
           <Intro>{product.intro}</Intro>
         </Text>
       </Content>
-      {!product.variants && <Footer product={product} />}
+      {(!product.variants || product.variants.length !== 0) && (
+        <Footer product={product} />
+      )}
     </Link>
   );
 }
@@ -118,7 +125,7 @@ const Skeleton = () => (
     <div className="flex flex-col justify-start">
       <div className="w-full h-48 bg-gray-400"></div>
       <div className="flex flex-col items-start justify-between w-full h-12 p-3 bg-gray-200">
-        <div className="w-1/2 h-4 bg-gray-300 rounded" />
+        <div className="w-1/4 h-4 bg-gray-300 rounded" />
       </div>
     </div>
     <div className="flex flex-col items-start justify-between w-full h-16 p-3 bg-gray-200">

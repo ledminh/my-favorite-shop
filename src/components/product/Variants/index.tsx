@@ -2,6 +2,7 @@
 
 import {
   ComponentWithChildren,
+  WithID,
   Product as ProductType,
   Variant as VariantType,
 } from "@/types";
@@ -15,7 +16,7 @@ import useVariant from "@/utils/useVariant";
 import { useEffect, useState } from "react";
 
 type Props = {
-  product: ProductType;
+  product: WithID<ProductType>;
 };
 
 export default function Variants({ product }: Props) {

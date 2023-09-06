@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import { categoryFolder } from "@/theme/metadata";
+
 type CategoryLinkProps = {
   link?: string;
   name?: string;
@@ -18,7 +20,7 @@ const CategoryLink = ({ link, name, skeleton }: CategoryLinkProps) => {
   return (
     <Link
       className="pb-1 pl-2 ml-4 font-semibold text-blue-700 border-b-2 border-transparent hover:border-blue-700 group"
-      href={link}
+      href={categoryFolder + link}
     >
       <span
         aria-hidden="true"
