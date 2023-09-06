@@ -1,4 +1,4 @@
-import List from "./List";
+import List from "./ListWrapper";
 import Product from "./Product";
 
 export default function Skeleton() {

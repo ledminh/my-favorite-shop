@@ -83,7 +83,7 @@ export default async function ShopCategoryPage({
         sortBy={sortBy}
         order={order}
         catID={currentCategory.id}
-        initTotal={total}
+        total={total}
       />
     </>
   );

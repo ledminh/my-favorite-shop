@@ -8,14 +8,14 @@ export type Props =
       searchTerm?: undefined;
       sortBy?: undefined;
       order?: undefined;
-      initTotal?: undefined;
+      total?: undefined;
     }
   | ({
       skeleton?: false;
       productsInit: WithID<ProductType>[];
       sortBy: "name" | "price";
       order: "asc" | "desc";
-      initTotal: number;
+      total: number;
     } & (
       | {
           catID: string;
@@ -26,3 +26,12 @@ export type Props =
           searchTerm: string;
         }
     ));
+
+export type ListProps = {
+  productsInit: WithID<ProductType>[];
+  sortBy: "name" | "price";
+  order: "asc" | "desc";
+  total: number;
+  catID?: string;
+  searchTerm?: string;
+};

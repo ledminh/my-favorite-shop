@@ -1,11 +1,49 @@
-import { ComponentWithChildren } from "@/types";
+"use client";
 
-const List: ComponentWithChildren = ({ children }) => {
+import LoadMoreButton from "@/components/LoadMoreButton";
+
+import Product from "./Product";
+
+import ListWrapper from "@/components/Shop/ProductList/ListWrapper";
+
+import Section from "@/theme/Section";
+
+import { useState } from "react";
+
+import getProducts from "@/api-calls/getProducts";
+import { itemsPerPage } from "@/theme/metadata";
+
+import { ListProps } from "./types";
+
+export default function List(props: ListProps) {
+  const { productsInit, catID, searchTerm, sortBy, order, total } = props;
+
+  const [products, setProducts] = useState(productsInit || []);
+
+  const loadMore = async () => {
+    const { products: newProducts } = await getProducts({
+      catID: catID || "",
+      sortBy,
+      order,
+      offset: products.length,
+      limit: itemsPerPage,
+      searchTerm,
+      filter: null,
+    });
+    setProducts([...products, ...newProducts]);
+  };
   return (
-    <ul className="grid w-11/12 mx-auto gap-7 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-      {children}
-    </ul>
+    <>
+      <Section>
+        <ListWrapper>
+          {products.map((product) => (
+            <Product key={product.id} product={product} />
+          ))}
+        </ListWrapper>
+      </Section>
+      <Section>
+        {total > products.length && <LoadMoreButton onLoadMore={loadMore} />}
+      </Section>
+    </>
   );
-};
-
-export default List;
+}
