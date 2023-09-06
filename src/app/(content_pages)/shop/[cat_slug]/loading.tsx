@@ -1,5 +1,3 @@
-import { ComponentWithChildren } from "@/types";
-
 import Section from "@/theme/Section";
 import CategoryMenu from "@/components/shop/CategoryMenu";
 

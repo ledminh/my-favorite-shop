@@ -5,6 +5,8 @@ export function filterCategories(
   currentCategory: WithID<CategoryType>,
   numCats: number // 7
 ) {
+  if (categories.length <= numCats) return categories;
+
   const index = categories.findIndex(
     (category) => category.id === currentCategory.id
   ); // 2

@@ -1,7 +1,7 @@
 import type { Category as CategoryType, WithID } from "@/types";
 
-import Skeleton from "@/components/Shop/CategoryList/Skeleton";
-import Menu from "@/components/Shop/CategoryMenu/Menu";
+import Skeleton from "./Skeleton";
+import Menu from "./Menu";
 
 type Props =
   | {

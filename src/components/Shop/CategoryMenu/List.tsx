@@ -66,7 +66,7 @@ export default function Menu({
             isCurrent={category.id === currentCategory.id}
           />
         ))}
-        <MoreButton setIsMenuOpen={setIsMenuOpen} />
+        {categories.length > 5 && <MoreButton setIsMenuOpen={setIsMenuOpen} />}
       </Wrapper>
       <Wrapper type="lg">
         {filteredCategories10.map((category) => (
@@ -77,7 +77,7 @@ export default function Menu({
             isCurrent={category.id === currentCategory.id}
           />
         ))}
-        <MoreButton setIsMenuOpen={setIsMenuOpen} />
+        {categories.length > 10 && <MoreButton setIsMenuOpen={setIsMenuOpen} />}
       </Wrapper>
     </>
   );

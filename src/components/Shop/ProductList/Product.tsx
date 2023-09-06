@@ -44,7 +44,7 @@ export default function Product({ product, skeleton = false }: Props) {
           )}
           <Price>
             {product.promotion && (
-              <div className="text-sm line-through text-white">
+              <div className="text-sm text-white line-through">
                 ${product.price}
               </div>
             )}
@@ -85,7 +85,7 @@ const ImageWrapper: ComponentWithChildren = ({ children }) => {
 
 const Promotion: ComponentWithChildren = ({ children }) => {
   return (
-    <div className="absolute w-full text-center right-0 top-0 px-2 font-bold text-white transition-all duration-300 bg-red-800/90 group-hover:top-3">
+    <div className="absolute top-0 right-0 w-full px-2 font-bold text-center text-white transition-all duration-300 bg-red-800/90 group-hover:top-3">
       {children}
     </div>
   );
@@ -116,13 +116,12 @@ const Intro: ComponentWithChildren = ({ children }) => {
 const Skeleton = () => (
   <div className="flex flex-col justify-between overflow-hidden rounded-md shadow-lg shadow-neutral-400 hover:ring-4 group">
     <div className="flex flex-col justify-start">
-      <div className="w-full h-64 bg-gray-400"></div>
-      <div className="flex flex-col items-start justify-between w-full h-20 p-3 bg-gray-200">
+      <div className="w-full h-48 bg-gray-400"></div>
+      <div className="flex flex-col items-start justify-between w-full h-12 p-3 bg-gray-200">
         <div className="w-1/2 h-4 bg-gray-300 rounded" />
-        <div className="w-full h-4 bg-gray-300 rounded" />
       </div>
     </div>
-    <div className="flex flex-col items-start justify-between w-full h-20 p-3 bg-gray-200">
+    <div className="flex flex-col items-start justify-between w-full h-16 p-3 bg-gray-200">
       <div className="w-full h-4 bg-gray-300 rounded" />
       <div className="w-full h-4 bg-gray-300 rounded" />
     </div>
