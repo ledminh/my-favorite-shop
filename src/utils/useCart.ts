@@ -1,19 +1,23 @@
 import {
   OrderedProduct as OrderedProductType,
   Product as ProductType,
+  WithID,
 } from "@/types";
 
 import useLocalStorage from "use-local-storage";
 import useVariant from "./useVariant";
 
 export default function useCart() {
-  const [cart, setCart] = useLocalStorage<OrderedProductType[]>("cart", []);
+  const [cart, setCart] = useLocalStorage<WithID<OrderedProductType>[]>(
+    "cart",
+    []
+  );
   const { getSelectedVariant } = useVariant();
 
-  const addToCart = (product: ProductType, quantity: number) => {
+  const addToCart = (product: WithID<ProductType>, quantity: number) => {
     const selectedVariant = getSelectedVariant(product.id);
 
-    const orderedProduct: OrderedProductType = {
+    const orderedProduct: WithID<OrderedProductType> = {
       ...product,
       id: selectedVariant
         ? "prod-" + product.id + "-variant-" + selectedVariant.id
@@ -42,12 +46,12 @@ export default function useCart() {
     }
   };
 
-  const removeFromCart = (product: OrderedProductType) => {
+  const removeFromCart = (product: WithID<OrderedProductType>) => {
     const newCart = cart.filter((item) => item.id !== product.id);
     setCart(newCart);
   };
 
-  const updateCart = (product: OrderedProductType) => {
+  const updateCart = (product: WithID<OrderedProductType>) => {
     const newCart = cart.map((item) => {
       if (item.id === product.id) {
         return product;

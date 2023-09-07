@@ -2,34 +2,13 @@
 
 import { ComponentWithChildren } from "@/types";
 
-import useCart from "@/utils/useCart";
 import Section from "@/theme/Section";
 import { H2 } from "@/theme/typography";
 import OrderedProduct from "@/components/cart/OrderedProduct";
-
-import getProducts from "@/data/products";
-
-import type { OrderedProduct as OrderedProductType, Variant } from "@/types";
-import { faker } from "@faker-js/faker";
-import { getPrice } from "@/utils/getPrice";
-
-import useVariant from "@/utils/useVariant";
+import useShoppingCart from "./hooks";
 
 export default function ShoppingCart() {
-  const { cart } = useCart();
-
-  const { getSelectedVariant } = useVariant();
-
-  const totalPrice = cart.reduce((total, orderedProduct) => {
-    if (orderedProduct.selectedVariant) {
-      return (
-        total +
-        getPrice(orderedProduct.selectedVariant) * orderedProduct.quantity
-      );
-    }
-
-    return total + getPrice(orderedProduct) * orderedProduct.quantity;
-  }, 0);
+  const { totalPrice, cart } = useShoppingCart();
 
   return (
     <Wrapper>
@@ -100,22 +79,3 @@ const TotalLabel: ComponentWithChildren = ({ children }) => (
 const TotalPrice: ComponentWithChildren = ({ children }) => (
   <div className="text-red-700">{children}</div>
 );
-
-/*********************
- * Utils
- */
-
-const getOrderedProducts = (count: number): OrderedProductType[] => {
-  const products = getProducts(count);
-  const orderedProducts: OrderedProductType[] = [];
-
-  for (let i = 0; i < count; i++) {
-    const product = products[i];
-    orderedProducts.push({
-      ...product,
-      quantity: faker.number.int({ min: 1, max: 10 }),
-    });
-  }
-
-  return orderedProducts;
-};

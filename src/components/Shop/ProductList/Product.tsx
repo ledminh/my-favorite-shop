@@ -73,7 +73,7 @@ export default function Product({ product, skeleton = false }: Props) {
           <Intro>{product.intro}</Intro>
         </Text>
       </Content>
-      {(!product.variants || product.variants.length !== 0) && (
+      {(!product.variants || product.variants.length === 0) && (
         <Footer product={product} />
       )}
     </Link>

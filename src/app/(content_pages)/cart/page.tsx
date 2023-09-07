@@ -4,17 +4,16 @@ import ShoppingCart from "@/components/cart/ShoppingCart";
 import ShippingAddress from "@/components/cart/ShippingAddress";
 
 export default function CartPage() {
-  return <>Cart</>;
-  // return (
-  //   <Wrapper>
-  //     <Box>
-  //       <ShoppingCart />
-  //     </Box>
-  //     <Box>
-  //       <ShippingAddress />
-  //     </Box>
-  //   </Wrapper>
-  // );
+  return (
+    <Wrapper>
+      <Box>
+        <ShoppingCart />
+      </Box>
+      {/* <Box>
+        <ShippingAddress />
+      </Box> */}
+    </Wrapper>
+  );
 }
 
 /********************
