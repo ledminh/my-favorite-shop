@@ -1,18 +1,25 @@
 "use client";
 
-import type { Variant as VariantType } from "@/types";
+import type { Variant as VariantType, WithID } from "@/types";
 import { useEffect, useState } from "react";
 
 type Props = {
-  variant: VariantType;
+  productID: string;
+  variant: WithID<VariantType>;
+  selectedVariant?: WithID<VariantType>; // saved on local storage
+  setSelectedVariant: (
+    productID: string,
+    variant: WithID<VariantType> | null
+  ) => void;
   setIsVariantModalOpen: (isOpen: boolean) => void;
-  selectedVariant?: VariantType; // saved on local storage
-  setCurrentVariant: (variant: VariantType) => void;
+  setCurrentVariant: (variant: WithID<VariantType>) => void;
 };
 
 export default function Variant({
+  productID,
   variant,
   selectedVariant,
+  setSelectedVariant,
   setIsVariantModalOpen,
   setCurrentVariant,
 }: Props) {
@@ -21,10 +28,18 @@ export default function Variant({
   useEffect(() => {
     if (selectedVariant) {
       setIsSelected(selectedVariant.id === variant.id);
+    } else {
+      setIsSelected(false);
     }
   }, [selectedVariant, variant.id]);
 
   const onClick = () => {
+    if (selectedVariant && selectedVariant.id === variant.id) {
+      setSelectedVariant(productID, null);
+      setIsVariantModalOpen(false);
+      return;
+    }
+
     setCurrentVariant(variant);
     setIsVariantModalOpen(true);
   };

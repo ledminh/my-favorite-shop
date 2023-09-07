@@ -1,4 +1,4 @@
-import { ComponentWithChildren, Variant as VariantType } from "@/types";
+import { ComponentWithChildren, Variant as VariantType, WithID } from "@/types";
 import Image from "next/image";
 
 import Modal from "@/theme/Modal";
@@ -7,7 +7,7 @@ import { getPrice } from "@/utils/getPrice";
 
 type Props = {
   isOpen: boolean;
-  currentVariant?: VariantType;
+  currentVariant?: WithID<VariantType>;
   setIsOpen: (arg: boolean) => void;
   productID: string;
 };

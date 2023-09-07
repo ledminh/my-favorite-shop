@@ -1,7 +1,7 @@
-import { Variant } from "@/types";
+import { Variant, WithID } from "@/types";
 import useLocalStorage from "use-local-storage";
 
-type VariantStorage = Record<string, Variant | undefined>;
+type VariantStorage = Record<string, WithID<Variant> | undefined>;
 
 export default function useVariant() {
   const [selectedVariants, setSelectedVariants] =
@@ -11,7 +11,16 @@ export default function useVariant() {
     return selectedVariants[productID];
   };
 
-  const setSelectedVariant = (productID: string, variant: Variant) => {
+  const setSelectedVariant = (
+    productID: string,
+    variant: WithID<Variant> | null
+  ) => {
+    if (!variant) {
+      const { [productID]: _, ...rest } = selectedVariants;
+      setSelectedVariants(rest);
+      return;
+    }
+
     setSelectedVariants({
       ...selectedVariants,
       [productID]: variant,

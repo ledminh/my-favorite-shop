@@ -1,6 +1,6 @@
 "use client";
 
-import { ComponentWithChildren, Variant as VariantType } from "@/types";
+import { ComponentWithChildren, Variant as VariantType, WithID } from "@/types";
 
 import { useState } from "react";
 
@@ -12,11 +12,15 @@ import Variant from "./Variant";
 type Props = {
   isOpen: boolean;
   setIsOpen: (arg: boolean) => void;
-  variants: VariantType[];
-  selectedVariant?: VariantType;
-  setCurrentVariant: (arg: VariantType) => void;
-  currentVariant?: VariantType;
+  variants: WithID<VariantType>[];
+  selectedVariant?: WithID<VariantType>;
+  setCurrentVariant: (arg: WithID<VariantType>) => void;
+  currentVariant?: WithID<VariantType>;
   productID: string;
+  setSelectedVariant: (
+    productID: string,
+    variant: WithID<VariantType> | null
+  ) => void;
 };
 
 export default function VariantListModal({
@@ -27,8 +31,9 @@ export default function VariantListModal({
   setCurrentVariant,
   currentVariant,
   productID,
+  setSelectedVariant,
 }: Props) {
-  const [isVariantModalOpen, setIsVariantModalOpen] = useState(true);
+  const [isVariantModalOpen, setIsVariantModalOpen] = useState(false);
 
   return (
     <>
@@ -41,6 +46,8 @@ export default function VariantListModal({
                 setIsVariantModalOpen={setIsVariantModalOpen}
                 selectedVariant={selectedVariant}
                 setCurrentVariant={setCurrentVariant}
+                productID={productID}
+                setSelectedVariant={setSelectedVariant}
               />
             </Item>
           ))}

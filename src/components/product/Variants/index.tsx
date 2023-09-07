@@ -23,17 +23,17 @@ export default function Variants({ product }: Props) {
   const [isListModalOpen, setIsListModalOpen] = useState(false);
   const [isVariantModalOpen, setIsVariantModalOpen] = useState(false);
 
-  const { getSelectedVariant } = useVariant();
+  const { getSelectedVariant, setSelectedVariant } = useVariant();
 
   const [currentVariant, setCurrentVariant] = useState<
-    VariantType | undefined
+    WithID<VariantType> | undefined
   >();
 
   useEffect(() => {
     setCurrentVariant(getSelectedVariant(product.id));
   }, [product]);
 
-  if (!product.variants) {
+  if (!product.variants || product.variants.length === 0) {
     return null;
   }
 
@@ -42,24 +42,32 @@ export default function Variants({ product }: Props) {
   return (
     <>
       <Wrapper>
-        {variants.map((variant) => (
-          <Item key={variant.id}>
-            <Variant
-              variant={variant}
-              selectedVariant={getSelectedVariant(productID)}
-              setIsVariantModalOpen={setIsVariantModalOpen}
-              setCurrentVariant={setCurrentVariant}
-            />
+        {variants.map(
+          (variant) =>
+            variant.shown && (
+              <Item key={variant.id}>
+                <Variant
+                  productID={productID}
+                  variant={variant}
+                  setSelectedVariant={setSelectedVariant}
+                  selectedVariant={getSelectedVariant(productID)}
+                  setIsVariantModalOpen={setIsVariantModalOpen}
+                  setCurrentVariant={setCurrentVariant}
+                />
+              </Item>
+            )
+        )}
+        {variants.some((variant) => !variant.shown) && (
+          <Item>
+            <Button onClick={() => setIsListModalOpen(true)}>MORE ...</Button>
           </Item>
-        ))}
-        <Item>
-          <Button onClick={() => setIsListModalOpen(true)}>MORE ...</Button>
-        </Item>
+        )}
       </Wrapper>
       <VariantListModal
         setIsOpen={setIsListModalOpen}
         isOpen={isListModalOpen}
         variants={variants}
+        setSelectedVariant={setSelectedVariant}
         selectedVariant={getSelectedVariant(productID)}
         setCurrentVariant={setCurrentVariant}
         currentVariant={currentVariant}
