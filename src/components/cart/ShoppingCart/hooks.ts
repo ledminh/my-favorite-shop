@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import useCart from "@/utils/useCart";
-import { getPrice } from "@/utils/getPrice";
+import getPrice from "@/utils/getPrice";
 import { OrderedProduct, WithID } from "@/types";
 
 export default function useShoppingCart() {

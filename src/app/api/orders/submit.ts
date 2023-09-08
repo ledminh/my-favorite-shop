@@ -64,9 +64,9 @@ function createStripeParams(
 
     success_url: `${req.headers.get(
       "origin"
-    )}/confirmation?temp_id={CHECKOUT_SESSION_ID}`,
+    )}/confirmation/{CHECKOUT_SESSION_ID}`,
 
-    cancel_url: `${req.headers.get("origin")}/checkout`,
+    cancel_url: `${req.headers.get("origin")}/cart`,
   };
 
   return params;

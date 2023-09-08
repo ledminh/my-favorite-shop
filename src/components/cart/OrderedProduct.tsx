@@ -2,16 +2,18 @@
 
 import { useEffect, useState } from "react";
 import useCart from "@/utils/useCart";
-import { OrderedProduct as OrderedProductType } from "@/types";
-import { ComponentWithChildren, Variant } from "@/types";
+import {
+  OrderedProduct as OrderedProductType,
+  ComponentWithChildren,
+  WithID,
+} from "@/types";
+
 import Image from "next/image";
 import QuantityControl from "@/components/QuantityControl";
-import { getPrice } from "@/utils/getPrice";
-
-import useVariant from "@/utils/useVariant";
+import getPrice from "@/utils/getPrice";
 
 type Props = {
-  orderedProduct: OrderedProductType;
+  orderedProduct: WithID<OrderedProductType>;
 };
 
 export default function OrderedProduct({ orderedProduct }: Props) {
@@ -61,7 +63,7 @@ export default function OrderedProduct({ orderedProduct }: Props) {
         <Price>Unit Price: ${unitPrice.toFixed(2)}</Price>
         <TotalPrice>Total: ${(unitPrice * quantity).toFixed(2)}</TotalPrice>
       </Content>
-      <Function>
+      <Footer>
         <QCWrapper>
           <QuantityControl
             quantity={quantity}
@@ -70,7 +72,7 @@ export default function OrderedProduct({ orderedProduct }: Props) {
           />
         </QCWrapper>
         <Button onClick={() => removeFromCart(orderedProduct)}>REMOVE</Button>
-      </Function>
+      </Footer>
     </Wrapper>
   );
 }
@@ -106,7 +108,7 @@ const TotalPrice: ComponentWithChildren = ({ children }) => (
   <div className="font-semibold text-red-700">{children}</div>
 );
 
-const Function: ComponentWithChildren = ({ children }) => (
+const Footer: ComponentWithChildren = ({ children }) => (
   <div className="flex flex-col justify-between gap-2 p-1 basis-24">
     {children}
   </div>
