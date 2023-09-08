@@ -97,6 +97,11 @@ export type Order = {
   modifiedAt: Date;
 };
 
+export type OrderToSubmit = Omit<
+  Order,
+  "createdAt" | "modifiedAt" | "paymentInfo" | "taxes"
+>;
+
 /***********************
  * Customer Message
  */
@@ -178,3 +183,7 @@ export type ProductsResponse = ServerResponse<{
   products: WithID<Product>[];
   total: number;
 }>;
+
+// Order
+
+export type SubmitOrderResponse = ServerResponse<WithID<OrderToSubmit>>;

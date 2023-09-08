@@ -9,9 +9,9 @@ export default function CartPage() {
       <Box>
         <ShoppingCart />
       </Box>
-      {/* <Box>
+      <Box>
         <ShippingAddress />
-      </Box> */}
+      </Box>
     </Wrapper>
   );
 }

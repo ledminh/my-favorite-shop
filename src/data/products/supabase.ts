@@ -270,7 +270,6 @@ export const updateProduct = async (
 /**********************************
  * deleteProduct
  * @param {id: string}
- * @returns Promise<WithID<Product>>;
  */
 
 export const deleteProduct = async (id: string) => {

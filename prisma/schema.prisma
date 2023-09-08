@@ -37,3 +37,12 @@ model Product {
   createdAt   DateTime  @default(now())
   modifiedAt  DateTime  @updatedAt
 }
+
+
+model OrderToSubmit {
+  id              String    @id 
+  shippingAddress String
+  orderedProducts String[]
+  shippingFee     Float
+  status          String
+}

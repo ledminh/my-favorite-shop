@@ -5,7 +5,7 @@ type ItemType = {
   promotion?: Promotion;
 };
 
-export const getPrice = (item: ItemType) => {
+const getPrice = (item: ItemType) => {
   if (item.promotion) {
     if (item.promotion.type === "discount") {
       return item.price * (1 - item.promotion.discountPercent / 100);
@@ -16,3 +16,5 @@ export const getPrice = (item: ItemType) => {
 
   return item.price;
 };
+
+export default getPrice;

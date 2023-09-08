@@ -1,12 +1,14 @@
 "use client";
 
-import { ComponentWithChildren } from "@/types";
+import { ComponentWithChildren, OrderToSubmit, ShippingAddress } from "@/types";
+
+import { shippingFee } from "@/theme/metadata";
 
 import { State } from "country-state-city";
 
 import { H2 } from "@/theme/typography";
 import { Button } from "@/theme/basics";
-import { ForwardedRef, forwardRef, useState } from "react";
+import { ForwardedRef, forwardRef } from "react";
 
 import { useForm } from "react-hook-form";
 
@@ -20,17 +22,28 @@ import {
   numberPattern,
 } from "@/utils/regexPatterns";
 
+import submitOrder from "@/api-calls/submitOrder";
+
 export default function ShippingAddress() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm();
 
   const { cart } = useCart();
 
   const onSubmit = (data: any) => {
-    console.log(data);
+    const shippingAddress = data as ShippingAddress;
+
+    const orderToSubmit: OrderToSubmit = {
+      shippingAddress,
+      orderedProducts: cart,
+      shippingFee,
+      status: "processing",
+    };
+
+    submitOrder(orderToSubmit);
   };
 
   return (
@@ -186,7 +199,9 @@ export default function ShippingAddress() {
           </Grid6>
         </div>
         <div className="flex content-center justify-center px-8 pt-6">
-          <Button disabled={cart.length === 0}>Continue to Payment</Button>
+          <Button disabled={cart.length === 0 || !isValid}>
+            Continue to Payment
+          </Button>
         </div>
       </Form>
     </Wrapper>
@@ -212,7 +227,7 @@ type FormProps = {
 };
 
 const Form = ({ children, onSubmit }: FormProps) => (
-  <form className="mt-10  border-blue-950/30" onSubmit={onSubmit}>
+  <form className="mt-10 border-blue-950/30" onSubmit={onSubmit}>
     {children}
   </form>
 );

@@ -40,3 +40,5 @@ export const itemsPerPage = 10;
 
 export const categoryFolder = "/shop/";
 export const productFolder = "/product/";
+
+export const shippingFee = 5;
