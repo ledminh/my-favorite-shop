@@ -4,7 +4,7 @@ import {
   ComponentWithChildren,
   OrderedProduct as OrderedProductType,
 } from "@/types";
-import { getPrice } from "@/utils/getPrice";
+import getPrice from "@/utils/getPrice";
 
 type Props = {
   orderedProduct: OrderedProductType;

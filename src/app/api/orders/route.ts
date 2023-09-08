@@ -38,7 +38,7 @@ export async function POST(
 
 export async function GET(
   request: NextRequest
-): Promise<NextResponse<CategoryResponse | CategoriesResponse>> {
+): Promise<NextResponse<SubmitOrderResponse>> {
   try {
     const type = request.nextUrl.searchParams.get("type");
 

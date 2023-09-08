@@ -185,5 +185,4 @@ export type ProductsResponse = ServerResponse<{
 }>;
 
 // Order
-
 export type SubmitOrderResponse = ServerResponse<WithID<OrderToSubmit>>;
