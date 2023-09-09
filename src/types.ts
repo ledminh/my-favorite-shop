@@ -129,12 +129,6 @@ type ServerResponse<T> =
       data?: undefined;
     };
 
-export type DeleteMessageResponse = ServerResponse<WithID<CustomerMessage>>;
-export type UpdateMessageResponse = ServerResponse<WithID<CustomerMessage>>;
-
-export type DeleteOrderResponse = ServerResponse<WithID<Order>>;
-export type UpdateOrderResponse = ServerResponse<WithID<Order>>;
-
 // Category
 export type CategoryRequest = {
   slug?: string;
@@ -179,3 +173,11 @@ export type ProductsResponse = ServerResponse<{
 
 // Order
 export type SubmitOrderResponse = ServerResponse<WithID<OrderToSubmit>>;
+
+export type DeleteOrderResponse = ServerResponse<WithID<Order>>;
+export type UpdateOrderResponse = ServerResponse<WithID<Order>>;
+
+// Message
+export type MessageResponse = ServerResponse<WithID<CustomerMessage>>;
+export type DeleteMessageResponse = ServerResponse<WithID<CustomerMessage>>;
+export type UpdateMessageResponse = ServerResponse<WithID<CustomerMessage>>;

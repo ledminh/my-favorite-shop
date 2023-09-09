@@ -1,16 +1,10 @@
-import {
-  CategoriesResponse,
-  CategoryResponse,
-  SubmitOrderResponse,
-} from "@/types";
+import { SubmitOrderResponse } from "@/types";
 import { NextRequest, NextResponse } from "next/server";
 
 import submit from "./submit";
-// import add from "./add";
 // import del from "./del";
 // import edit from "./edit";
 // import getMultiple from "./getMultiple";
-// import getSingle from "./getSingle";
 
 export async function POST(
   request: NextRequest
@@ -21,8 +15,7 @@ export async function POST(
     switch (action) {
       case "submit": // submit to temporary orders to proceed to checkout
         return submit(request);
-      // case "add":
-      //   return add(request);
+
       // case "edit":
       //   return edit(request);
       // case "delete":
@@ -43,8 +36,6 @@ export async function GET(
     const type = request.nextUrl.searchParams.get("type");
 
     switch (type) {
-      // case "single":
-      //   return getSingle(request);
       // case "multiple":
       //   return getMultiple(request);
 

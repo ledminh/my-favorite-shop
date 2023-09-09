@@ -6,9 +6,10 @@ import { ComponentWithChildren } from "@/types";
 import { useState, FormEventHandler, ForwardedRef, forwardRef } from "react";
 
 import { CustomerMessage } from "@/types";
-import { SubmitHandler, FieldValues } from "react-hook-form";
 
 import { useForm } from "react-hook-form";
+
+import sendMessage from "@/api-calls/sendMessage";
 
 import FormErrorMessage from "@/theme/FormErrorMessage";
 
@@ -27,16 +28,8 @@ export default function Form() {
 
   const [sent, setSent] = useState(false);
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    const message: CustomerMessage = {
-      firstName: data.firstName,
-      lastName: data.lastName,
-      email: data.email,
-      phone: data.phone,
-      message: data.message,
-    };
-
-    console.log(message);
+  const onSubmit = (data: any) => {
+    sendMessage(data as Omit<CustomerMessage, "status" | "createdAt">);
 
     setSent(true);
   };
