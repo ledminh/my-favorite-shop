@@ -53,10 +53,11 @@ export async function getOrderToSubmit(
 }
 
 export async function addOrder(
-  order: Omit<Order, "id" | "createdAt" | "modifiedAt">
+  order: Omit<WithID<Order>, "createdAt" | "modifiedAt">
 ): Promise<WithID<Order>> {
   const orderDB = await prismaClient.order.create({
     data: {
+      id: order.id,
       shippingAddress: JSON.stringify(order.shippingAddress),
       orderedProducts: order.orderedProducts.map((orderedProduct) =>
         JSON.stringify(orderedProduct)

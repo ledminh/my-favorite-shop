@@ -44,7 +44,7 @@ model OrderToSubmit {
 }
 
 model Order {
-  id              String   @id @default(uuid())
+  id              String   @id 
   shippingAddress String
   orderedProducts String[]
   shippingFee     Float

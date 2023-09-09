@@ -1,5 +1,8 @@
+import { v4 as uuidv4 } from "uuid";
+
 import Image from "next/image";
-import { ComponentWithChildren, Order } from "@/types";
+
+import { ComponentWithChildren, Order, WithID } from "@/types";
 
 import ConfirmHeroImage from "@/assets/images/confirm-hero-image.jpg";
 
@@ -24,7 +27,8 @@ export default async function Confirmation({ params }: Props) {
 
   const orderToSubmit = await getOrderToSubmit(sessionID);
 
-  const newOrder: Omit<Order, "id" | "createdAt" | "modifiedAt"> = {
+  const newOrder: Omit<WithID<Order>, "createdAt" | "modifiedAt"> = {
+    id: uuidv4().split("-")[0],
     orderedProducts: orderToSubmit.orderedProducts,
     shippingAddress: orderToSubmit.shippingAddress,
     shippingFee: orderToSubmit.shippingFee,
