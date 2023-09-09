@@ -84,6 +84,31 @@ export async function addOrder(
   };
 }
 
+export async function getOrder(id: string): Promise<WithID<Order>> {
+  const orderDB = await prismaClient.order.findUnique({
+    where: {
+      id,
+    },
+  });
+
+  if (!orderDB) throw new Error("Order not found");
+
+  return {
+    id: orderDB.id,
+    shippingAddress: JSON.parse(
+      orderDB.shippingAddress
+    ) as WithID<Order>["shippingAddress"],
+    orderedProducts: orderDB.orderedProducts.map((orderedProduct) =>
+      JSON.parse(orderedProduct)
+    ) as WithID<Order>["orderedProducts"],
+    shippingFee: orderDB.shippingFee,
+    taxes: orderDB.taxes,
+    status: orderDB.status as OrderStatus,
+    createdAt: orderDB.createdAt,
+    modifiedAt: orderDB.modifiedAt,
+  };
+}
+
 // type getOrdersProps = {
 //   offset: number;
 //   limit: number;

@@ -6,4 +6,5 @@ export {
   addOrderToSubmit,
   getOrderToSubmit,
   deleteOrderToSubmit,
+  getOrder,
 } from "./supabase";
