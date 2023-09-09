@@ -5,6 +5,7 @@ import getOrderedProductImage from "@/utils/getOrderedProductImage";
 import getOrderedProductPrice from "@/utils/getOrderedProductPrice";
 
 import type { Stripe } from "stripe";
+import { shippingFee } from "@/theme/metadata";
 
 const stripe: Stripe = require("stripe")(process.env.STRIPE_SECRET_KEY!);
 
@@ -36,19 +37,23 @@ function createStripeParams(
   email: string | undefined,
   req: NextRequest
 ) {
-  const line_items = orderedProducts.map((product) => ({
-    price_data: {
-      currency: "usd",
-      product_data: {
-        name: product.name,
-        images: [getOrderedProductImage(product).src],
-      },
-      unit_amount: Math.round(getOrderedProductPrice(product)) * 100,
-      tax_behavior:
-        "exclusive" as Stripe.Checkout.SessionCreateParams.LineItem.PriceData.TaxBehavior,
-    },
-    quantity: product.quantity,
-  }));
+  const line_items = orderedProducts.map(
+    (product) =>
+      ({
+        price_data: {
+          currency: "usd",
+          product_data: {
+            name: product.name,
+            images: [getOrderedProductImage(product).src],
+            tax_code: "txcd_99999999",
+          },
+          unit_amount: Math.round(getOrderedProductPrice(product)) * 100,
+          tax_behavior:
+            "exclusive" as Stripe.Checkout.SessionCreateParams.LineItem.PriceData.TaxBehavior,
+        },
+        quantity: product.quantity,
+      } as Stripe.Checkout.SessionCreateParams.LineItem)
+  );
 
   const params: Stripe.Checkout.SessionCreateParams = {
     mode: "payment",
@@ -61,6 +66,19 @@ function createStripeParams(
     automatic_tax: {
       enabled: true,
     },
+
+    shipping_options: [
+      {
+        shipping_rate_data: {
+          display_name: "Standard Shipping",
+          fixed_amount: {
+            amount: shippingFee * 100,
+            currency: "usd",
+          },
+          type: "fixed_amount",
+        },
+      },
+    ],
 
     success_url: `${req.headers.get(
       "origin"

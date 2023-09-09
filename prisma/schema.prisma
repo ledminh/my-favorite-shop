@@ -39,7 +39,6 @@ model OrderToSubmit {
   id              String   @id
   shippingAddress String
   orderedProducts String[]
-  shippingFee     Float
   status          String
 }
 
@@ -49,7 +48,6 @@ model Order {
   orderedProducts String[]
   shippingFee     Float
   taxes           Float
-  paymentInfo     String
   status          String
   createdAt       DateTime @default(now())
   modifiedAt      DateTime @updatedAt

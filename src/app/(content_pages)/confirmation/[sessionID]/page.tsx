@@ -13,8 +13,9 @@ import OrderedProductList from "@/components/confirmation/OrderedProductList";
 import Header from "@/components/confirmation/Header";
 import getPrice from "@/utils/getPrice";
 
-import PaymentMethod from "@/components/PaymentMethod";
 import ShippingAddress from "@/components/ShippingAddress";
+
+import type { Stripe } from "stripe";
 
 type Props = {
   params: {
@@ -27,18 +28,25 @@ export default async function Confirmation({ params }: Props) {
 
   const orderToSubmit = await getOrderToSubmit(sessionID);
 
+  const stripe: Stripe = require("stripe")(process.env.STRIPE_SECRET_KEY!);
+
+  const { total_details } = await stripe.checkout.sessions.retrieve(sessionID, {
+    expand: ["total_details"],
+  });
+
+  if (!total_details) {
+    throw new Error("No total details");
+  }
+
+  const { amount_tax, amount_shipping } = total_details;
+
   const newOrder: Omit<WithID<Order>, "createdAt" | "modifiedAt"> = {
     id: uuidv4().split("-")[0],
     orderedProducts: orderToSubmit.orderedProducts,
     shippingAddress: orderToSubmit.shippingAddress,
-    shippingFee: orderToSubmit.shippingFee,
+    shippingFee: (amount_shipping ?? 0) / 100,
     status: orderToSubmit.status,
-    paymentInfo: {
-      cardType: "Visa",
-      lastFourDigits: "1234",
-      expireDate: new Date("2029-12-31"),
-    },
-    taxes: 14.3,
+    taxes: amount_tax,
   };
 
   const order = await addOrder(newOrder);
@@ -51,7 +59,6 @@ export default async function Confirmation({ params }: Props) {
     shippingFee,
     taxes,
     shippingAddress,
-    paymentInfo,
   } = order;
 
   const subTotal = orderedProducts.reduce(
@@ -78,7 +85,6 @@ export default async function Confirmation({ params }: Props) {
         <Total subTotal={subTotal} shipping={shippingFee} taxes={taxes} />
         <Footer>
           <ShippingAddress shippingAddress={shippingAddress} />
-          <PaymentMethod paymentInfo={paymentInfo} />
         </Footer>
         <Navigation>
           <Link

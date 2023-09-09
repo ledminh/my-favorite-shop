@@ -78,12 +78,6 @@ export type ShippingAddress = {
   email: string;
 };
 
-export type PaymentInfo = {
-  cardType: "Visa" | "MasterCard" | "American Express";
-  lastFourDigits: string;
-  expireDate: Date;
-};
-
 export type OrderStatus = "processing" | "shipped" | "delivered";
 
 export type Order = {
@@ -91,7 +85,6 @@ export type Order = {
   orderedProducts: WithID<OrderedProduct>[];
   shippingFee: number;
   taxes: number;
-  paymentInfo: PaymentInfo;
   status: OrderStatus;
   createdAt: Date;
   modifiedAt: Date;
@@ -99,7 +92,7 @@ export type Order = {
 
 export type OrderToSubmit = Omit<
   Order,
-  "createdAt" | "modifiedAt" | "paymentInfo" | "taxes"
+  "createdAt" | "modifiedAt" | "taxes" | "shippingFee"
 >;
 
 /***********************

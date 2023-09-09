@@ -2,8 +2,6 @@
 
 import { ComponentWithChildren, OrderToSubmit, ShippingAddress } from "@/types";
 
-import { shippingFee } from "@/theme/metadata";
-
 import { State } from "country-state-city";
 
 import { H2 } from "@/theme/typography";
@@ -39,7 +37,6 @@ export default function ShippingAddress() {
     const orderToSubmit: OrderToSubmit = {
       shippingAddress,
       orderedProducts: cart,
-      shippingFee,
       status: "processing",
     };
 

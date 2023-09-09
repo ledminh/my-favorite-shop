@@ -14,7 +14,6 @@ export async function addOrderToSubmit(
       orderedProducts: order.orderedProducts.map((orderedProduct) =>
         JSON.stringify(orderedProduct)
       ),
-      shippingFee: order.shippingFee,
       status: order.status,
     },
   });
@@ -47,7 +46,7 @@ export async function getOrderToSubmit(
     orderedProducts: orderToSubmit.orderedProducts.map((orderedProduct) =>
       JSON.parse(orderedProduct)
     ) as WithID<OrderToSubmit>["orderedProducts"],
-    shippingFee: orderToSubmit.shippingFee,
+
     status: orderToSubmit.status as OrderStatus,
   };
 }
@@ -64,16 +63,10 @@ export async function addOrder(
       ),
       shippingFee: order.shippingFee,
       taxes: order.taxes,
-      paymentInfo: JSON.stringify({
-        cardType: order.paymentInfo.cardType,
-        lastFourDigits: order.paymentInfo.lastFourDigits,
-        expireDate: order.paymentInfo.expireDate.toDateString(),
-      }),
+
       status: order.status,
     },
   });
-
-  const paymentInfo = JSON.parse(orderDB.paymentInfo);
 
   return {
     id: orderDB.id,
@@ -85,11 +78,6 @@ export async function addOrder(
     ) as WithID<Order>["orderedProducts"],
     shippingFee: orderDB.shippingFee,
     taxes: orderDB.taxes,
-    paymentInfo: {
-      cardType: paymentInfo.cardType,
-      lastFourDigits: paymentInfo.lastFourDigits,
-      expireDate: new Date(paymentInfo.expireDate),
-    },
     status: orderDB.status as OrderStatus,
     createdAt: orderDB.createdAt,
     modifiedAt: orderDB.modifiedAt,
