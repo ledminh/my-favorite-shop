@@ -12,7 +12,7 @@ export default async function add(request: NextRequest) {
 
   const newMessage = await addMessage({
     ...message,
-    status: "pending",
+    status: "unread",
   });
 
   return NextResponse.json({

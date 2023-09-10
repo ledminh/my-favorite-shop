@@ -52,3 +52,15 @@ model Order {
   createdAt       DateTime @default(now())
   modifiedAt      DateTime @updatedAt
 }
+
+
+model CustomerMessage {
+  id        String   @id @default(uuid())  
+  firstName String
+  lastName  String
+  email     String
+  phone     String?
+  message   String
+  status    String
+  createdAt DateTime @default(now())
+}
