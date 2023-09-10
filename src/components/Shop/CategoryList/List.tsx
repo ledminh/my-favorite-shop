@@ -30,6 +30,11 @@ export default function List(props: ListProps) {
 
   return (
     <Wrapper>
+      {categories.length === 0 && (
+        <div className="p-4 bg-neutral-200">
+          <p className="text-2xl">No category found</p>
+        </div>
+      )}
       <ListWrapper>
         {categories.map((category) => (
           <Item key={category.id}>

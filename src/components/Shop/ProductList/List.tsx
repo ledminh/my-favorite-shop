@@ -55,6 +55,11 @@ export default function List(props: ListProps) {
   return (
     <>
       <Section>
+        {products.length === 0 && (
+          <div className="p-4 bg-neutral-200">
+            <p className="text-2xl">No product found</p>
+          </div>
+        )}
         <ListWrapper>
           {status === "loading"
             ? Array.from({ length: 4 }).map((_, i) => (
