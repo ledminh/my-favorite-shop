@@ -7,6 +7,7 @@ type CategoryProps = {
   type: "Card" | "Button" | "Block";
   isCurrent?: boolean;
   skeleton?: boolean;
+  index?: number;
   category?: CategoryType;
 };
 
@@ -14,6 +15,7 @@ export default function Category({
   type = "Card",
   isCurrent = false,
   skeleton = false,
+  index,
   category,
 }: CategoryProps) {
   if (type === "Card") {

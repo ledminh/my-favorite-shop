@@ -56,11 +56,7 @@ export default function List(props: ListProps) {
     <>
       <Section>
         <ListWrapper>
-          {status === "loading" ? (
-            <div className="p-4 bg-neutral-200">
-              <p className="text-2xl">Loading...</p>
-            </div>
-          ) : products.length === 0 ? (
+          {products.length === 0 ? (
             <div className="p-4 bg-neutral-200">
               <p className="text-2xl">No product found</p>
             </div>

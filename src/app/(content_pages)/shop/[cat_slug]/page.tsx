@@ -30,10 +30,10 @@ export default async function ShopCategoryPage({
   params,
   searchParams,
 }: Props) {
-  const sortBy = searchParams?.sortBy || "name";
-  const order = searchParams?.order || "asc";
-  const filter = searchParams?.filter || null;
-  const searchTerm = searchParams?.searchTerm || undefined;
+  const sortBy = searchParams?.sortBy ?? "name";
+  const order = searchParams?.order ?? "asc";
+  const filter = searchParams?.filter ?? null;
+  const searchTerm = searchParams?.searchTerm ?? undefined;
 
   const { items: categories } = await getCategories({
     sortBy: "name",
@@ -101,8 +101,4 @@ const Description: ComponentWithChildren = ({ children }) => {
       </p>
     </div>
   );
-};
-
-const LoadMore: ComponentWithChildren = ({ children }) => {
-  return <div className="w-[200px] mx-auto">{children}</div>;
 };

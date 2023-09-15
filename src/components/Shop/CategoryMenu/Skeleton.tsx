@@ -11,14 +11,14 @@ const Skeleton = () => (
       </Button>
     </Wrapper>
     <Wrapper type="md">
-      {Array(3)
+      {Array(2)
         .fill(0)
         .map((_, index) => (
-          <Category key={index} type="Block" skeleton={true} />
+          <Category key={index} type="Block" skeleton={true} index={index} />
         ))}
     </Wrapper>
     <Wrapper type="lg">
-      {Array(5)
+      {Array(2)
         .fill(0)
         .map((_, index) => (
           <Category key={index} type="Block" skeleton={true} />

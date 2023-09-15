@@ -1,8 +1,24 @@
+import Wrapper from "@/components/Shop/FilterPanel/Wrapper";
+
+import Section from "@/components/Shop/FilterPanel/Section";
+import Label from "@/components/Shop/FilterPanel/Label";
+import Select from "@/components/Shop/FilterPanel/Select";
+
 export default function Skeleton() {
   return (
-    <div className="grid w-11/12 max-w-md grid-cols-2 gap-6 p-2 mx-auto bg-blue-200 rounded-md">
-      <div className="h-8 bg-blue-400 rounded-md animate-pulse"></div>
-      <div className="h-8 bg-blue-400 rounded-md animate-pulse"></div>
-    </div>
+    <Wrapper>
+      <Section>
+        <Label htmlFor="sortBy">Sort by</Label>
+        <Select id="sortBy" name="sortBy">
+          <option value="placeholder"></option>
+        </Select>
+      </Section>
+      <Section>
+        <Label htmlFor="orderBy">Order by</Label>
+        <Select id="orderBy" name="orderBy">
+          <option value="placeholder"></option>
+        </Select>
+      </Section>
+    </Wrapper>
   );
 }

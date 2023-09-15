@@ -1,3 +1,4 @@
+import { type } from "os";
 import { FC, ReactNode } from "react";
 
 export type Image = {
@@ -16,6 +17,7 @@ export type Category = {
   description: string;
   link: string;
   image: Image;
+  numProducts: number;
   createdAt: Date;
   modifiedAt: Date;
 };
@@ -172,12 +174,37 @@ export type ProductsResponse = ServerResponse<{
 }>;
 
 // Order
+export type OrdersRequest = {
+  offset?: number;
+  limit?: number;
+  sortBy: "customer" | "price" | "createdAt" | "modifiedAt";
+  order: "asc" | "desc";
+  searchTerm?: string;
+  filter: OrderStatus | null;
+};
+
 export type SubmitOrderResponse = ServerResponse<WithID<OrderToSubmit>>;
 
-export type DeleteOrderResponse = ServerResponse<WithID<Order>>;
-export type UpdateOrderResponse = ServerResponse<WithID<Order>>;
+export type OrderResponse = ServerResponse<WithID<Order>>;
+export type OrdersResponse = ServerResponse<{
+  orders: WithID<Order>[];
+  total: number;
+}>;
 
 // Message
+
+export type MessagesRequest = {
+  offset?: number;
+  limit?: number;
+  sortBy: "customer" | "email" | "createdAt";
+  order: "asc" | "desc";
+  searchTerm?: string;
+  filter: CustomerMessageStatus | null;
+};
+
 export type MessageResponse = ServerResponse<WithID<CustomerMessage>>;
-export type DeleteMessageResponse = ServerResponse<WithID<CustomerMessage>>;
-export type UpdateMessageResponse = ServerResponse<WithID<CustomerMessage>>;
+
+export type MessagesResponse = ServerResponse<{
+  messages: WithID<CustomerMessage>[];
+  total: number;
+}>;

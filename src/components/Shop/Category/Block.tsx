@@ -16,7 +16,7 @@ export default function Block({
   if (skeleton) {
     return (
       <DivWrapper skeleton={true}>
-        <div className="w-16 h-20 bg-gray-200 rounded-lg"></div>
+        <div className="w-16 h-16 bg-gray-200 rounded-lg"></div>
         <span className="w-16 h-4 bg-red-200 rounded-lg"></span>
       </DivWrapper>
     );
@@ -40,7 +40,7 @@ export default function Block({
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
       </ImageWrapper>
-      <span>{name}</span>
+      <span>{name.length > 5 ? name.substring(0, 5) + " ..." : name}</span>
     </Wrapper>
   );
 }
