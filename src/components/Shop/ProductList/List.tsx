@@ -24,7 +24,7 @@ export default function List(props: ListProps) {
   useEffect(() => {
     const loadProducts = async () => {
       const { products: newProducts } = await getProducts({
-        catID: catID || "",
+        catID: catID ?? "",
         sortBy,
         order,
         offset: 0,
@@ -42,7 +42,7 @@ export default function List(props: ListProps) {
 
   const loadMore = async () => {
     const { products: newProducts } = await getProducts({
-      catID: catID || "",
+      catID: catID ?? "",
       sortBy,
       order,
       offset: products.length,
@@ -55,19 +55,20 @@ export default function List(props: ListProps) {
   return (
     <>
       <Section>
-        {products.length === 0 && (
-          <div className="p-4 bg-neutral-200">
-            <p className="text-2xl">No product found</p>
-          </div>
-        )}
         <ListWrapper>
-          {status === "loading"
-            ? Array.from({ length: 4 }).map((_, i) => (
-                <Product key={i} skeleton />
-              ))
-            : products.map((product) => (
-                <Product key={product.id} product={product} />
-              ))}
+          {status === "loading" ? (
+            <div className="p-4 bg-neutral-200">
+              <p className="text-2xl">Loading...</p>
+            </div>
+          ) : products.length === 0 ? (
+            <div className="p-4 bg-neutral-200">
+              <p className="text-2xl">No product found</p>
+            </div>
+          ) : (
+            products.map((product) => (
+              <Product key={product.id} product={product} />
+            ))
+          )}
         </ListWrapper>
       </Section>
       <Section>
