@@ -1,0 +1,3 @@
+- Add Go Back link to contact page.
+- Add Message to Contact page after sending.
+- Check if contact info is from config file or some other file (not hard coded into the tsx file)
