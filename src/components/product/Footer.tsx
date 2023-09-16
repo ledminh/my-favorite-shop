@@ -5,18 +5,14 @@ import { Button } from "@/theme/basics";
 import { useEffect, useState } from "react";
 import { H3 } from "@/theme/typography";
 import QuantityControl from "@/components/QuantityControl";
-import {
-  ComponentWithChildren,
-  OrderedProduct,
-  Product as ProductType,
-} from "@/types";
+import { ComponentWithChildren, Product as ProductType, WithID } from "@/types";
 
 import useCart from "@/utils/useCart";
 
-import { getPrice } from "@/utils/getPrice";
+import getPrice from "@/utils/getPrice";
 
 type Props = {
-  product?: ProductType;
+  product?: WithID<ProductType>;
 };
 
 export default function Footer({ product }: Props) {

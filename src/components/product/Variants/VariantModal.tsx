@@ -3,7 +3,7 @@ import Image from "next/image";
 
 import Modal from "@/theme/Modal";
 import useVariant from "@/utils/useVariant";
-import { getPrice } from "@/utils/getPrice";
+import getPrice from "@/utils/getPrice";
 
 type Props = {
   isOpen: boolean;

@@ -35,7 +35,7 @@ export default function ShoppingCart() {
           <Section>
             <Total>
               <TotalLabel>Total</TotalLabel>
-              <TotalPrice>${totalPrice.toFixed(2)}</TotalPrice>
+              <TotalPrice>${totalPrice.toLocaleString()}</TotalPrice>
             </Total>
           </Section>
         </>

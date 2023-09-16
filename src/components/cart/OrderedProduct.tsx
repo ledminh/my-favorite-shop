@@ -60,8 +60,10 @@ export default function OrderedProduct({ orderedProduct }: Props) {
       </ImageWrapper>
       <Content>
         <Name>{productName}</Name>
-        <Price>Unit Price: ${unitPrice.toFixed(2)}</Price>
-        <TotalPrice>Total: ${(unitPrice * quantity).toFixed(2)}</TotalPrice>
+        <Price>Unit Price: ${unitPrice.toLocaleString()}</Price>
+        <TotalPrice>
+          Total: ${(unitPrice * quantity).toLocaleString()}
+        </TotalPrice>
       </Content>
       <Footer>
         <QCWrapper>
