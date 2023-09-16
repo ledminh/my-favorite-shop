@@ -7,6 +7,7 @@ type Props = {
   min?: number;
   max?: number;
   setQuantity: Dispatch<SetStateAction<number>>;
+  disabled?: boolean;
 };
 
 export default function QuantityControl({
@@ -15,6 +16,7 @@ export default function QuantityControl({
   min = 0,
   max,
   size = "sm",
+  disabled = false,
 }: Props) {
   const increase = () =>
     setQuantity((prev) => {
@@ -30,13 +32,23 @@ export default function QuantityControl({
 
   return (
     <Wrapper>
-      <Button onClick={increase} size={size}>
-        +
-      </Button>
-      <Value size={size}>{quantity}</Value>
-      <Button onClick={decrease} size={size}>
-        -
-      </Button>
+      {disabled ? (
+        <>
+          <div className="w-6 h-6 text-xl text-gray-500">+</div>
+          <div className="w-8 font-bold text-center text-gray-500">0</div>
+          <div className="w-6 h-6 text-xl text-gray-500">-</div>
+        </>
+      ) : (
+        <>
+          <Button onClick={increase} size={size}>
+            +
+          </Button>
+          <Value size={size}>{quantity}</Value>
+          <Button onClick={decrease} size={size}>
+            -
+          </Button>
+        </>
+      )}
     </Wrapper>
   );
 }

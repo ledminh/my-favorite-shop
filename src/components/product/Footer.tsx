@@ -57,27 +57,33 @@ export default function Footer({ product }: Props) {
       <Price>
         <H3>
           UNIT PRICE:{" "}
-          {oldUnitPrice !== newUnitPrice && (
+          {product.variants && !selectedVariant ? (
+            <span className="text-sm text-neutral-700">___</span>
+          ) : (
             <>
-              <span className="font-normal text-black line-through">
-                ${oldUnitPrice.toFixed(2)}
-              </span>
-              <span> </span>
+              {oldUnitPrice !== newUnitPrice && (
+                <>
+                  <span className="font-normal text-black line-through">
+                    ${oldUnitPrice.toFixed(2)}
+                  </span>
+                  <span> </span>
+                </>
+              )}
+              {oldUnitPrice !== newUnitPrice && (
+                <span className="font-bold text-red-700">
+                  ${newUnitPrice.toFixed(2)}
+                </span>
+              )}
+              {
+                // If there is no promotion, show the unit price without promotion
+                oldUnitPrice === newUnitPrice && (
+                  <span className="font-bold text-red-700">
+                    ${newUnitPrice.toFixed(2)}
+                  </span>
+                )
+              }
             </>
           )}
-          {oldUnitPrice !== newUnitPrice && (
-            <span className="font-bold text-red-700">
-              ${newUnitPrice.toFixed(2)}
-            </span>
-          )}
-          {
-            // If there is no promotion, show the unit price without promotion
-            oldUnitPrice === newUnitPrice && (
-              <span className="font-bold text-red-700">
-                ${newUnitPrice.toFixed(2)}
-              </span>
-            )
-          }
         </H3>
       </Price>
       <QCWrapper>
@@ -86,6 +92,7 @@ export default function Footer({ product }: Props) {
           {((newUnitPrice ? newUnitPrice : oldUnitPrice) * quantity).toFixed(2)}
         </span>
         <QuantityControl
+          disabled={product.variants && !selectedVariant}
           quantity={quantity}
           setQuantity={setQuantity}
           size="md"
