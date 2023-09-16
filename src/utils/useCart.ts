@@ -1,21 +1,24 @@
 import {
   OrderedProduct as OrderedProductType,
   Product as ProductType,
+  Variant,
   WithID,
 } from "@/types";
 
 import useLocalStorage from "use-local-storage";
-import useVariant from "./useVariant";
 
 export default function useCart() {
   const [cart, setCart] = useLocalStorage<WithID<OrderedProductType>[]>(
     "cart",
     []
   );
-  const { getSelectedVariant } = useVariant();
 
-  const addToCart = (product: WithID<ProductType>, quantity: number) => {
-    const selectedVariant = getSelectedVariant(product.id);
+  const addToCart = (props: {
+    product: WithID<ProductType>;
+    quantity: number;
+    selectedVariant?: WithID<Variant>;
+  }) => {
+    const { product, quantity, selectedVariant } = props;
 
     const orderedProduct: WithID<OrderedProductType> = {
       ...product,

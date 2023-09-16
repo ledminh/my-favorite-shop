@@ -11,27 +11,39 @@ import Variant from "./Variant";
 import VariantListModal from "./VariantListModal";
 import VariantModal from "./VariantModal";
 
-import useVariant from "@/utils/useVariant";
-
 import { useEffect, useState } from "react";
 
 type Props = {
   product: WithID<ProductType>;
+  selectedVariantID?: string;
 };
 
-export default function Variants({ product }: Props) {
+export default function Variants({
+  product,
+  selectedVariantID: _selectedVariantID,
+}: Props) {
   const [isListModalOpen, setIsListModalOpen] = useState(false);
   const [isVariantModalOpen, setIsVariantModalOpen] = useState(false);
-
-  const { getSelectedVariant, setSelectedVariant } = useVariant();
 
   const [currentVariant, setCurrentVariant] = useState<
     WithID<VariantType> | undefined
   >();
 
+  const [selectedVariantID, setSelectedVariantID] = useState<
+    string | undefined
+  >();
+
   useEffect(() => {
-    setCurrentVariant(getSelectedVariant(product.id));
-  }, [product]);
+    setSelectedVariantID(_selectedVariantID);
+  }, [_selectedVariantID]);
+
+  useEffect(() => {
+    if (product.variants) {
+      setCurrentVariant(
+        product.variants.find((variant) => variant.id === selectedVariantID)
+      );
+    }
+  }, [selectedVariantID, product]);
 
   if (!product.variants || product.variants.length === 0) {
     return null;
@@ -47,12 +59,10 @@ export default function Variants({ product }: Props) {
             variant.shown && (
               <Item key={variant.id}>
                 <Variant
-                  productID={productID}
                   variant={variant}
-                  setSelectedVariant={setSelectedVariant}
-                  selectedVariant={getSelectedVariant(productID)}
+                  selectedVariantID={selectedVariantID}
                   setIsVariantModalOpen={setIsVariantModalOpen}
-                  setCurrentVariant={setCurrentVariant}
+                  setCurrentVariant={setCurrentVariant} // currentVariant is the variant that is currently shown on modal
                 />
               </Item>
             )
@@ -67,8 +77,7 @@ export default function Variants({ product }: Props) {
         setIsOpen={setIsListModalOpen}
         isOpen={isListModalOpen}
         variants={variants}
-        setSelectedVariant={setSelectedVariant}
-        selectedVariant={getSelectedVariant(productID)}
+        selectedVariantID={selectedVariantID}
         setCurrentVariant={setCurrentVariant}
         currentVariant={currentVariant}
         productID={productID}

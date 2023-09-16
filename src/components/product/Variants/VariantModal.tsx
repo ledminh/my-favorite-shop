@@ -2,8 +2,9 @@ import { ComponentWithChildren, Variant as VariantType, WithID } from "@/types";
 import Image from "next/image";
 
 import Modal from "@/theme/Modal";
-import useVariant from "@/utils/useVariant";
 import getPrice from "@/utils/getPrice";
+
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
 type Props = {
   isOpen: boolean;
@@ -16,17 +17,21 @@ export default function VariantModal({
   isOpen,
   currentVariant,
   setIsOpen,
-  productID,
 }: Props) {
-  const { setSelectedVariant } = useVariant();
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   if (!currentVariant) {
     return null;
   }
 
   const selectHandle = () => {
-    setSelectedVariant(productID, currentVariant);
     setIsOpen(false);
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("var", currentVariant.id);
+
+    router.push(`${pathname}?${params.toString()}`);
   };
 
   const newPrice = getPrice(currentVariant);

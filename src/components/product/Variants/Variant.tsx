@@ -3,45 +3,41 @@
 import type { Variant as VariantType, WithID } from "@/types";
 import { useEffect, useState } from "react";
 
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
+
 type Props = {
-  productID: string;
   variant: WithID<VariantType>;
-  selectedVariant?: WithID<VariantType>; // saved on local storage
-  setSelectedVariant: (
-    productID: string,
-    variant: WithID<VariantType> | null
-  ) => void;
+  selectedVariantID?: string;
   setIsVariantModalOpen: (isOpen: boolean) => void;
   setCurrentVariant: (variant: WithID<VariantType>) => void;
 };
 
 export default function Variant({
-  productID,
   variant,
-  selectedVariant,
-  setSelectedVariant,
+  selectedVariantID,
   setIsVariantModalOpen,
   setCurrentVariant,
 }: Props) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
   const [isSelected, setIsSelected] = useState(false);
 
   useEffect(() => {
-    if (selectedVariant) {
-      setIsSelected(selectedVariant.id === variant.id);
-    } else {
-      setIsSelected(false);
-    }
-  }, [selectedVariant, variant.id]);
+    setIsSelected(selectedVariantID === variant.id);
+  }, [selectedVariantID, variant.id]);
 
   const onClick = () => {
-    if (selectedVariant && selectedVariant.id === variant.id) {
-      setSelectedVariant(productID, null);
-      setIsVariantModalOpen(false);
-      return;
-    }
+    if (selectedVariantID === variant.id) {
+      const params = new URLSearchParams(searchParams.toString());
+      params.delete("var");
 
-    setCurrentVariant(variant);
-    setIsVariantModalOpen(true);
+      router.push(`${pathname}?${params.toString()}`);
+    } else {
+      setCurrentVariant(variant);
+      setIsVariantModalOpen(true);
+    }
   };
 
   return (

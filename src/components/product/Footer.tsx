@@ -1,11 +1,15 @@
 "use client";
 
-import useVariant from "@/utils/useVariant";
 import { Button } from "@/theme/basics";
 import { useEffect, useState } from "react";
 import { H3 } from "@/theme/typography";
 import QuantityControl from "@/components/QuantityControl";
-import { ComponentWithChildren, Product as ProductType, WithID } from "@/types";
+import {
+  ComponentWithChildren,
+  Product as ProductType,
+  Variant as VariantType,
+  WithID,
+} from "@/types";
 
 import useCart from "@/utils/useCart";
 
@@ -13,22 +17,30 @@ import getPrice from "@/utils/getPrice";
 
 type Props = {
   product?: WithID<ProductType>;
+  selectedVariantID?: string;
 };
 
-export default function Footer({ product }: Props) {
+export default function Footer({ product, selectedVariantID }: Props) {
   const [quantity, setQuantity] = useState(0);
 
   const [oldUnitPrice, setOldUnitPrice] = useState(0);
   const [newUnitPrice, setNewUnitPrice] = useState(0);
+
+  const [selectedVariant, setSelectedVariant] = useState<
+    WithID<VariantType> | undefined
+  >();
+
+  useEffect(() => {
+    setSelectedVariant(
+      product?.variants?.find((variant) => variant.id === selectedVariantID)
+    );
+  }, [selectedVariantID, product]);
 
   const { addToCart } = useCart();
 
   if (!product) {
     return null;
   }
-
-  const { getSelectedVariant } = useVariant();
-  const selectedVariant = getSelectedVariant(product.id);
 
   useEffect(() => {
     setOldUnitPrice(selectedVariant ? selectedVariant.price : product.price);
@@ -47,7 +59,7 @@ export default function Footer({ product }: Props) {
       return;
     }
 
-    addToCart(product, quantity);
+    addToCart({ product, quantity, selectedVariant });
 
     setQuantity(0);
   };

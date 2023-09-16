@@ -16,10 +16,15 @@ type Props = {
   params: {
     product_id: string;
   };
+  searchParams: {
+    var?: string;
+  };
 };
 
-export default async function ProductPage({ params }: Props) {
+export default async function ProductPage({ params, searchParams }: Props) {
   const product = await getProduct({ id: params.product_id });
+
+  const { var: selectedVariantID } = searchParams;
 
   return (
     <>
@@ -56,15 +61,21 @@ export default async function ProductPage({ params }: Props) {
                 <p>{product.description}</p>
               </SubSection>
               <SubSection>
-                <Variants product={product} />
+                <Variants
+                  product={product}
+                  selectedVariantID={selectedVariantID}
+                />
               </SubSection>
               <SubSection>
-                <Promotion product={product} />
+                <Promotion
+                  product={product}
+                  selectedVariantID={selectedVariantID}
+                />
               </SubSection>
             </Content>
           </Section>
           <Section>
-            <Footer product={product} />
+            <Footer product={product} selectedVariantID={selectedVariantID} />
           </Section>
         </Col3>
       </Body>

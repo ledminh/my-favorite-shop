@@ -13,25 +13,20 @@ type Props = {
   isOpen: boolean;
   setIsOpen: (arg: boolean) => void;
   variants: WithID<VariantType>[];
-  selectedVariant?: WithID<VariantType>;
   setCurrentVariant: (arg: WithID<VariantType>) => void;
   currentVariant?: WithID<VariantType>;
   productID: string;
-  setSelectedVariant: (
-    productID: string,
-    variant: WithID<VariantType> | null
-  ) => void;
+  selectedVariantID?: string;
 };
 
 export default function VariantListModal({
   isOpen,
   setIsOpen,
   variants,
-  selectedVariant,
+  selectedVariantID,
   setCurrentVariant,
   currentVariant,
   productID,
-  setSelectedVariant,
 }: Props) {
   const [isVariantModalOpen, setIsVariantModalOpen] = useState(false);
 
@@ -44,10 +39,8 @@ export default function VariantListModal({
               <Variant
                 variant={variant}
                 setIsVariantModalOpen={setIsVariantModalOpen}
-                selectedVariant={selectedVariant}
+                selectedVariantID={selectedVariantID}
                 setCurrentVariant={setCurrentVariant}
-                productID={productID}
-                setSelectedVariant={setSelectedVariant}
               />
             </Item>
           ))}
