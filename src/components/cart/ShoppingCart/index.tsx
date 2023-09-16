@@ -6,6 +6,7 @@ import Section from "@/theme/Section";
 import { H2 } from "@/theme/typography";
 import OrderedProduct from "@/components/cart/OrderedProduct";
 import useShoppingCart from "./hooks";
+import { shippingFee } from "@/theme/metadata";
 
 export default function ShoppingCart() {
   const { totalPrice, cart } = useShoppingCart();
@@ -37,6 +38,12 @@ export default function ShoppingCart() {
               <TotalLabel>Total</TotalLabel>
               <TotalPrice>${totalPrice.toLocaleString()}</TotalPrice>
             </Total>
+          </Section>
+          <Section>
+            <span className="mx-5 text-sm italic font-semibold">
+              Shipping fee (${shippingFee}) and taxes will be added at Checkout
+              page
+            </span>
           </Section>
         </>
       )}
