@@ -15,6 +15,7 @@ model Category {
   image       String
   createdAt   DateTime  @default(now())
   modifiedAt  DateTime  @updatedAt
+  numProducts Int
   Product     Product[]
 }
 
@@ -36,14 +37,14 @@ model Product {
 }
 
 model OrderToSubmit {
-  id              String   @id
   shippingAddress String
   orderedProducts String[]
   status          String
+  id              String   @id
 }
 
 model Order {
-  id              String   @id 
+  id              String   @id
   shippingAddress String
   orderedProducts String[]
   shippingFee     Float
@@ -53,9 +54,8 @@ model Order {
   modifiedAt      DateTime @updatedAt
 }
 
-
 model CustomerMessage {
-  id        String   @id @default(uuid())  
+  id        String   @id @default(uuid())
   firstName String
   lastName  String
   email     String

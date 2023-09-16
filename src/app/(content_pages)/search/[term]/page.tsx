@@ -14,47 +14,49 @@ type Props = {
 };
 
 export default async function SearchPage({ params }: Props) {
-  return <>SearchPage</>;
-  // const { term } = params;
+  const { term } = params;
 
-  // const products = await getProducts({
-  //   searchTerm: term,
-  //   sortBy: "name",
-  //   order: "asc",
-  //   offset: 0,
-  //   limit: itemsPerPage,
-  // });
+  const { items: products, total } = await getProducts({
+    catID: "",
+    filter: null,
+    searchTerm: term,
+    sortBy: "name",
+    order: "asc",
+    offset: 0,
+    limit: itemsPerPage,
+  });
 
-  // return (
-  //   <>
-  //     {/* HEADER */}
-  //     <Section>
-  //       <Title>
-  //         <H2>
-  //           Search results for: <Term>{term}</Term>
-  //         </H2>
-  //       </Title>
-  //     </Section>
+  return (
+    <>
+      {/* HEADER */}
+      <Section>
+        <Title>
+          <H2>
+            Search results for: <Term>{term}</Term>
+          </H2>
+        </Title>
+      </Section>
 
-  //     {/* CONTENT */}
-  //     <Section>
-  //       {products.length === 0 && (
-  //         <NoProduct>
-  //           <NotFoundIcon />
-  //           <span>No product found!</span>
-  //         </NoProduct>
-  //       )}
-  //       {products.length > 0 && (
-  //         <ProductList
-  //           productsInit={products}
-  //           searchTerm={term}
-  //           sortBy="name"
-  //           order="asc"
-  //         />
-  //       )}
-  //     </Section>
-  //   </>
-  // );
+      {/* CONTENT */}
+      <Section>
+        {products.length === 0 && (
+          <NoProduct>
+            <NotFoundIcon />
+            <span>No product found!</span>
+          </NoProduct>
+        )}
+        {products.length > 0 && (
+          <ProductList
+            productsInit={products}
+            searchTerm={term}
+            sortBy="name"
+            order="asc"
+            total={total}
+          />
+        )}
+      </Section>
+    </>
+  );
 }
 
 /*************************

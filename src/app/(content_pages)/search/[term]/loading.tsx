@@ -1,27 +1,26 @@
-// import Section from "@/theme/Section";
-// import { H2 } from "@/theme/typography";
-// import ProductList from "@/components/shop/ProductList";
-// import { ComponentWithChildren } from "@/types";
+import Section from "@/theme/Section";
+import { H2 } from "@/theme/typography";
+import ProductList from "@/components/shop/ProductList";
+import { ComponentWithChildren } from "@/types";
 
 export default function Layout() {
-  return <>Layout</>;
-  // return (
-  //   <>
-  //     {/* HEADER */}
-  //     <Section>
-  //       <Title>
-  //         <H2>
-  //           Search results for: <Term>...</Term>
-  //         </H2>
-  //       </Title>
-  //     </Section>
+  return (
+    <>
+      {/* HEADER */}
+      <Section>
+        <Title>
+          <H2>
+            Search results for: <Term>...</Term>
+          </H2>
+        </Title>
+      </Section>
 
-  //     {/* CONTENT */}
-  //     <Section>
-  //       <ProductList skeleton={true} />
-  //     </Section>
-  //   </>
-  // );
+      {/* CONTENT */}
+      <Section>
+        <ProductList skeleton={true} />
+      </Section>
+    </>
+  );
 }
 
 /*************************
