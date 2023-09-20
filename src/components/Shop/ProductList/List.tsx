@@ -19,7 +19,7 @@ export default function List(props: ListProps) {
   const { productsInit, catID, searchTerm, sortBy, order, total } = props;
 
   const [products, setProducts] = useState(productsInit || []);
-  const [status, setStatus] = useState<"loading" | "loaded">("loaded");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const loadProducts = async () => {
@@ -35,12 +35,17 @@ export default function List(props: ListProps) {
       setProducts(newProducts);
     };
 
-    setStatus("loading");
-    loadProducts().then(() => setStatus("loaded"));
+    loadProducts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [catID, searchTerm, sortBy, order]);
 
   const loadMore = async () => {
+    if (loading) {
+      return;
+    }
+
+    setLoading(true);
+
     const { products: newProducts } = await getProducts({
       catID: catID ?? "",
       sortBy,
@@ -50,7 +55,10 @@ export default function List(props: ListProps) {
       searchTerm,
       filter: null,
     });
+
     setProducts([...products, ...newProducts]);
+
+    setLoading(false);
   };
   return (
     <>
@@ -68,8 +76,10 @@ export default function List(props: ListProps) {
         </ListWrapper>
       </Section>
       <Section>
-        {status === "loaded" && total > products.length && (
-          <LoadMoreButton onLoadMore={loadMore} />
+        {total > products.length && (
+          <div className="flex justify-center w-full">
+            <LoadMoreButton onLoadMore={loadMore} loading={loading} />
+          </div>
         )}
       </Section>
     </>

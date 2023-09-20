@@ -30,19 +30,3 @@ export default async function Shop() {
     </>
   );
 }
-
-/************************
- * Styles
- */
-
-const List: ComponentWithChildren = ({ children }) => {
-  return (
-    <ul className="grid w-11/12 gap-4 mx-auto mb-10 md:grid-cols-2 lg:grid-cols-3">
-      {children}
-    </ul>
-  );
-};
-
-const Item: ComponentWithChildren = ({ children }) => {
-  return <li className="">{children}</li>;
-};

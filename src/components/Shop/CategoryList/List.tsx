@@ -16,7 +16,15 @@ export default function List(props: ListProps) {
   const [categories, setCategories] = useState(props.categories);
   const [total, setTotal] = useState(props.total);
 
+  const [loading, setLoading] = useState(false);
+
   const onLoadMore = () => {
+    if (loading) {
+      return;
+    }
+
+    setLoading(true);
+
     getCategories({
       sortBy: "name",
       order: "asc",
@@ -25,6 +33,7 @@ export default function List(props: ListProps) {
     }).then((data) => {
       setCategories([...categories, ...data.categories]);
       setTotal(data.total);
+      setLoading(false);
     });
   };
 
@@ -42,7 +51,9 @@ export default function List(props: ListProps) {
           </Item>
         ))}
       </ListWrapper>
-      {categories.length < total && <LoadMoreButton onLoadMore={onLoadMore} />}
+      {categories.length < total && (
+        <LoadMoreButton onLoadMore={onLoadMore} loading={loading} />
+      )}
     </Wrapper>
   );
 }
