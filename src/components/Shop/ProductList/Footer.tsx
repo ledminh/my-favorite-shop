@@ -4,12 +4,12 @@ import { Button } from "@/theme/basics";
 import QuantityControl from "../../QuantityControl";
 
 import useCart from "@/utils/useCart";
-import { Product as ProductType } from "@/types";
+import { Product as ProductType, WithID } from "@/types";
 
 import { useState } from "react";
 
 type Props = {
-  product: ProductType;
+  product: WithID<ProductType>;
 };
 
 export default function Footer({ product }: Props) {
@@ -25,7 +25,8 @@ export default function Footer({ product }: Props) {
         size="md"
         onClick={(e) => {
           e.preventDefault();
-          addToCart(product, quantity);
+
+          addToCart({ product, quantity });
           setQuantity(0);
         }}
       >

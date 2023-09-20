@@ -2,7 +2,7 @@ import { ComponentWithChildren } from "@/types";
 
 import Image from "next/image";
 import Link from "next/link";
-import type { Product as ProductType } from "@/types";
+import type { Product as ProductType, WithID } from "@/types";
 
 import { H3, H4 } from "@/theme/typography";
 import Footer from "./Footer";
@@ -10,7 +10,7 @@ import Footer from "./Footer";
 import { productFolder } from "@/theme/metadata";
 
 type Props = {
-  product?: ProductType;
+  product?: WithID<ProductType>;
   skeleton?: boolean;
 };
 
