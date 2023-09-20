@@ -7,27 +7,27 @@ import {
 
 import prismaClient from "../prismaClient";
 
-// export async function addMessage(
-//   message: Omit<CustomerMessage, "id" | "createdAt">
-// ): Promise<WithID<CustomerMessage>> {
-//   const newMessage = await prismaClient.customerMessage.create({
-//     data: {
-//       ...message,
-//       status: "unread",
-//     },
-//   });
+export async function addMessage(
+  message: Omit<CustomerMessage, "id" | "createdAt">
+): Promise<WithID<CustomerMessage>> {
+  const newMessage = await prismaClient.customerMessage.create({
+    data: {
+      ...message,
+      status: "unread",
+    },
+  });
 
-//   return {
-//     id: newMessage.id,
-//     firstName: newMessage.firstName,
-//     lastName: newMessage.lastName,
-//     email: newMessage.email,
-//     phone: newMessage.phone === null ? undefined : newMessage.phone,
-//     message: newMessage.message,
-//     status: newMessage.status as CustomerMessageStatus,
-//     createdAt: newMessage.createdAt,
-//   };
-// }
+  return {
+    id: newMessage.id,
+    firstName: newMessage.firstName,
+    lastName: newMessage.lastName,
+    email: newMessage.email,
+    phone: newMessage.phone === null ? undefined : newMessage.phone,
+    message: newMessage.message,
+    status: newMessage.status as CustomerMessageStatus,
+    createdAt: newMessage.createdAt,
+  };
+}
 
 export function getCustomerMessages({
   offset,

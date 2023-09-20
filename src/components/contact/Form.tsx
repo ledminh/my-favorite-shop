@@ -18,6 +18,7 @@ import {
   emailPattern,
   numberPattern,
 } from "@/utils/regexPatterns";
+import Link from "next/link";
 
 export default function Form() {
   const {
@@ -218,6 +219,9 @@ const AfterSentMessage = () => (
     <div className="text-2xl font-semibold text-center text-gray-600">
       Thank you for your message. We will get back to you as soon as possible.
     </div>
+    <Link href="/" className="text-blue-600 hover:underline">
+      Go back to home page
+    </Link>
   </div>
 );
 
