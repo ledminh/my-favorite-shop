@@ -83,20 +83,47 @@ export const getProducts: GetProducts = async ({
 
   return {
     total: total,
-    items: products.map((product) => ({
-      ...product,
-      images: product.images.map(
-        (image) => JSON.parse(image) as WithID<ImageType>
-      ),
-      promotion: product.promotion ? JSON.parse(product.promotion) : undefined,
-      variants: product.variants.map((variant) =>
-        JSON.parse(variant)
-      ) as WithID<VariantType>[],
-      category: {
-        ...product.category,
-        image: JSON.parse(product.category.image) as ImageType,
-      },
-    })) as WithID<ProductType>[],
+    items: products.map((product) => {
+      let returnedProduct: WithID<ProductType>;
+
+      if (product.price === null) {
+        returnedProduct = {
+          ...product,
+          price: undefined,
+          images: product.images.map(
+            (image) => JSON.parse(image) as WithID<ImageType>
+          ),
+          promotion: product.promotion
+            ? JSON.parse(product.promotion)
+            : undefined,
+          variants: product.variants.map((variant) =>
+            JSON.parse(variant)
+          ) as WithID<VariantType>[],
+          category: {
+            ...product.category,
+            image: JSON.parse(product.category.image) as ImageType,
+          },
+        };
+      } else {
+        returnedProduct = {
+          ...product,
+          price: product.price,
+          images: product.images.map(
+            (image) => JSON.parse(image) as WithID<ImageType>
+          ),
+          promotion: product.promotion
+            ? JSON.parse(product.promotion)
+            : undefined,
+          variants: undefined,
+          category: {
+            ...product.category,
+            image: JSON.parse(product.category.image) as ImageType,
+          },
+        };
+      }
+
+      return returnedProduct;
+    }),
   };
 };
 
@@ -122,20 +149,43 @@ export const getProduct: GetProduct = async ({ id }) => {
     throw new Error("Product not found");
   }
 
-  return {
-    ...product,
-    images: product.images.map(
-      (image) => JSON.parse(image) as WithID<ImageType>
-    ),
-    promotion: product.promotion ? JSON.parse(product.promotion) : undefined,
-    variants: product.variants.map((variant) =>
-      JSON.parse(variant)
-    ) as WithID<VariantType>[],
-    category: {
-      ...product.category,
-      image: JSON.parse(product.category.image) as ImageType,
-    },
-  };
+  let returnedProduct: WithID<ProductType>;
+
+  if (product.price === null) {
+    returnedProduct = {
+      ...product,
+      price: undefined,
+      images: product.images.map(
+        (image) => JSON.parse(image) as WithID<ImageType>
+      ),
+      promotion: product.promotion ? JSON.parse(product.promotion) : undefined,
+      variants: product.variants.map((variant) =>
+        JSON.parse(variant)
+      ) as WithID<VariantType>[],
+
+      category: {
+        ...product.category,
+        image: JSON.parse(product.category.image) as ImageType,
+      },
+    };
+  } else {
+    returnedProduct = {
+      ...product,
+      price: product.price,
+      images: product.images.map(
+        (image) => JSON.parse(image) as WithID<ImageType>
+      ),
+      promotion: product.promotion ? JSON.parse(product.promotion) : undefined,
+      variants: undefined,
+
+      category: {
+        ...product.category,
+        image: JSON.parse(product.category.image) as ImageType,
+      },
+    };
+  }
+
+  return returnedProduct;
 };
 
 /**********************************
@@ -196,22 +246,47 @@ export const addProduct = async (
     }),
   ]);
 
-  return {
-    ...productDB,
-    category: {
-      ...category,
-      image: JSON.parse(category.image) as ImageType,
-    },
-    images: productDB.images.map(
-      (image) => JSON.parse(image) as WithID<ImageType>
-    ),
-    promotion: productDB.promotion
-      ? JSON.parse(productDB.promotion)
-      : undefined,
-    variants: productDB.variants
-      ? productDB.variants.map((variant) => JSON.parse(variant))
-      : undefined,
-  };
+  let returnedProduct: WithID<ProductType>;
+
+  if (productDB.price === null) {
+    returnedProduct = {
+      ...productDB,
+      price: undefined,
+      images: productDB.images.map(
+        (image) => JSON.parse(image) as WithID<ImageType>
+      ),
+      promotion: productDB.promotion
+        ? JSON.parse(productDB.promotion)
+        : undefined,
+      variants: productDB.variants.map((variant) =>
+        JSON.parse(variant)
+      ) as WithID<VariantType>[],
+
+      category: {
+        ...category,
+        image: JSON.parse(category.image) as ImageType,
+      },
+    };
+  } else {
+    returnedProduct = {
+      ...productDB,
+      price: productDB.price,
+      images: productDB.images.map(
+        (image) => JSON.parse(image) as WithID<ImageType>
+      ),
+      promotion: productDB.promotion
+        ? JSON.parse(productDB.promotion)
+        : undefined,
+      variants: undefined,
+
+      category: {
+        ...category,
+        image: JSON.parse(category.image) as ImageType,
+      },
+    };
+  }
+
+  return returnedProduct;
 };
 
 /**********************************
@@ -244,7 +319,7 @@ export const updateProduct = async (
     data: {
       id: product.id,
       name: product.name,
-      price: product.price,
+      price: product.price ? product.price : null,
       intro: product.intro,
       description: product.description,
       mainImageID: product.mainImageID,
@@ -254,29 +329,55 @@ export const updateProduct = async (
         },
       },
       images: product.images.map((image) => JSON.stringify(image)),
-      promotion: product.promotion ? JSON.stringify(product.promotion) : null,
+      promotion: product.promotion
+        ? JSON.stringify(product.promotion)
+        : undefined,
       variants: product.variants
         ? product.variants.map((variant) => JSON.stringify(variant))
         : [],
     },
   });
 
-  return {
-    ...productDB,
-    category: {
-      ...category,
-      image: JSON.parse(category.image) as ImageType,
-    },
-    images: productDB.images.map(
-      (image) => JSON.parse(image) as WithID<ImageType>
-    ),
-    promotion: productDB.promotion
-      ? JSON.parse(productDB.promotion)
-      : undefined,
-    variants: productDB.variants
-      ? productDB.variants.map((variant) => JSON.parse(variant))
-      : undefined,
-  };
+  let returnedProduct: WithID<ProductType>;
+
+  if (productDB.price === null) {
+    returnedProduct = {
+      ...productDB,
+      price: undefined,
+      images: productDB.images.map(
+        (image) => JSON.parse(image) as WithID<ImageType>
+      ),
+      promotion: productDB.promotion
+        ? JSON.parse(productDB.promotion)
+        : undefined,
+      variants: productDB.variants.map((variant) =>
+        JSON.parse(variant)
+      ) as WithID<VariantType>[],
+
+      category: {
+        ...category,
+        image: JSON.parse(category.image) as ImageType,
+      },
+    };
+  } else {
+    returnedProduct = {
+      ...productDB,
+      price: productDB.price,
+      images: productDB.images.map(
+        (image) => JSON.parse(image) as WithID<ImageType>
+      ),
+      promotion: productDB.promotion
+        ? JSON.parse(productDB.promotion)
+        : undefined,
+      variants: undefined,
+      category: {
+        ...category,
+        image: JSON.parse(category.image) as ImageType,
+      },
+    };
+  }
+
+  return returnedProduct;
 };
 
 /**********************************

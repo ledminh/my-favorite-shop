@@ -2,7 +2,7 @@
 
 import { ComponentWithChildren, Variant as VariantType, WithID } from "@/types";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import VariantModal from "./VariantModal";
 
@@ -29,6 +29,12 @@ export default function VariantListModal({
   productID,
 }: Props) {
   const [isVariantModalOpen, setIsVariantModalOpen] = useState(false);
+
+  useEffect(() => {
+    if (!isVariantModalOpen) {
+      setIsOpen(false);
+    }
+  }, [isVariantModalOpen]);
 
   return (
     <>

@@ -3,7 +3,7 @@
 // import del from "./del";
 
 import getMultiple from "./getMultiple";
-import getSingle from "./getSingle";
+// import getSingle from "./getSingle";
 
 import { ProductResponse, ProductsResponse } from "@/types";
 import { NextRequest, NextResponse } from "next/server";
@@ -37,8 +37,8 @@ export async function GET(
     const type = request.nextUrl.searchParams.get("type");
 
     switch (type) {
-      case "single":
-        return getSingle(request);
+      // case "single":
+      //   return getSingle(request);
       case "multiple":
         return getMultiple(request) as Promise<NextResponse<ProductsResponse>>;
 

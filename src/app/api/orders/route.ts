@@ -1,9 +1,9 @@
 import { OrdersResponse, SubmitOrderResponse } from "@/types";
 import { NextRequest, NextResponse } from "next/server";
 
-import submit from "./submit";
-// import del from "./del";
-// import edit from "./edit";
+// import submit from "./submit";
+import del from "./del";
+import edit from "./edit";
 import getMultiple from "./getMultiple";
 
 export async function POST(
@@ -13,12 +13,12 @@ export async function POST(
     const action = request.nextUrl.searchParams.get("action");
 
     switch (action) {
-      case "submit": // submit to temporary orders to proceed to checkout
-        return submit(request);
-      // case "edit":
-      //   return edit(request);
-      // case "delete":
-      //   return del(request);
+      // case "submit": // submit to temporary orders to proceed to checkout
+      //   return submit(request);
+      case "edit":
+        return edit(request);
+      case "delete":
+        return del(request);
 
       default:
         throw new Error("action not found");
@@ -34,12 +34,10 @@ export async function GET(
   try {
     const type = request.nextUrl.searchParams.get("type");
 
-    switch (type) {
-      case "multiple":
-        return getMultiple(request);
-
-      default:
-        throw new Error("type not found");
+    if (type === "multiple") {
+      return getMultiple(request);
+    } else {
+      throw new Error("type not found");
     }
   } catch (error: any) {
     return NextResponse.json({ errorMessage: error.message });

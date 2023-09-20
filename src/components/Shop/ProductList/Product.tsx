@@ -47,24 +47,26 @@ export default function Product({ product, skeleton = false }: Props) {
           {product.promotion && (
             <Promotion>{product.promotion.description}</Promotion>
           )}
-          <Price>
-            {product.promotion && (
-              <div className="text-sm text-white line-through">
-                ${product.price}
-              </div>
-            )}
-            <H4>
-              $
-              {product.promotion
-                ? product.promotion.type === "discount"
-                  ? (
-                      product.price *
-                      (1 - product.promotion.discountPercent / 100)
-                    ).toFixed(2)
-                  : product.promotion.salePrice
-                : product.price}
-            </H4>
-          </Price>
+          {product.price && (
+            <Price>
+              {product.promotion && (
+                <div className="text-sm text-white line-through">
+                  ${product.price}
+                </div>
+              )}
+              <H4>
+                $
+                {product.promotion
+                  ? product.promotion.type === "discount"
+                    ? (
+                        product.price *
+                        (1 - product.promotion.discountPercent / 100)
+                      ).toFixed(2)
+                    : product.promotion.salePrice
+                  : product.price}
+              </H4>
+            </Price>
+          )}
         </ImageWrapper>
         <Text>
           <Title>

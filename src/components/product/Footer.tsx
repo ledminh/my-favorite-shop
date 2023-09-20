@@ -9,6 +9,7 @@ import {
   Product as ProductType,
   Variant as VariantType,
   WithID,
+  Promotion,
 } from "@/types";
 
 import useCart from "@/utils/useCart";
@@ -43,9 +44,18 @@ export default function Footer({ product, selectedVariantID }: Props) {
   }
 
   useEffect(() => {
-    setOldUnitPrice(selectedVariant ? selectedVariant.price : product.price);
+    setOldUnitPrice(
+      selectedVariant ? selectedVariant.price : (product.price as number)
+    );
     setNewUnitPrice(
-      selectedVariant ? getPrice(selectedVariant) : getPrice(product)
+      selectedVariant
+        ? getPrice(selectedVariant)
+        : getPrice(
+            product as {
+              price: number;
+              promotion?: Promotion;
+            }
+          )
     );
     setQuantity(0);
   }, [selectedVariant]);
@@ -90,7 +100,7 @@ export default function Footer({ product, selectedVariantID }: Props) {
                 // If there is no promotion, show the unit price without promotion
                 oldUnitPrice === newUnitPrice && (
                   <span className="font-bold text-red-700">
-                    ${newUnitPrice.toFixed(2)}
+                    ${(newUnitPrice || 0).toFixed(2)}
                   </span>
                 )
               }
@@ -101,7 +111,9 @@ export default function Footer({ product, selectedVariantID }: Props) {
       <QCWrapper>
         <span>
           Total: $
-          {((newUnitPrice ? newUnitPrice : oldUnitPrice) * quantity).toFixed(2)}
+          {(
+            (newUnitPrice ? newUnitPrice : oldUnitPrice) * quantity || 0
+          ).toFixed(2)}
         </span>
         <QuantityControl
           disabled={product.variants && !selectedVariant}

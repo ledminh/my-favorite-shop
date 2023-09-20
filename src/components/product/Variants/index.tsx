@@ -56,7 +56,7 @@ export default function Variants({
       <Wrapper>
         {variants.map(
           (variant) =>
-            variant.shown && (
+            (variant.shown || variant.id === selectedVariantID) && (
               <Item key={variant.id}>
                 <Variant
                   variant={variant}
@@ -67,7 +67,9 @@ export default function Variants({
               </Item>
             )
         )}
-        {variants.some((variant) => !variant.shown) && (
+        {variants.some(
+          (variant) => !variant.shown && variant.id !== selectedVariantID
+        ) && (
           <Item>
             <Button onClick={() => setIsListModalOpen(true)}>MORE ...</Button>
           </Item>
