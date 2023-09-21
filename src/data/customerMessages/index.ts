@@ -1,5 +1,5 @@
 export {
-  addMessage,
+  // addMessage,
   getCustomerMessages,
   updateMessage,
   deleteMessage,

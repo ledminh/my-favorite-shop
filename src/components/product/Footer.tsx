@@ -86,21 +86,21 @@ export default function Footer({ product, selectedVariantID }: Props) {
               {oldUnitPrice !== newUnitPrice && (
                 <>
                   <span className="font-normal text-black line-through">
-                    ${oldUnitPrice.toFixed(2)}
+                    ${oldUnitPrice.toLocaleString()}
                   </span>
                   <span> </span>
                 </>
               )}
               {oldUnitPrice !== newUnitPrice && (
                 <span className="font-bold text-red-700">
-                  ${newUnitPrice.toFixed(2)}
+                  ${newUnitPrice.toLocaleString()}
                 </span>
               )}
               {
                 // If there is no promotion, show the unit price without promotion
                 oldUnitPrice === newUnitPrice && (
                   <span className="font-bold text-red-700">
-                    ${(newUnitPrice || 0).toFixed(2)}
+                    ${(newUnitPrice || 0).toLocaleString()}
                   </span>
                 )
               }
@@ -113,7 +113,7 @@ export default function Footer({ product, selectedVariantID }: Props) {
           Total: $
           {(
             (newUnitPrice ? newUnitPrice : oldUnitPrice) * quantity || 0
-          ).toFixed(2)}
+          ).toLocaleString()}
         </span>
         <QuantityControl
           disabled={product.variants && !selectedVariant}

@@ -53,13 +53,15 @@ export default function VariantModal({
             <Promotion>{currentVariant.promotion.description}</Promotion>
           )}
           <Name>{currentVariant.name}</Name>
-          {newPrice === currentVariant.price && <Price>${newPrice}</Price>}
+          {newPrice === currentVariant.price && (
+            <Price>${newPrice.toLocaleString()}</Price>
+          )}
           {newPrice !== currentVariant.price && (
             <Price>
               <span className="font-normal text-black line-through">
-                ${currentVariant.price}
+                ${currentVariant.price.toLocaleString()}
               </span>{" "}
-              ${newPrice}
+              ${newPrice.toLocaleString()}
             </Price>
           )}
         </Content>
@@ -104,7 +106,7 @@ const Content: ComponentWithChildren = ({ children }) => {
 };
 
 const Promotion: ComponentWithChildren = ({ children }) => (
-  <div className="absolute top-0 right-0 z-10 px-2 py-1 text-sm font-bold text-white bg-red-600 rounded-bl-lg">
+  <div className="absolute top-0 right-0 z-10 px-2 py-1 font-bold text-white bg-red-600 rounded-bl-lg">
     {children}
   </div>
 );

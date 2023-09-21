@@ -48,7 +48,7 @@ export default function Variant({
       onClick={onClick}
     >
       <div className="font-semibold">{variant.name}</div>
-      <div className="italic">${variant.price}</div>
+      <div className="italic">${variant.price.toLocaleString()}</div>
     </button>
   );
 }
