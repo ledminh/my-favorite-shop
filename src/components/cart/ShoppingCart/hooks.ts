@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import useCart from "@/utils/useCart";
-import getPrice from "@/utils/getPrice";
+import getPrice, { ItemType } from "@/utils/getPrice";
 import { OrderedProduct, WithID } from "@/types";
 
 export default function useShoppingCart() {
@@ -18,7 +18,9 @@ export default function useShoppingCart() {
         );
       }
 
-      return total + getPrice(orderedProduct) * orderedProduct.quantity;
+      return (
+        total + getPrice(orderedProduct as ItemType) * orderedProduct.quantity
+      );
     }, 0);
 
     setTotalPrice(totalPrice);
