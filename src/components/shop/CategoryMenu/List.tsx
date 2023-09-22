@@ -9,7 +9,7 @@ import { filterCategories } from "./utils";
 import Wrapper from "./Wrapper";
 import { Button } from "@/theme/basics";
 import MoreButton from "./MoreButton";
-import Category from "@/components/Shop/Category";
+import Category from "@/components/shop/Category";
 
 type Props = {
   setIsMenuOpen: (arg: boolean) => void;

@@ -1,7 +1,7 @@
 import { Button } from "@/theme/basics";
 
-import Category from "@/components/Shop/Category";
-import Wrapper from "@/components/Shop/CategoryMenu/Wrapper";
+import Category from "@/components/shop/Category";
+import Wrapper from "@/components/shop/CategoryMenu/Wrapper";
 
 const Skeleton = () => (
   <>

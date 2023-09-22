@@ -5,7 +5,7 @@ import { useState } from "react";
 import Wrapper from "./Wrapper";
 import ListWrapper from "./ListWrapper";
 import Item from "./Item";
-import Category from "@/components/Shop/Category";
+import Category from "@/components/shop/Category";
 import { ListProps } from "./type";
 import LoadMoreButton from "@/components/LoadMoreButton";
 import getCategories from "@/api-calls/getCategories";

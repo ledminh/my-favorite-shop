@@ -1,6 +1,6 @@
 import ListWrapper from "./ListWrapper";
 import Item from "./Item";
-import Category from "@/components/Shop/Category";
+import Category from "@/components/shop/Category";
 
 export default function Skeleton() {
   return (
