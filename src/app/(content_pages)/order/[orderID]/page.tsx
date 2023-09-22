@@ -109,6 +109,10 @@ type ProductTabProps = {
 const ProductTab = ({ orderedProduct }: ProductTabProps) => {
   const image = getImage(orderedProduct);
 
+  const productName = orderedProduct.selectedVariant
+    ? orderedProduct.name + " - " + orderedProduct.selectedVariant.name
+    : orderedProduct.name;
+
   return (
     <div className="flex items-center justify-between gap-3 py-4 border-b border-gray-400">
       <div className="w-[90px] h-[90px] relative flex items-center justify-center rounded-md overflow-hidden">
@@ -121,7 +125,7 @@ const ProductTab = ({ orderedProduct }: ProductTabProps) => {
       </div>
       <div className="flex flex-col gap-4 basis-full">
         <Link href={orderedProduct.link} className="font-medium text-gray-900">
-          {orderedProduct.name}
+          {productName}
         </Link>
 
         <dl className="flex flex-wrap items-center justify-between text-sm">
@@ -172,20 +176,20 @@ const Summary = ({ subtotal, shippingFee, taxes }: SummaryProps) => {
       <dl className="pt-10 space-y-6 text-sm border-t border-gray-200">
         <div className="flex justify-between">
           <dt className="font-medium text-gray-900">Subtotal</dt>
-          <dd className="text-gray-700">${subtotal.toFixed(2)}</dd>
+          <dd className="text-gray-700">${subtotal.toLocaleString()}</dd>
         </div>
         <div className="flex justify-between">
           <dt className="flex font-medium text-gray-900">Taxes</dt>
-          <dd className="text-gray-700">${taxes.toFixed(2)}</dd>
+          <dd className="text-gray-700">${taxes.toLocaleString()}</dd>
         </div>
         <div className="flex justify-between">
           <dt className="font-medium text-gray-900">Shipping</dt>
-          <dd className="text-gray-700">${shippingFee.toFixed(2)}</dd>
+          <dd className="text-gray-700">${shippingFee.toLocaleString()}</dd>
         </div>
         <div className="flex justify-between">
           <dt className="font-medium text-gray-900">Total</dt>
           <dd className="text-gray-900">
-            ${(subtotal + shippingFee + taxes).toFixed(2)}
+            ${(subtotal + shippingFee + taxes).toLocaleString()}
           </dd>
         </div>
       </dl>
