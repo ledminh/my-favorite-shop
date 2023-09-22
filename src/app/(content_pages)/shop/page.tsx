@@ -1,5 +1,4 @@
 import { H2 } from "@/theme/typography";
-import { ComponentWithChildren } from "@/types";
 
 import Banner from "@/theme/Banner";
 import Section from "@/theme/Section";

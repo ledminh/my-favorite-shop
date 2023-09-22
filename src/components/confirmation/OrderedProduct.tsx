@@ -11,7 +11,7 @@ type Props = {
 };
 
 const OrderedProduct = ({ orderedProduct }: Props) => {
-  const { intro, link, quantity } = orderedProduct;
+  const { intro, quantity } = orderedProduct;
 
   const name = orderedProduct.selectedVariant
     ? orderedProduct.name + " (" + orderedProduct.selectedVariant.name + ")"
