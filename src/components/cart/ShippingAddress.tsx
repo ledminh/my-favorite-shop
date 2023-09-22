@@ -29,7 +29,7 @@ export default function ShippingAddress() {
     formState: { errors, isValid },
   } = useForm();
 
-  const { cart } = useCart();
+  const { cart, clearCart } = useCart();
 
   const [submited, setSubmited] = useState(false);
 
@@ -45,6 +45,8 @@ export default function ShippingAddress() {
     submitOrder(orderToSubmit);
 
     setSubmited(true);
+
+    clearCart();
   };
 
   return (
