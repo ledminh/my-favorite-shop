@@ -133,14 +133,23 @@ const ProductTab = ({ orderedProduct }: ProductTabProps) => {
             <dt className="font-medium text-gray-900">Total</dt>
             <dd className="ml-2 text-gray-700">
               {(
-                (orderedProduct.price as number) * orderedProduct.quantity
-              ).toFixed(2)}
+                getPrice(
+                  orderedProduct.selectedVariant
+                    ? orderedProduct.selectedVariant
+                    : (orderedProduct as ItemType)
+                ) * orderedProduct.quantity
+              ).toLocaleString()}
             </dd>
           </div>
           <div className="flex basis-full">
             <dt className="font-medium text-gray-900">Price</dt>
             <dd className="ml-2 text-gray-700">
-              ${(orderedProduct.price as number).toFixed(2)}
+              $
+              {getPrice(
+                orderedProduct.selectedVariant
+                  ? orderedProduct.selectedVariant
+                  : (orderedProduct as ItemType)
+              ).toLocaleString()}
             </dd>
           </div>
         </dl>
