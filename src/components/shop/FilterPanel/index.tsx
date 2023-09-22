@@ -1,4 +1,4 @@
-import Skeleton from "@/components/Shop/FilterPanel/Skeleton";
+import Skeleton from "@/components/shop/FilterPanel/Skeleton";
 
 import Panel from "@/components/shop/FilterPanel/Panel";
 import { Props } from "@/components/shop/FilterPanel/types";
