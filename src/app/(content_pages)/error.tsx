@@ -12,7 +12,7 @@ export default function ErrorPage({
     <div className="flex flex-col justify-center items-center gap-4 w-full h-[50vh]">
       <h2 className="text-lg font-bold">Sorry, there is something wrong.</h2>
       <p className="w-full p-4 font-mono text-lg text-center bg-red-200">
-        {error.message}
+        {(error as unknown as any).digest}
       </p>
       <Link
         className="text-blue-700 border-b-2 border-b-blue-700 hover:border-b-blue-900 hover:text-blue-900"
