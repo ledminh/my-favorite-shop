@@ -17,7 +17,7 @@ import useCart from "@/utils/useCart";
 import getPrice from "@/utils/getPrice";
 
 type Props = {
-  product?: WithID<ProductType>;
+  product: WithID<ProductType>;
   selectedVariantID?: string;
 };
 
@@ -39,10 +39,6 @@ export default function Footer({ product, selectedVariantID }: Props) {
 
   const { addToCart } = useCart();
 
-  if (!product) {
-    return null;
-  }
-
   useEffect(() => {
     setOldUnitPrice(
       selectedVariant ? selectedVariant.price : (product.price as number)
@@ -59,10 +55,6 @@ export default function Footer({ product, selectedVariantID }: Props) {
     );
     setQuantity(0);
   }, [selectedVariant]);
-
-  if (!product) {
-    return null;
-  }
 
   const addToCartHandle = () => {
     if (quantity === 0) {
