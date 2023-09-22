@@ -2,7 +2,7 @@ import Section from "@/theme/Section";
 import Banner from "@/theme/Banner";
 import { H2 } from "@/theme/typography";
 
-import CategoryList from "@/components/Shop/CategoryList";
+import CategoryList from "@/components/shop/CategoryList";
 
 export default function Loading() {
   return (

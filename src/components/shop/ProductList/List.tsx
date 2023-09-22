@@ -4,7 +4,7 @@ import LoadMoreButton from "@/components/LoadMoreButton";
 
 import Product from "./Product";
 
-import ListWrapper from "@/components/Shop/ProductList/ListWrapper";
+import ListWrapper from "@/components/shop/ProductList/ListWrapper";
 
 import Section from "@/theme/Section";
 

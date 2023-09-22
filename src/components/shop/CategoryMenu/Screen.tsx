@@ -4,7 +4,7 @@ import {
   WithID,
 } from "@/types";
 
-import Category from "@/components/Shop/Category";
+import Category from "@/components/shop/Category";
 import Modal from "@/theme/Modal";
 
 type Props = {

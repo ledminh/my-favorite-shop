@@ -4,7 +4,7 @@ import { ComponentWithChildren } from "@/types";
 import Banner from "@/theme/Banner";
 import Section from "@/theme/Section";
 
-import CategoryList from "@/components/Shop/CategoryList";
+import CategoryList from "@/components/shop/CategoryList";
 
 import { getCategories } from "@/data/categories";
 import { itemsPerPage } from "@/theme/metadata";
