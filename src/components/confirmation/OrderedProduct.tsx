@@ -25,6 +25,10 @@ const OrderedProduct = ({ orderedProduct }: Props) => {
     (image) => image.id === orderedProduct.mainImageID
   );
 
+  const productName = orderedProduct.selectedVariant
+    ? orderedProduct.name + " - " + orderedProduct.selectedVariant.name
+    : orderedProduct.name;
+
   if (!mainImage) throw new Error(`Main image not found for product ${name}`);
 
   return (
@@ -39,9 +43,7 @@ const OrderedProduct = ({ orderedProduct }: Props) => {
         />
       </ImageWrapper>
       <Content>
-        <h3 className="text-gray-900">
-          <Link href={link}>{name}</Link>
-        </h3>
+        <h3 className="text-gray-900">{productName}</h3>
         <p>{intro}</p>
       </Content>
 
