@@ -1,9 +1,9 @@
-import { ComponentWithChildren } from "@/types";
+import { ComponentWithChildren, WithID } from "@/types";
 import { OrderedProduct as OrderedProductType } from "@/types";
 import OrderedProduct from "./OrderedProduct";
 
 type Props = {
-  orderedProducts: OrderedProductType[];
+  orderedProducts: WithID<OrderedProductType>[];
 };
 
 export default function OrderedProductList({ orderedProducts }: Props) {
