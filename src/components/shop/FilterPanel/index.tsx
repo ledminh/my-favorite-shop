@@ -1,7 +1,7 @@
 import Skeleton from "@/components/Shop/FilterPanel/Skeleton";
 
-import Panel from "@/components/Shop/FilterPanel/Panel";
-import { Props } from "@/components/Shop/FilterPanel/types";
+import Panel from "@/components/shop/FilterPanel/Panel";
+import { Props } from "@/components/shop/FilterPanel/types";
 
 export default function FilterPanel({
   sortByInit,
