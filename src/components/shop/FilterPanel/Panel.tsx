@@ -8,7 +8,8 @@ import Select from "@/components/shop/FilterPanel/Select";
 import { ChangeEventHandler, useEffect, useState } from "react";
 
 import { usePathname, useRouter } from "next/navigation";
-import { AppRouterInstance } from "next/dist/shared/lib/app-router-context";
+
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 import {
   PanelProps,
