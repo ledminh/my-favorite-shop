@@ -1,19 +1,10 @@
 import { v4 as uuidv4 } from "uuid";
 
-import Image from "next/image";
-
-import { ComponentWithChildren, Order, WithID } from "@/types";
-
-import ConfirmHeroImage from "@/assets/images/confirm-hero-image.jpg";
+import { Order, WithID } from "@/types";
 
 import { addOrder, getOrderToSubmit, deleteOrderToSubmit } from "@/data/orders";
 
-import Link from "next/link";
-import OrderedProductList from "@/components/confirmation/OrderedProductList";
-import Header from "@/components/confirmation/Header";
 import getPrice, { ItemType } from "@/utils/getPrice";
-
-import ShippingAddress from "@/components/ShippingAddress";
 
 import type { Stripe } from "stripe";
 import Content from "./Content";

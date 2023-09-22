@@ -132,22 +132,24 @@ const Total = ({ subTotal, shipping = 8, taxes = 4.3 }: TotalProps) => (
   <dl className="pt-6 space-y-6 text-sm font-medium text-gray-500 border-t border-gray-200">
     <div className="flex justify-between">
       <dt>Subtotal</dt>
-      <dd className="text-gray-900">${subTotal.toFixed()}</dd>
+      <dd className="text-gray-900">${subTotal.toLocaleString()}</dd>
     </div>
 
     <div className="flex justify-between">
       <dt>Shipping</dt>
-      <dd className="text-gray-900">${shipping.toFixed(2)}</dd>
+      <dd className="text-gray-900">${shipping.toLocaleString()}</dd>
     </div>
 
     <div className="flex justify-between">
       <dt>Taxes</dt>
-      <dd className="text-gray-900">${taxes.toFixed(2)}</dd>
+      <dd className="text-gray-900">${taxes.toLocaleString()}</dd>
     </div>
 
     <div className="flex items-center justify-between pt-6 text-gray-900 border-t border-gray-200">
       <dt className="text-base">Total</dt>
-      <dd className="text-base">${(subTotal + shipping + taxes).toFixed(2)}</dd>
+      <dd className="text-base">
+        ${(subTotal + shipping + taxes).toLocaleString()}
+      </dd>
     </div>
   </dl>
 );
