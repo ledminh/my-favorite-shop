@@ -9,7 +9,7 @@ import Link from "next/link";
 import { getOrder } from "@/data/orders";
 
 import Image from "next/image";
-import getPrice from "@/utils/getPrice";
+import getPrice, { ItemType } from "@/utils/getPrice";
 import ShippingAddress from "@/components/ShippingAddress";
 
 type OrderPageProps = {
@@ -28,7 +28,7 @@ export default async function OrderPage({ params }: OrderPageProps) {
     if (oP.selectedVariant) {
       return acc + getPrice(oP.selectedVariant) * oP.quantity;
     }
-    return acc + getPrice(oP) * oP.quantity;
+    return acc + getPrice(oP as ItemType) * oP.quantity;
   }, 0);
 
   return (
@@ -132,13 +132,15 @@ const ProductTab = ({ orderedProduct }: ProductTabProps) => {
           <div className="flex basis-[45%] justify-end">
             <dt className="font-medium text-gray-900">Total</dt>
             <dd className="ml-2 text-gray-700">
-              {(orderedProduct.price * orderedProduct.quantity).toFixed(2)}
+              {(
+                (orderedProduct.price as number) * orderedProduct.quantity
+              ).toFixed(2)}
             </dd>
           </div>
           <div className="flex basis-full">
             <dt className="font-medium text-gray-900">Price</dt>
             <dd className="ml-2 text-gray-700">
-              ${orderedProduct.price.toFixed(2)}
+              ${(orderedProduct.price as number).toFixed(2)}
             </dd>
           </div>
         </dl>
@@ -181,58 +183,6 @@ const Summary = ({ subtotal, shippingFee, taxes }: SummaryProps) => {
     </>
   );
 };
-
-const CustomerInfo = () => (
-  <div>
-    <h3 className="sr-only">Your information</h3>
-
-    <h4 className="sr-only">Addresses</h4>
-    <dl className="grid grid-cols-2 py-10 text-sm gap-x-6">
-      <div>
-        <dt className="font-medium text-gray-900">Shipping address</dt>
-        <dd className="mt-2 text-gray-700">
-          <address className="not-italic">
-            <span className="block">Kristin Watson</span>
-            <span className="block">7363 Cynthia Pass</span>
-            <span className="block">Toronto, ON N3Y 4H8</span>
-          </address>
-        </dd>
-      </div>
-      <div>
-        <dt className="font-medium text-gray-900">Billing address</dt>
-        <dd className="mt-2 text-gray-700">
-          <address className="not-italic">
-            <span className="block">Kristin Watson</span>
-            <span className="block">7363 Cynthia Pass</span>
-            <span className="block">Toronto, ON N3Y 4H8</span>
-          </address>
-        </dd>
-      </div>
-    </dl>
-
-    <h4 className="sr-only">Payment</h4>
-    <dl className="grid grid-cols-2 py-10 text-sm border-t border-gray-200 gap-x-6">
-      <div>
-        <dt className="font-medium text-gray-900">Payment method</dt>
-        <dd className="mt-2 text-gray-700">
-          <p>Apple Pay</p>
-          <p>Mastercard</p>
-          <p>
-            <span aria-hidden="true">••••</span>
-            <span className="sr-only">Ending in </span>1545
-          </p>
-        </dd>
-      </div>
-      <div>
-        <dt className="font-medium text-gray-900">Shipping method</dt>
-        <dd className="mt-2 text-gray-700">
-          <p>DHL</p>
-          <p>Takes up to 3 working days</p>
-        </dd>
-      </div>
-    </dl>
-  </div>
-);
 
 /*****************************
  * Utils
