@@ -10,7 +10,7 @@ import {
 
 import Image from "next/image";
 import QuantityControl from "@/components/QuantityControl";
-import getPrice from "@/utils/getPrice";
+import getPrice, { ItemType } from "@/utils/getPrice";
 
 type Props = {
   orderedProduct: WithID<OrderedProductType>;
@@ -25,7 +25,7 @@ export default function OrderedProduct({ orderedProduct }: Props) {
   const unitPrice = getPrice(
     orderedProduct.selectedVariant
       ? orderedProduct.selectedVariant
-      : orderedProduct
+      : (orderedProduct as ItemType)
   );
 
   const productName = orderedProduct.selectedVariant
