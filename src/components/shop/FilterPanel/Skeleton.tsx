@@ -1,8 +1,8 @@
-import Wrapper from "@/components/Shop/FilterPanel/Wrapper";
+import Wrapper from "@/components/shop/FilterPanel/Wrapper";
 
-import Section from "@/components/Shop/FilterPanel/Section";
-import Label from "@/components/Shop/FilterPanel/Label";
-import Select from "@/components/Shop/FilterPanel/Select";
+import Section from "@/components/shop/FilterPanel/Section";
+import Label from "@/components/shop/FilterPanel/Label";
+import Select from "@/components/shop/FilterPanel/Select";
 
 export default function Skeleton() {
   return (
