@@ -9,6 +9,8 @@ import CategoryList from "@/components/shop/CategoryList";
 import { getCategories } from "@/data/categories";
 import { itemsPerPage } from "@/theme/metadata";
 
+export const revalidate = 0;
+
 export default async function Shop() {
   const { items: categories, total } = await getCategories({
     sortBy: "name",
