@@ -11,7 +11,7 @@ import { addOrder, getOrderToSubmit, deleteOrderToSubmit } from "@/data/orders";
 import Link from "next/link";
 import OrderedProductList from "@/components/confirmation/OrderedProductList";
 import Header from "@/components/confirmation/Header";
-import getPrice from "@/utils/getPrice";
+import getPrice, { ItemType } from "@/utils/getPrice";
 
 import ShippingAddress from "@/components/ShippingAddress";
 
@@ -64,7 +64,7 @@ export default async function Confirmation({ params }: Props) {
   const subTotal = orderedProducts.reduce(
     (total, orderedProduct) =>
       total +
-      getPrice(orderedProduct.selectedVariant ?? orderedProduct) *
+      getPrice(orderedProduct.selectedVariant ?? (orderedProduct as ItemType)) *
         orderedProduct.quantity,
     0
   );

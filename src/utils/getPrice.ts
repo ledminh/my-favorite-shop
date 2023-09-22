@@ -1,6 +1,6 @@
 import type { Promotion } from "@/types";
 
-type ItemType = {
+export type ItemType = {
   price: number;
   promotion?: Promotion;
 };
