@@ -4,7 +4,7 @@ import {
   ComponentWithChildren,
   OrderedProduct as OrderedProductType,
 } from "@/types";
-import getPrice from "@/utils/getPrice";
+import getPrice, { ItemType } from "@/utils/getPrice";
 
 type Props = {
   orderedProduct: OrderedProductType;
@@ -19,7 +19,7 @@ const OrderedProduct = ({ orderedProduct }: Props) => {
 
   const price = orderedProduct.selectedVariant
     ? getPrice(orderedProduct.selectedVariant)
-    : getPrice(orderedProduct);
+    : getPrice(orderedProduct as ItemType);
 
   const mainImage = orderedProduct.images.find(
     (image) => image.id === orderedProduct.mainImageID
