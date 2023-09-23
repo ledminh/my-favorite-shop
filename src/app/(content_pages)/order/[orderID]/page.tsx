@@ -35,7 +35,7 @@ export default async function OrderPage({ params }: OrderPageProps) {
 
   return (
     <Wrapper>
-      <Header orderID={orderID} status="processing" />
+      <Header orderID={orderID} status={order.status} />
       <div className="mt-8 border-t border-gray-600 md:flex md:justify-between md:items-start md:gap-5">
         <h2 className="sr-only">Order Summary</h2>
         <div className="basis-[45%]">
