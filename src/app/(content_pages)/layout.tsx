@@ -26,7 +26,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
 const Wrapper: ComponentWithChildren = ({ children }) => {
   return (
-    <div className="container flex flex-col justify-between w-full max-w-6xl min-h-screen bg-white shadow-xl shadow-slate-500">
+    <div className="container flex flex-col justify-between w-full max-w-6xl min-h-screen bg-white shadow-2xl shadow-black">
       {children}
     </div>
   );
@@ -42,7 +42,7 @@ const Main: ComponentWithChildren = ({ children }) => {
 
 const Footer: ComponentWithChildren = ({ children }) => {
   return (
-    <div className="flex items-center justify-center p-2 text-white bg-blue-950 gap-2">
+    <div className="flex items-center justify-center gap-2 p-2 text-white bg-blue-950">
       {children}
     </div>
   );

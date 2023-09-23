@@ -9,7 +9,7 @@ export default function HeaderFull() {
     <Wrapper>
       <LogoWrapper>
         <Link href={"/"}>
-          <Logo />
+          <Logo full />
         </Link>
       </LogoWrapper>
       <MenuWrapper>

@@ -1,10 +1,12 @@
 import type { OrderStatus } from "@/types";
 
-export const title = "Your Favorite Shop Online";
+export const title = "My Favorite Shop Online";
 
 export const description = "";
 
 export const author = "Minh Le";
+
+export const slogan = "We have everything you need in here!";
 
 export const copyright = {
   holder: "Minh Le",

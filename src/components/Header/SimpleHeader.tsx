@@ -2,15 +2,16 @@ import { H2 } from "@/theme/typography";
 
 import type { ComponentWithChildren } from "@/types";
 import { Logo } from "@/theme/Logo";
+import { slogan } from "@/theme/metadata";
 
-export default function HeaderFull() {
+export default function SimpleHeader() {
   return (
     <Wrapper>
       <LogoWrapper>
         <Logo />
       </LogoWrapper>
       <Slogan>
-        <H2>Transform your look with our nail essentials</H2>
+        <H2>{slogan}</H2>
       </Slogan>
     </Wrapper>
   );

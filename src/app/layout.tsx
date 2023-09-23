@@ -5,9 +5,6 @@ const inter = Inter({ subsets: ["latin"] });
 
 import type { ComponentWithChildren } from "@/types";
 
-import Image from "next/image";
-import homepageBackground from "@/assets/images/homepage_background.jpg";
-
 import { title, description, author } from "@/theme/metadata";
 
 export default function RootLayout({
@@ -25,16 +22,6 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </head>
       <body className={`${inter.className}`}>
-        <BackgroundImage>
-          <Image
-            src={homepageBackground}
-            alt="Hero Image"
-            fill
-            style={{
-              objectFit: "cover",
-            }}
-          />
-        </BackgroundImage>
         <Overlay>{children}</Overlay>
       </body>
     </html>
@@ -50,7 +37,7 @@ export const BackgroundImage: ComponentWithChildren = ({ children }) => {
 
 export const Overlay: ComponentWithChildren = ({ children }) => {
   return (
-    <div className="absolute w-full h-full min-w-[350px] bg-neutral-700/80 overflow-y-scroll">
+    <div className="absolute w-full h-full min-w-[350px] overflow-y-scroll bg-gradient-to-b from-slate-600 to-black/90">
       {children}
     </div>
   );
