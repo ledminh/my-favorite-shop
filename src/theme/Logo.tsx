@@ -4,7 +4,7 @@ import { H1 } from "@/theme/typography";
 export function Logo() {
   return (
     <Wrapper>
-      <H1>Nail Essential</H1>
+      <H1>MY FAVORITE SHOP</H1>
     </Wrapper>
   );
 }
