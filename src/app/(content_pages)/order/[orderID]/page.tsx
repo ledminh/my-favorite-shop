@@ -18,6 +18,8 @@ type OrderPageProps = {
   };
 };
 
+export const revalidate = 0;
+
 export default async function OrderPage({ params }: OrderPageProps) {
   const { orderID } = params;
   const order = await getOrder(orderID);
