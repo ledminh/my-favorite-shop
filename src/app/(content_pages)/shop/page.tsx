@@ -6,7 +6,7 @@ import Section from "@/theme/Section";
 import CategoryList from "@/components/shop/CategoryList";
 
 import { getCategories } from "@/data/categories";
-import { itemsPerPage } from "@/theme/metadata";
+import { itemsPerPage, shopIntro } from "@/theme/metadata";
 
 export const revalidate = 0;
 
@@ -22,7 +22,7 @@ export default async function Shop() {
     <>
       <Section>
         <Banner>
-          <H2>Explore our wide range of nail care categories</H2>
+          <H2>{shopIntro}</H2>
         </Banner>
       </Section>
       <Section>

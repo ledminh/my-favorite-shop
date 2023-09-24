@@ -37,7 +37,7 @@ export const BackgroundImage: ComponentWithChildren = ({ children }) => {
 
 export const Overlay: ComponentWithChildren = ({ children }) => {
   return (
-    <div className="absolute w-full h-full min-w-[350px] overflow-y-scroll bg-gradient-to-b from-slate-600 to-black/90">
+    <div className="absolute w-full h-full min-w-[350px] overflow-y-scroll bg-gradient-to-b from-slate-600 via-black/90 to-slate-600">
       {children}
     </div>
   );

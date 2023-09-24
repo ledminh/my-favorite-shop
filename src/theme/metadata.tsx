@@ -6,7 +6,9 @@ export const description = "";
 
 export const author = "Minh Le";
 
-export const slogan = "We have everything you need in here!";
+export const slogan = "Discover a World of Wonders!";
+export const shopIntro =
+  "Embark on a journey through our vast selection of must-have treasures!";
 
 export const copyright = {
   holder: "Minh Le",
@@ -17,7 +19,7 @@ export const contactInfo = {
   address_line1: "1234 Main St",
   address_line2: "Anytown, USA 12345",
   phone: "123-456-7890",
-  email: "support@nailessential.com",
+  email: "minh.le@ledminh.dev",
 };
 
 export const orderStatuses: Record<
