@@ -54,14 +54,14 @@ export default function VariantModal({
           )}
           <Name>{currentVariant.name}</Name>
           {newPrice === currentVariant.price && (
-            <Price>${newPrice.toLocaleString()}</Price>
+            <Price>${newPrice.toFixed(2).toLocaleString()}</Price>
           )}
           {newPrice !== currentVariant.price && (
             <Price>
               <span className="font-normal text-black line-through">
-                ${currentVariant.price.toLocaleString()}
+                ${currentVariant.price.toFixed(2).toLocaleString()}
               </span>{" "}
-              ${newPrice.toLocaleString()}
+              ${newPrice.toFixed(2).toLocaleString()}
             </Price>
           )}
         </Content>

@@ -48,10 +48,12 @@ const OrderedProduct = ({ orderedProduct }: Props) => {
       </Content>
 
       <MetaData>
-        <p>${price.toLocaleString()}</p>
+        <p>${price.toFixed(2).toLocaleString()}</p>
         <p className="text-xs">Qty: {quantity}</p>
         <div className="w-full h-[1px] bg-gray-800 my-2" />
-        <p className="text-xs">${(quantity * price).toLocaleString()}</p>
+        <p className="text-xs">
+          ${(quantity * price).toFixed(2).toLocaleString()}
+        </p>
       </MetaData>
     </Wrapper>
   );

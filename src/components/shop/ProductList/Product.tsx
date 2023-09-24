@@ -64,7 +64,7 @@ export default function Product({ product, skeleton = false }: Props) {
                       )
                         .toFixed(2)
                         .toLocaleString()
-                    : product.promotion.salePrice.toLocaleString()
+                    : product.promotion.salePrice.toFixed(2).toLocaleString()
                   : product.price.toFixed(2).toLocaleString()}
               </H4>
             </Price>
