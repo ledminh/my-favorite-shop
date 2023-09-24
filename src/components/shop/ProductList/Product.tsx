@@ -51,7 +51,7 @@ export default function Product({ product, skeleton = false }: Props) {
             <Price>
               {product.promotion && (
                 <div className="text-sm text-white line-through">
-                  ${product.price.toLocaleString()}
+                  ${product.price.toFixed(2).toLocaleString()}
                 </div>
               )}
               <H4>
@@ -61,9 +61,11 @@ export default function Product({ product, skeleton = false }: Props) {
                     ? (
                         product.price *
                         (1 - product.promotion.discountPercent / 100)
-                      ).toLocaleString()
+                      )
+                        .toFixed(2)
+                        .toLocaleString()
                     : product.promotion.salePrice.toLocaleString()
-                  : product.price.toLocaleString()}
+                  : product.price.toFixed(2).toLocaleString()}
               </H4>
             </Price>
           )}
