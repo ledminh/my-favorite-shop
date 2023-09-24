@@ -51,7 +51,7 @@ export default function Product({ product, skeleton = false }: Props) {
             <Price>
               {product.promotion && (
                 <div className="text-sm text-white line-through">
-                  ${product.price}
+                  ${product.price.toLocaleString()}
                 </div>
               )}
               <H4>
