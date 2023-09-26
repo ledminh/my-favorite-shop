@@ -56,7 +56,11 @@ export default async function Confirmation({ params }: Props) {
   const subTotal = orderedProducts.reduce(
     (total, orderedProduct) =>
       total +
-      getPrice(orderedProduct.selectedVariant ?? (orderedProduct as ItemType)) *
+      Number(
+        getPrice(
+          orderedProduct.selectedVariant ?? (orderedProduct as ItemType)
+        ).toFixed(2)
+      ) *
         orderedProduct.quantity,
     0
   );

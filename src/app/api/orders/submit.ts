@@ -47,7 +47,7 @@ function createStripeParams(
             images: [getOrderedProductImage(product).src],
             tax_code: "txcd_99999999",
           },
-          unit_amount: Math.round(getOrderedProductPrice(product)) * 100,
+          unit_amount: Number(getOrderedProductPrice(product).toFixed(2)) * 100,
           tax_behavior:
             "exclusive" as Stripe.Checkout.SessionCreateParams.LineItem.PriceData.TaxBehavior,
         },

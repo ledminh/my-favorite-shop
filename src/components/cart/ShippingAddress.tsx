@@ -22,7 +22,7 @@ import {
 
 import submitOrder from "@/api-calls/submitOrder";
 
-export default function ShippingAddress() {
+export default function ShippingAddressComponent() {
   const {
     register,
     handleSubmit,

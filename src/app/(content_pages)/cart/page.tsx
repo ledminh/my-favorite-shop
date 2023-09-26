@@ -1,4 +1,4 @@
-import { ComponentWithChildren, Product as ProductType } from "@/types";
+import { ComponentWithChildren } from "@/types";
 
 import ShoppingCart from "@/components/cart/ShoppingCart";
 import ShippingAddress from "@/components/cart/ShippingAddress";

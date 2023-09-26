@@ -14,12 +14,17 @@ export default function useShoppingCart() {
       if (orderedProduct.selectedVariant) {
         return (
           total +
-          getPrice(orderedProduct.selectedVariant) * orderedProduct.quantity
+          Number(getPrice(orderedProduct.selectedVariant).toFixed(2)) *
+            orderedProduct.quantity
         );
       }
 
       return (
-        total + getPrice(orderedProduct as ItemType) * orderedProduct.quantity
+        total +
+        Number(
+          Number(getPrice(orderedProduct as ItemType).toFixed(2)) *
+            orderedProduct.quantity
+        )
       );
     }, 0);
 

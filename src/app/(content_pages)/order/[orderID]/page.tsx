@@ -28,9 +28,11 @@ export default async function OrderPage({ params }: OrderPageProps) {
 
   const subtotal = orderedProducts.reduce((acc, oP) => {
     if (oP.selectedVariant) {
-      return acc + getPrice(oP.selectedVariant) * oP.quantity;
+      return (
+        acc + Number(getPrice(oP.selectedVariant).toFixed(2)) * oP.quantity
+      );
     }
-    return acc + getPrice(oP as ItemType) * oP.quantity;
+    return acc + Number(getPrice(oP as ItemType).toFixed(2)) * oP.quantity;
   }, 0);
 
   return (
@@ -139,10 +141,12 @@ const ProductTab = ({ orderedProduct }: ProductTabProps) => {
             <dt className="font-medium text-gray-900">Total</dt>
             <dd className="ml-2 text-gray-700">
               {(
-                getPrice(
-                  orderedProduct.selectedVariant
-                    ? orderedProduct.selectedVariant
-                    : (orderedProduct as ItemType)
+                Number(
+                  getPrice(
+                    orderedProduct.selectedVariant
+                      ? orderedProduct.selectedVariant
+                      : (orderedProduct as ItemType)
+                  ).toFixed(2)
                 ) * orderedProduct.quantity
               ).toLocaleString()}
             </dd>
@@ -151,10 +155,12 @@ const ProductTab = ({ orderedProduct }: ProductTabProps) => {
             <dt className="font-medium text-gray-900">Price</dt>
             <dd className="ml-2 text-gray-700">
               $
-              {getPrice(
-                orderedProduct.selectedVariant
-                  ? orderedProduct.selectedVariant
-                  : (orderedProduct as ItemType)
+              {Number(
+                getPrice(
+                  orderedProduct.selectedVariant
+                    ? orderedProduct.selectedVariant
+                    : (orderedProduct as ItemType)
+                ).toFixed(2)
               ).toLocaleString()}
             </dd>
           </div>
